@@ -32,6 +32,8 @@ public abstract class Usuario {
 
     public abstract void doarItem(Item it);
 
+
+
     public int getId() {
         return id;
     }
@@ -104,3 +106,4 @@ public abstract class Usuario {
         this.dataNasc = dataNasc;
     }
 }
+

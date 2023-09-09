@@ -1,17 +1,29 @@
 package org.woof.woofjoybackend.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.domain.Usuario;
-import org.woof.woofjoybackend.entity.object.Item;
+import org.woof.woofjoybackend.service.ServiceUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/item")
-public class ItemController {
-    List<Usuario> usuarios = new ArrayList<>();
+@RequestMapping("/feed")
+public class FeedController {
+    private final ServiceUser serviceUser;
+    private List<Usuario> usuarios;
+
+    @Autowired
+    public FeedController(ServiceUser serviceUser) {
+        this.serviceUser = serviceUser;
+        this.usuarios = serviceUser.getPrestadores();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Usuario>> trazer() {
+        return ResponseEntity.status(200).body(usuarios);
+    }
 
     @PostMapping
     public ResponseEntity<Usuario> cadastar(@RequestBody Usuario usuario) {
@@ -36,7 +48,6 @@ public class ItemController {
     public ResponseEntity<Usuario> buscar(@PathVariable int i) {
         return ResponseEntity.status(200).body(usuarios.get(i));
     }
-    
-    
-    
+
+
 }
