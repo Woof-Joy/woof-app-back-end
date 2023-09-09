@@ -26,7 +26,7 @@ public class FeedController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> cadastar(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
         usuarios.add(usuario);
         return ResponseEntity.status(200).body(usuario);
     }

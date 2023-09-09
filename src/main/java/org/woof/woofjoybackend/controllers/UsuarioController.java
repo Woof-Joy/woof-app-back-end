@@ -5,11 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.domain.Usuario;
 import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.Prestador;
-import org.woof.woofjoybackend.entity.object.Item;
 import org.woof.woofjoybackend.service.ServiceUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,7 +17,7 @@ public class UsuarioController {
     List<Usuario> usuarios;
 
     @PostMapping
-    public ResponseEntity<Usuario> cadastar(@RequestBody Cliente usuario) {
+    public ResponseEntity<Usuario> cadastrar(@RequestBody Cliente usuario) {
         serviceUser.cadastrarUsuario(usuario);
         return ResponseEntity.status(200).body(usuario);
     }

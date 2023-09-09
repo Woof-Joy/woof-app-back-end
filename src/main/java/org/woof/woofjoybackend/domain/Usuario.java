@@ -15,6 +15,8 @@ public abstract class Usuario {
     private String senha;
     private Date dataNasc;
 
+
+    //o Construtor recebe id msm?
     public Usuario(int id, String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
         this.id = id;
         this.nome = nome;
