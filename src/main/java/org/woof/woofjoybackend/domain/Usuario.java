@@ -1,10 +1,14 @@
 package org.woof.woofjoybackend.domain;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.object.Item;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public abstract class Usuario {
+public abstract class Usuario implements iVerificaveis {
     private int id;
     private String nome;
     private String sobrenome;
@@ -14,11 +18,12 @@ public abstract class Usuario {
     private String email;
     private String senha;
     private Date dataNasc;
+    private List<Item> itemList;
 
 
     //o Construtor recebe id msm?
-    public Usuario(int id, String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
-        this.id = id;
+    public Usuario(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
+        this.id = 1;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
@@ -27,13 +32,43 @@ public abstract class Usuario {
         this.email = email;
         this.senha = senha;
         this.dataNasc = dataNasc;
+        this.itemList = new ArrayList<>();
     }
 
     public Usuario() {
     }
 
-    public abstract void doarItem(Item it);
 
+    public ResponseEntity<Item> postItem(Item it) {
+
+        itemList.add(it);
+        return ResponseEntity.status(200).body(it);
+    }
+
+
+    public ResponseEntity<List<Item>> getAllItens() {
+        return ResponseEntity.status(200).body(itemList);
+    }
+
+    public ResponseEntity<Item> getOneItem(int id) {
+        int IndexForId = transformaIdEmIndexItem(id, itemList);
+        return ResponseEntity.status(200).body(itemList.get(IndexForId));
+    }
+
+    public ResponseEntity<Item> putItem(int id, Item it) {
+        int IndexForId = transformaIdEmIndexItem(id, itemList);
+        itemList.set(IndexForId, it);
+        return ResponseEntity.status(200).body(it);
+    }
+
+    public ResponseEntity<Void> deleteItem(int id) {
+        int IndexForId = transformaIdEmIndexItem(id, itemList);
+        itemList.remove(IndexForId);
+        return ResponseEntity.status(204).build();
+
+    }
+
+    public abstract void putPerfil(Usuario usuario, Usuario login);
 
 
     public int getId() {
@@ -107,5 +142,15 @@ public abstract class Usuario {
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
+
+    public List<Item> ItemListGet() {
+        return itemList;
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
+
 }
 
