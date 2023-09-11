@@ -28,6 +28,7 @@ public class ServiceUser implements iVerificaveis {
                     .body("E-mail deve conter um '@' " +
                             "\n Senha deve ter no mínimo 5 caracteres ");
         }
+        usuario.setId(usuarioList.size() + 1);
         usuarioList.add(usuario);
         ResponseEntity.status(200).body(usuario);
         return ResponseEntity.status(200).body("Usuário cadastrado com sucesso!");
@@ -50,13 +51,31 @@ public class ServiceUser implements iVerificaveis {
         return ResponseEntity.status(401).build();
     }
 
-    public ResponseEntity<Void> deleteUsuario(int id) {
-        if (transformaIdEmIndex(id, usuarioList) < 0) {
+    public ResponseEntity<String> deleteUsuario(int id) {
+        if (transformaIdEmIndex(id, usuarioList) >= 0) {
             int index = transformaIdEmIndex(id, this.usuarioList);
             usuarioList.remove(index);
-            return ResponseEntity.status(204).build();
+            return ResponseEntity.status(204).body("Usuário" + usuarioList.get(index).getEmail() + " apagado com sucesso");
         }
         return ResponseEntity.status(404).build();
+    }
+
+    public ResponseEntity<String> putUsuario(int id, Usuario usuario) {
+        if (transformaIdEmIndex(id, usuarioList) < 0) {
+            return ResponseEntity.status(404).build();
+        }
+
+        if (!verificarEmailSenha(usuario)) {
+            return ResponseEntity.status(400)
+                    .body("E-mail deve conter um '@' " +
+                            "\n Senha deve ter no mínimo 5 caracteres ");
+        }
+        int index = transformaIdEmIndex(id, usuarioList);
+        usuario.setId(usuarioList.get(index).getId());
+        usuarioList.set(index, usuario);
+        return ResponseEntity.status(200).body("Usuário alterado com sucesso!");
+
+
     }
 
 

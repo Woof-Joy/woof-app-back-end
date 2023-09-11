@@ -22,14 +22,11 @@ public class ServiceUserController {
         return serviceUser.cadastrarUsuario(usuario);
 
     }
-
-
     @PostMapping("/profissional")
     public ResponseEntity<String> cadastrarProfissional(@RequestBody Profissional usuario) {
         return serviceUser.cadastrarUsuario(usuario);
 
     }
-
 
     @PostMapping("/login/cliente")
     public ResponseEntity<String> loginCliente(@RequestBody Cliente usuario) {
@@ -39,6 +36,23 @@ public class ServiceUserController {
     public ResponseEntity<String> loginProfissional(@RequestBody Profissional usuario) {
         return serviceUser.loginUsuario(usuario.getEmail(), usuario.getSenha());
     }
+    @PutMapping("/profissional/{id}")
+    public ResponseEntity<String> putProfissional(@PathVariable("id") int id, @RequestBody Profissional usuario) {
+        return serviceUser.putUsuario(id, usuario);
+    }
+    @PutMapping("/cliente/{id}")
+    public ResponseEntity<String> putCliente(@PathVariable("id") int id,@RequestBody Cliente usuario) {
+        return serviceUser.putUsuario(id, usuario);
+    }
+    @DeleteMapping("/profissional/{id}")
+    public ResponseEntity<String> deleteProfissional(@PathVariable("id") int id) {
+        return serviceUser.deleteUsuario(id);
+    }
+    @DeleteMapping("/cliente/{id}")
+    public ResponseEntity<String> deleteCliente(@PathVariable("id") int id) {
+        return serviceUser.deleteUsuario(id);
+    }
+
 
     @GetMapping("/profissional")
     public ResponseEntity<List<Usuario>> getProfissionais() {

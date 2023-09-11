@@ -35,8 +35,8 @@ public interface iVerificaveis {
     default boolean verificarEmailSenha(Usuario usuario) {
         String email = usuario.getEmail();
         String senha = usuario.getSenha();
-        return (!email.isBlank()
-                && email != null
+        return ( email != null
+                && !email.isBlank()
                 && email.contains("@")
                 && !senha.isBlank()
                 && senha != null

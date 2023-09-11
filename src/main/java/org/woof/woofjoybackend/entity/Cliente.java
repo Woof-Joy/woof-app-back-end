@@ -32,12 +32,12 @@ public class Cliente extends Usuario implements iVerificaveis {
     }
 
 
-    public ResponseEntity<List<Pet>> getAllPets() {
+    public ResponseEntity<List<Pet>> allPetsGet() {
         return ResponseEntity.status(200).body(petList);
     }
 
 
-    public ResponseEntity<Pet> getOnePet(int id) {
+    public ResponseEntity<Pet> OnePetGet(int id) {
         int IndexForId = transformaIdEmIndexPet(id, petList);
         return ResponseEntity.status(200).body(petList.get(IndexForId));
     }
@@ -60,7 +60,4 @@ public class Cliente extends Usuario implements iVerificaveis {
         return petList;
     }
 
-    public void setPetList(List<Pet> petList) {
-        this.petList = petList;
-    }
 }

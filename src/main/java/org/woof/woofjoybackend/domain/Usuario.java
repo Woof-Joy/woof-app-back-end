@@ -23,7 +23,7 @@ public abstract class Usuario implements iVerificaveis {
 
     //o Construtor recebe id msm?
     public Usuario(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
-        this.id = 1;
+        this.id = 0;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
@@ -46,11 +46,11 @@ public abstract class Usuario implements iVerificaveis {
     }
 
 
-    public ResponseEntity<List<Item>> getAllItens() {
+    public ResponseEntity<List<Item>> AllItensGet() {
         return ResponseEntity.status(200).body(itemList);
     }
 
-    public ResponseEntity<Item> getOneItem(int id) {
+    public ResponseEntity<Item> OneItemGet(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
         return ResponseEntity.status(200).body(itemList.get(IndexForId));
     }
@@ -141,10 +141,6 @@ public abstract class Usuario implements iVerificaveis {
 
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
-    }
-
-    public List<Item> ItemListGet() {
-        return itemList;
     }
 
     public List<Item> getItemList() {
