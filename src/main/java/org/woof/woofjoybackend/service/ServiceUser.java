@@ -51,11 +51,11 @@ public class ServiceUser implements iVerificaveis {
         return ResponseEntity.status(401).build();
     }
 
-    public ResponseEntity<String> deleteUsuario(int id) {
+    public ResponseEntity<Void> deleteUsuario(int id) {
         if (transformaIdEmIndex(id, usuarioList) >= 0) {
             int index = transformaIdEmIndex(id, this.usuarioList);
             usuarioList.remove(index);
-            return ResponseEntity.status(204).body("Usuário" + usuarioList.get(index).getEmail() + " apagado com sucesso");
+            return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(404).build();
     }
