@@ -12,9 +12,12 @@ import java.util.List;
 
 @Service
 public class ServiceUser implements iVerificaveis {
-
     private List<Usuario> usuarioList = new ArrayList<>();
-    private int indexUsuario = -1;
+    public int indexUsuarioLogado = usuarioList.size();
+
+    private int contadorId = 0;
+
+
 
     public ResponseEntity<String> cadastrarUsuario(Usuario usuario) {
         for (int i = 0; i < usuarioList.size(); i++) {
@@ -28,7 +31,7 @@ public class ServiceUser implements iVerificaveis {
                     .body("E-mail deve conter um '@' " +
                             "\n Senha deve ter no mínimo 5 caracteres ");
         }
-        usuario.setId(usuarioList.size() + 1);
+        usuario.setId(setContadorId(getContadorId() + 1));
         usuarioList.add(usuario);
         ResponseEntity.status(200).body(usuario);
         return ResponseEntity.status(200).body("Usuário cadastrado com sucesso!");
@@ -43,7 +46,7 @@ public class ServiceUser implements iVerificaveis {
             String senhaCadastrado = usuarioList.get(i).getSenha();
             if (email.equals(emailCadastrado)) {
                 if (senha.equals(senhaCadastrado)) {
-                    indexUsuario = i;
+                    setIndexUsuarioLogado(i);
                     return ResponseEntity.status(200).body("Login Realizado com sucesso\nBem vindo!");
                 }
             }
@@ -112,8 +115,21 @@ public class ServiceUser implements iVerificaveis {
         return ResponseEntity.status(204).body(usuarioList);
     }
 
-    public int getIndexUsuario() {
-        return indexUsuario;
+    public int getIndexUsuarioLogado() {
+        return indexUsuarioLogado;
+    }
+
+    public void setIndexUsuarioLogado(int indexUsuarioLogado) {
+        this.indexUsuarioLogado = indexUsuarioLogado;
+    }
+
+    public int getContadorId() {
+        return contadorId;
+    }
+
+    public int setContadorId(int contadorId) {
+        this.contadorId = contadorId;
+        return contadorId;
     }
 
 }

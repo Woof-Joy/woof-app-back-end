@@ -1,7 +1,6 @@
 package org.woof.woofjoybackend.domain;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.object.Item;
 
 import java.util.ArrayList;

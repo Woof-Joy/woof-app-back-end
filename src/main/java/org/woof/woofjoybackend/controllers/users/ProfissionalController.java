@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.controllers.usuarios;
+package org.woof.woofjoybackend.controllers.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
