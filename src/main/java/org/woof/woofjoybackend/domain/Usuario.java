@@ -17,7 +17,7 @@ public abstract class Usuario implements iVerificaveis {
     private String email;
     private String senha;
     private Date dataNasc;
-    private List<Item> itemList;
+    private List<Item> itemList = new ArrayList<>();
 
 
     //o Construtor recebe id msm?
@@ -39,13 +39,17 @@ public abstract class Usuario implements iVerificaveis {
 
 
     public ResponseEntity<Item> postItem(Item it) {
-
+        it.setId(itemList.size()+1);
         itemList.add(it);
         return ResponseEntity.status(200).body(it);
     }
 
 
     public ResponseEntity<List<Item>> AllItensGet() {
+
+        if (itemList == null || itemList.isEmpty()){
+            return ResponseEntity.status(204).build();
+        }
         return ResponseEntity.status(200).body(itemList);
     }
 
@@ -56,6 +60,7 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<Item> putItem(int id, Item it) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        it.setId(itemList.get(IndexForId).getId());
         itemList.set(IndexForId, it);
         return ResponseEntity.status(200).body(it);
     }

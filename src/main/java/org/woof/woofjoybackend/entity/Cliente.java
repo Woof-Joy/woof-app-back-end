@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Cliente extends Usuario implements iVerificaveis {
-    private List<Pet> petList;
+    private List<Pet> petList = new ArrayList<>();
 
     public Cliente(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
         super(nome, sobrenome, cpf, cep, numero, email, senha, dataNasc);
@@ -27,12 +27,16 @@ public class Cliente extends Usuario implements iVerificaveis {
 
 
     public ResponseEntity<Pet> postPet(Pet it) {
+        it.setId(petList.size()+1);
         petList.add(it);
         return ResponseEntity.status(200).body(it);
     }
 
 
     public ResponseEntity<List<Pet>> allPetsGet() {
+        if (petList == null || petList.isEmpty()){
+            return ResponseEntity.status(204).build();
+        }
         return ResponseEntity.status(200).body(petList);
     }
 
@@ -44,6 +48,7 @@ public class Cliente extends Usuario implements iVerificaveis {
 
     public ResponseEntity<Pet> putPet(int id, Pet it ) {
         int IndexForId = transformaIdEmIndexPet(id, petList);
+        it.setId(petList.get(IndexForId).getId());
         petList.set(IndexForId, it);
         return ResponseEntity.status(200).body(it);
     }

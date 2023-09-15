@@ -7,7 +7,7 @@ public class Pet {
     private String porte;
 
     public Pet( String nome, String raca, String porte) {
-        this.id =1;
+        this.id =0;
         this.nome = nome;
         this.raca = raca;
         this.porte = porte;
