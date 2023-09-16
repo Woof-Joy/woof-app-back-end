@@ -72,8 +72,6 @@ public abstract class Usuario implements iVerificaveis {
 
     }
 
-    public abstract void putPerfil(Usuario usuario, Usuario login);
-
 
     public int getId() {
         return id;
