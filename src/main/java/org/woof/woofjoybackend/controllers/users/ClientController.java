@@ -24,63 +24,104 @@ public class ClientController {
     }
 
     private Cliente clienteLogado() {
-        Cliente clienteLogado = (Cliente) clientes.get(serviceUser.indexUsuarioLogado);
-        return clienteLogado;
+        int index = serviceUser.indexUsuarioLogado;
+        if (index < 0) {
+            return null;
+        }
+        Cliente clienteLogado = (Cliente) clientes.get(index);
 
+        return clienteLogado;
     }
 
-    @GetMapping
+
+
+
+    @GetMapping("/perfil")
     public ResponseEntity<Usuario> getPerfil() {
         if (clienteLogado() == null) {
-            return ResponseEntity.status(403).body(clienteLogado());
+            return ResponseEntity.status(403).build();
         }
         return ResponseEntity.status(200).body(clienteLogado());
     }
 
     @PostMapping("/itens")
     public ResponseEntity<Item> postItem(@RequestBody Item it) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().postItem(it);
     }
 
     @PutMapping("/itens/{id}")
     public ResponseEntity<Item> putItem(@RequestBody Item it, @PathVariable int id) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().putItem(id, it);
     }
 
     @GetMapping("/itens/{id}")
-    public ResponseEntity<Item> getItemById(@RequestBody Item it, @PathVariable int id) {
+    public ResponseEntity<Item> getItemById(@PathVariable int id) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().OneItemGet(id);
     }
 
     @GetMapping("/itens")
     public ResponseEntity<List<Item>> getAllItens() {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().AllItensGet();
     }
 
     @DeleteMapping("/itens/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable int id) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().deleteItem(id);
     }
 
 
     @GetMapping("/pets")
     public ResponseEntity<List<Pet>> getPets() {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().allPetsGet();
     }
+
     @GetMapping("/pets/{id}")
     public ResponseEntity<Pet> getOnePet(@PathVariable int id) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().OnePetGet(id);
     }
+
     @PostMapping("/pets")
     public ResponseEntity<Pet> postPet(@RequestBody Pet pet) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().postPet(pet);
     }
+
     @PutMapping("/pets/{id}")
     public ResponseEntity<Pet> putPet(@PathVariable int id, @RequestBody Pet pet) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().putPet(id, pet);
     }
+
     @DeleteMapping("/pets/{id}")
     public ResponseEntity<Void> postPet(@PathVariable int id) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return clienteLogado().deletePet(id);
     }
 

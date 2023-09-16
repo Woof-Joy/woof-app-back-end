@@ -24,42 +24,61 @@ public class ProfissionalController {
         this.clientes = serviceUser.getClientes();
     }
 
-    private Profissional profissionalLogado() {
-        Profissional profissionalLogado = (Profissional) clientes.get(serviceUser.indexUsuarioLogado);
-        return profissionalLogado;
+    private Cliente profissionalLogado() {
+        int index = serviceUser.indexUsuarioLogado;
+        if (index < 0) {
+            return null;
+        }
+        Cliente profissionalLogado = (Cliente) clientes.get(index);
 
+        return profissionalLogado;
     }
 
-    @GetMapping
+    @GetMapping("/perfil")
     public ResponseEntity<Usuario> getPerfil() {
         if (profissionalLogado() == null) {
-            return ResponseEntity.status(403).body(profissionalLogado());
+            return ResponseEntity.status(403).build();
         }
         return ResponseEntity.status(200).body(profissionalLogado());
     }
 
     @PostMapping("/itens")
     public ResponseEntity<Item> postItem(@RequestBody Item it) {
+        if (profissionalLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return profissionalLogado().postItem(it);
     }
 
     @PutMapping("/itens/{id}")
     public ResponseEntity<Item> putItem(@RequestBody Item it, @PathVariable int id) {
+        if (profissionalLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return profissionalLogado().putItem(id, it);
     }
 
     @GetMapping("/itens/{id}")
-    public ResponseEntity<Item> getItemById(@RequestBody Item it, @PathVariable int id) {
+    public ResponseEntity<Item> getItemById( @PathVariable int id) {
+        if (profissionalLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return profissionalLogado().OneItemGet(id);
     }
 
     @GetMapping("/itens")
     public ResponseEntity<List<Item>> getAllItens() {
+        if (profissionalLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return profissionalLogado().AllItensGet();
     }
 
     @DeleteMapping("/itens/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable int id) {
+        if (profissionalLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
         return profissionalLogado().deleteItem(id);
     }
     

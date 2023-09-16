@@ -47,7 +47,7 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<List<Item>> AllItensGet() {
 
-        if (itemList == null || itemList.isEmpty()){
+        if (itemList.isEmpty()){
             return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(200).body(itemList);
@@ -55,11 +55,17 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<Item> OneItemGet(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        if(verificaIndex(IndexForId)){
+            return ResponseEntity.status(404).build();
+        }
         return ResponseEntity.status(200).body(itemList.get(IndexForId));
     }
 
     public ResponseEntity<Item> putItem(int id, Item it) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        if(verificaIndex(IndexForId)){
+            return ResponseEntity.status(404).build();
+        }
         it.setId(itemList.get(IndexForId).getId());
         itemList.set(IndexForId, it);
         return ResponseEntity.status(200).body(it);
@@ -67,6 +73,9 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<Void> deleteItem(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        if(verificaIndex(IndexForId)){
+            return ResponseEntity.status(404).build();
+        }
         itemList.remove(IndexForId);
         return ResponseEntity.status(204).build();
 

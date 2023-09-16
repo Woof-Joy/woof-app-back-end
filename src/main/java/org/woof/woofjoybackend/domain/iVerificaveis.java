@@ -52,7 +52,7 @@ public interface iVerificaveis {
     }
 
     default boolean verificaIndex(int index){
-        return (index > 0 );
+        return (index < 0 );
     }
 
 

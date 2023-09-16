@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class ServiceUser implements iVerificaveis {
     private List<Usuario> usuarioList = new ArrayList<>();
-    public int indexUsuarioLogado = usuarioList.size();
+    public int indexUsuarioLogado = -1;
 
     private int contadorId = 0;
 
