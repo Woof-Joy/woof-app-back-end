@@ -24,12 +24,12 @@ public class ProfissionalController {
         this.clientes = serviceUser.getClientes();
     }
 
-    private Cliente profissionalLogado() {
+    private Profissional profissionalLogado() {
         int index = serviceUser.indexUsuarioLogado;
         if (index < 0) {
             return null;
         }
-        Cliente profissionalLogado = (Cliente) clientes.get(index);
+        Profissional profissionalLogado = (Profissional) clientes.get(index);
 
         return profissionalLogado;
     }

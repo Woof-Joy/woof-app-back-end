@@ -14,7 +14,6 @@ import java.util.List;
 public class ServiceUser implements iVerificaveis {
     private List<Usuario> usuarioList = new ArrayList<>();
     public int indexUsuarioLogado = -1;
-
     private int contadorId = 0;
 
 

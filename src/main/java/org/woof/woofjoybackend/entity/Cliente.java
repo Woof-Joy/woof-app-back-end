@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Cliente extends Usuario implements iVerificaveis {
+public class Cliente extends Usuario  {
     private List<Pet> petList = new ArrayList<>();
 
     public Cliente(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
