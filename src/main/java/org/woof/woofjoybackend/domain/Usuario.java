@@ -1,7 +1,6 @@
 package org.woof.woofjoybackend.domain;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.object.Item;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public abstract class Usuario implements iVerificaveis {
     private String email;
     private String senha;
     private Date dataNasc;
-    private List<Item> itemList;
+    private List<Item> itemList = new ArrayList<>();
 
 
     //o Construtor recebe id msm?
@@ -40,35 +39,47 @@ public abstract class Usuario implements iVerificaveis {
 
 
     public ResponseEntity<Item> postItem(Item it) {
-
+        it.setId(itemList.size()+1);
         itemList.add(it);
         return ResponseEntity.status(200).body(it);
     }
 
 
     public ResponseEntity<List<Item>> AllItensGet() {
+
+        if (itemList.isEmpty()){
+            return ResponseEntity.status(204).build();
+        }
         return ResponseEntity.status(200).body(itemList);
     }
 
     public ResponseEntity<Item> OneItemGet(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        if(verificaIndex(IndexForId)){
+            return ResponseEntity.status(404).build();
+        }
         return ResponseEntity.status(200).body(itemList.get(IndexForId));
     }
 
     public ResponseEntity<Item> putItem(int id, Item it) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        if(verificaIndex(IndexForId)){
+            return ResponseEntity.status(404).build();
+        }
+        it.setId(itemList.get(IndexForId).getId());
         itemList.set(IndexForId, it);
         return ResponseEntity.status(200).body(it);
     }
 
     public ResponseEntity<Void> deleteItem(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
+        if(verificaIndex(IndexForId)){
+            return ResponseEntity.status(404).build();
+        }
         itemList.remove(IndexForId);
         return ResponseEntity.status(204).build();
 
     }
-
-    public abstract void putPerfil(Usuario usuario, Usuario login);
 
 
     public int getId() {

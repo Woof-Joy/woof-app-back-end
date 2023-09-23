@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.controllers.usuarios;
+package org.woof.woofjoybackend.controllers.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,11 +45,11 @@ public class ServiceUserController {
         return serviceUser.putUsuario(id, usuario);
     }
     @DeleteMapping("/profissional/{id}")
-    public ResponseEntity<String> deleteProfissional(@PathVariable("id") int id) {
+    public ResponseEntity<Void> deleteProfissional(@PathVariable("id") int id) {
         return serviceUser.deleteUsuario(id);
     }
     @DeleteMapping("/cliente/{id}")
-    public ResponseEntity<String> deleteCliente(@PathVariable("id") int id) {
+    public ResponseEntity<Void> deleteCliente(@PathVariable("id") int id) {
         return serviceUser.deleteUsuario(id);
     }
 
