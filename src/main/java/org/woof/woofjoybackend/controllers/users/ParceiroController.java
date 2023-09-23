@@ -4,34 +4,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.domain.Usuario;
-import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.Profissional;
+import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.object.Item;
-import org.woof.woofjoybackend.entity.object.Pet;
 import org.woof.woofjoybackend.service.ServiceUser;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/profissional")
-public class ProfissionalController {
+public class ParceiroController {
     private final ServiceUser serviceUser;
     private final List<Usuario> clientes;
 
     @Autowired
-    public ProfissionalController(ServiceUser serviceUser) {
+    public ParceiroController(ServiceUser serviceUser) {
         this.serviceUser = serviceUser;
         this.clientes = serviceUser.getClientes();
     }
 
-    private Profissional profissionalLogado() {
+    private Parceiro profissionalLogado() {
         int index = serviceUser.indexUsuarioLogado;
         if (index < 0) {
             return null;
         }
-        Profissional profissionalLogado = (Profissional) clientes.get(index);
+        Parceiro parceiroLogado = (Parceiro) clientes.get(index);
 
-        return profissionalLogado;
+        return parceiroLogado;
     }
 
     @GetMapping("/perfil")

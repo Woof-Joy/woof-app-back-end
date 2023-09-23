@@ -9,29 +9,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Cliente extends Usuario  {
-    private List<Pet> petList = new ArrayList<>();
+public class Cliente extends Usuario {
 
-    public Cliente(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
-        super(nome, sobrenome, cpf, cep, numero, email, senha, dataNasc);
-        this.petList = new ArrayList<>();
+    public Cliente(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc, String descricao) {
+        super(nome, sobrenome, cpf, cep, numero, email, senha, dataNasc, descricao);
     }
 
     public Cliente() {
     }
 
 
-
-
     public ResponseEntity<Pet> postPet(Pet it) {
-        it.setId(petList.size()+1);
+        it.setId(petList.size() + 1);
         petList.add(it);
         return ResponseEntity.status(200).body(it);
     }
 
 
     public ResponseEntity<List<Pet>> allPetsGet() {
-        if (petList == null || petList.isEmpty()){
+        if (petList == null || petList.isEmpty()) {
             return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(200).body(petList);
@@ -40,15 +36,15 @@ public class Cliente extends Usuario  {
 
     public ResponseEntity<Pet> OnePetGet(int id) {
         int IndexForId = transformaIdEmIndexPet(id, petList);
-         if(verificaIndex(IndexForId)){
-          return ResponseEntity.status(404).build();
-         }
+        if (verificaIndex(IndexForId)) {
+            return ResponseEntity.status(404).build();
+        }
         return ResponseEntity.status(200).body(petList.get(IndexForId));
     }
 
-    public ResponseEntity<Pet> putPet(int id, Pet it ) {
+    public ResponseEntity<Pet> putPet(int id, Pet it) {
         int IndexForId = transformaIdEmIndexPet(id, petList);
-        if(verificaIndex(IndexForId)){
+        if (verificaIndex(IndexForId)) {
             return ResponseEntity.status(404).build();
         }
         it.setId(petList.get(IndexForId).getId());
@@ -59,16 +55,11 @@ public class Cliente extends Usuario  {
 
     public ResponseEntity<Void> deletePet(int id) {
         int IndexForId = transformaIdEmIndexPet(id, petList);
-        if(verificaIndex(IndexForId)){
+        if (verificaIndex(IndexForId)) {
             return ResponseEntity.status(404).build();
         }
         petList.remove(IndexForId);
         return ResponseEntity.status(204).build();
 
     }
-
-    public List<Pet> getPetList() {
-        return petList;
-    }
-
 }

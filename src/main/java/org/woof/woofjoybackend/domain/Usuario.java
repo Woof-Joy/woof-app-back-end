@@ -1,5 +1,14 @@
 package org.woof.woofjoybackend.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.http.ResponseEntity;
 import org.woof.woofjoybackend.entity.object.Item;
 
@@ -7,22 +16,43 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public abstract class Usuario implements iVerificaveis {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotBlank
+    @Size(max = 50)
     private String nome;
+
+    @Size(max = 50)
     private String sobrenome;
+
+    @CPF
     private String cpf;
+
+    @Size(min = 9, max = 9)
     private String cep;
+
+    @Size(max = 10)
     private String numero;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String senha;
+
+    @PastOrPresent
     private Date dataNasc;
-    private List<Item> itemList = new ArrayList<>();
+
+    @Size(max = 500)
+    private String descricao;
 
 
-    //o Construtor recebe id msm?
-    public Usuario(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc) {
-        this.id = 0;
+    public Usuario(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, Date dataNasc, String descricao) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
@@ -31,7 +61,7 @@ public abstract class Usuario implements iVerificaveis {
         this.email = email;
         this.senha = senha;
         this.dataNasc = dataNasc;
-        this.itemList = new ArrayList<>();
+        this.descricao = descricao;
     }
 
     public Usuario() {
@@ -39,7 +69,7 @@ public abstract class Usuario implements iVerificaveis {
 
 
     public ResponseEntity<Item> postItem(Item it) {
-        it.setId(itemList.size()+1);
+        it.setId(itemList.size() + 1);
         itemList.add(it);
         return ResponseEntity.status(200).body(it);
     }
@@ -47,7 +77,7 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<List<Item>> AllItensGet() {
 
-        if (itemList.isEmpty()){
+        if (itemList.isEmpty()) {
             return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(200).body(itemList);
@@ -55,7 +85,7 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<Item> OneItemGet(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
-        if(verificaIndex(IndexForId)){
+        if (verificaIndex(IndexForId)) {
             return ResponseEntity.status(404).build();
         }
         return ResponseEntity.status(200).body(itemList.get(IndexForId));
@@ -63,7 +93,7 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<Item> putItem(int id, Item it) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
-        if(verificaIndex(IndexForId)){
+        if (verificaIndex(IndexForId)) {
             return ResponseEntity.status(404).build();
         }
         it.setId(itemList.get(IndexForId).getId());
@@ -73,7 +103,7 @@ public abstract class Usuario implements iVerificaveis {
 
     public ResponseEntity<Void> deleteItem(int id) {
         int IndexForId = transformaIdEmIndexItem(id, itemList);
-        if(verificaIndex(IndexForId)){
+        if (verificaIndex(IndexForId)) {
             return ResponseEntity.status(404).build();
         }
         itemList.remove(IndexForId);
@@ -82,11 +112,11 @@ public abstract class Usuario implements iVerificaveis {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -154,10 +184,12 @@ public abstract class Usuario implements iVerificaveis {
         this.dataNasc = dataNasc;
     }
 
-    public List<Item> getItemList() {
-        return itemList;
+    public String getDescricao() {
+        return descricao;
     }
 
-
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }
 

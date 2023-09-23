@@ -11,7 +11,7 @@ Nomenclatura de commit:
 3. `style`: recurso e atualizações relacionadas à estilização.
 4. `refactor`: refatoração de uma seção específica da base de código.
 5. `test`: tudo o que for relacionado a testes.
-6. `docs`: tudo o que for relaiconado a documentação.
+6. `docs`: tudo o que for relacionado a documentação.
 7. `chore`: manutenção regular do código.
 
 Exemplos:
