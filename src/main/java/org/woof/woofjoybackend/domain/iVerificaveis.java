@@ -1,7 +1,9 @@
 package org.woof.woofjoybackend.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.woof.woofjoybackend.entity.object.Item;
 import org.woof.woofjoybackend.entity.object.Pet;
+import org.woof.woofjoybackend.repository.UsuarioRepository;
 
 import java.util.List;
 

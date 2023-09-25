@@ -1,27 +1,55 @@
 package org.woof.woofjoybackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.domain.Usuario;
-import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.Parceiro;
+import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ServiceUser implements iVerificaveis {
-    @Autowired
-    private UsuarioRepository repository;
-    public int indexUsuarioLogado = -1;
-    private int contadorId = 0;
+public class ServiceUser {
+    private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    public ServiceUser(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public void cadastrarUsuario(Usuario usuario) {
-        repository.save(usuario);
+        usuarioRepository.save(usuario);
+    }
+
+    public List<Usuario> listaUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
+    public Usuario listaUsuarioPorId(Integer id) {
+        return usuarioRepository.findById(id).get();
+    }
+
+    public Usuario attUsuario(Usuario usuarioAtt, Integer id) {
+        usuarioAtt.setId(id);
+        return usuarioRepository.save(usuarioAtt);
+    }
+
+    public void deleteUsuario(Integer id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    public boolean idValido(Integer id) {
+        return usuarioRepository.existsById(id);
+    }
+
+    public boolean emailValido(String email, Integer id) {
+        List<Usuario> listaUsuarios = listaUsuarios();
+
+        for (Usuario u : listaUsuarios) {
+            if (u.getEmail().equals(email) && u.getId() != id) {
+                return false;
+            }
+        }
+        return true;
     }
 
 //    public ResponseEntity<String> loginUsuario(String email, String senha) {
@@ -41,50 +69,11 @@ public class ServiceUser implements iVerificaveis {
 //        return ResponseEntity.status(401).build();
 //    }
 
-    public void deleteUsuario(int id) {
-        repository.deleteById(id);
-    }
-
-    public boolean existe(int id) {
-        return repository.existsById(id);
-    }
-
-
-//    public List<Usuario> getProfissionais() {
-//        if (!usuarioList.isEmpty()) {
-//            List<Usuario> userList = new ArrayList<>();
-//            for (Usuario u : usuarioList) {
-//                if (u instanceof Parceiro) {
-//                    userList.add(u);
-//                }
-//            }
-//            return userList;
-//        }
-//        return usuarioList;
+//    public int getIndexUsuarioLogado() {
+//        return indexUsuarioLogado;
 //    }
-
-//    public List<Usuario> getClientes() {
-//        if (!usuarioList.isEmpty()) {
-//            List<Usuario> userList = new ArrayList<>();
-//            for (Usuario u : usuarioList) {
-//                if (u instanceof Cliente) {
-//                    userList.add(u);
-//                }
-//            }
-//            return userList;
-//        }
-//        return usuarioList;
+//
+//    public void setIndexUsuarioLogado(int indexUsuarioLogado) {
+//        this.indexUsuarioLogado = indexUsuarioLogado;
 //    }
-
-    public List<Usuario> getUsers() {
-        return repository.findAll();
-    }
-
-    public int getIndexUsuarioLogado() {
-        return indexUsuarioLogado;
-    }
-
-    public void setIndexUsuarioLogado(int indexUsuarioLogado) {
-        this.indexUsuarioLogado = indexUsuarioLogado;
-    }
 }
