@@ -1,0 +1,13 @@
+version: '3'
+services:
+  bancos:
+    image: oscarfonts/h2
+    container_name: woof-joy
+    ports:
+      - "1521:1521"
+      - "81:81"
+    environment:
+      - H2_OPTIONS=-ifNotExists
+      - H2_TCP_ALLOW_OTHERS=true
+      - H2_TCP_PORT=1521
+      - H2_WEB_PORT=81

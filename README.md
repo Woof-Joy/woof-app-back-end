@@ -1,4 +1,9 @@
 # WoofJoy
+## Como iniciar Banco H2 dentro do Docker
+1. ### `Baixe DOCKER DESKTOP`
+2. ### `No terminal:`
+#### `Criar container`  :docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" up -d
+#### `Matar o container`:docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" down 
 
 # Boas práticas 
 Nomenclatura de branch: 
