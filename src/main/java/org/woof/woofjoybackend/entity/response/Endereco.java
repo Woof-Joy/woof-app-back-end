@@ -3,7 +3,7 @@ package org.woof.woofjoybackend.entity.response;
 
 import lombok.Getter;
 
-public class CEP {
+public class Endereco {
 
         @Getter
         private String cep;
