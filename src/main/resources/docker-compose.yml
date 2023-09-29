@@ -1,13 +1,20 @@
-version: '3'
+version: '3.1'
+
 services:
-  bancos:
-    image: oscarfonts/h2
-    container_name: woof-joy
+  db:
+    image: mysql:8.0.31
+    volumes:
+      - dbbase:/var/lib/mysql
     ports:
-      - "1521:1521"
-      - "81:81"
+      - "3307:3306"
     environment:
-      - H2_OPTIONS=-ifNotExists
-      - H2_TCP_ALLOW_OTHERS=true
-      - H2_TCP_PORT=1521
-      - H2_WEB_PORT=81
+      MYSQL_ROOT_PASSWORD: bp1234
+      MYSQL_DATABASE: wf_db
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8000:80"
+
+volumes:
+  dbbase:
