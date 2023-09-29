@@ -1,5 +1,5 @@
 # WoofJoy
-## Como iniciar Banco H2 dentro do Docker
+## Como iniciar banco Mysql com Docker Compose
 1. ### `Baixe DOCKER DESKTOP`
 link: https://www.docker.com/products/docker-desktop/
 2. ### `No terminal:`
