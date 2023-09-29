@@ -24,7 +24,7 @@ public class ServiceParceiro implements iVerificaveis {
 
     public Parceiro registrarParceiro(Integer id) {
         Usuario usuario = usuarioRepository.findById(id).get();
-        return parceiroRepository.save(new Parceiro(usuario));
+        return parceiroRepository.save(new Parceiro());
     }
 
     public List<Parceiro> listaParceiros() {

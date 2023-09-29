@@ -1,9 +1,17 @@
 # WoofJoy
-## Como iniciar Banco H2 dentro do Docker
+## Como iniciar banco Mysql com Docker Compose
 1. ### `Baixe DOCKER DESKTOP`
+link: https://www.docker.com/products/docker-desktop/
 2. ### `No terminal:`
-#### `Criar container`  :docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" up -d
-#### `Matar o container`:docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" down 
+#### `Criar container`   docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" up -d
+#### `Matar o container` docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" down 
+3. ### `Console para consultas `
+Com a aplicação rodando e seguindo os passos anteriores, acesse este link abaixo no navegador, que é uma interface de consulta semelhante ao do H2( O DBeaver também pode ser utilizado).
+
+link: http://localhost:8000/index.php
+#### username:root
+#### password:bp1234
+
 
 # Boas práticas 
 Nomenclatura de branch: 

@@ -1,7 +1,13 @@
 package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 public class Cliente {
     @Id
@@ -22,13 +28,7 @@ public class Cliente {
         return usuario;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
-    }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
 
     //    public ResponseEntity<Pet> postPet(Pet it) {
 //        it.setId(petList.size() + 1);
