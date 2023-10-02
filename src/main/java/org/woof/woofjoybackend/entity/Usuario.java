@@ -5,12 +5,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
 
 
 import java.time.LocalDate;
-
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 public class Usuario implements iVerificaveis {
     @Id
@@ -51,21 +56,6 @@ public class Usuario implements iVerificaveis {
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Cliente cliente;
-
-    public Usuario(String nome, String sobrenome, String cpf, String cep, String numero, String email, String senha, LocalDate dataNasc, String descricao) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.cpf = cpf;
-        this.cep = cep;
-        this.numero = numero;
-        this.email = email;
-        this.senha = senha;
-        this.dataNasc = dataNasc;
-        this.descricao = descricao;
-    }
-
-    public Usuario() {
-    }
 
 
 //    public ResponseEntity<Item> postItem(Item it) {
@@ -111,92 +101,4 @@ public class Usuario implements iVerificaveis {
 //
 //    }
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSobrenome() {
-        return sobrenome;
-    }
-
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public LocalDate getDataNasc() {
-        return dataNasc;
-    }
-
-    public void setDataNasc(LocalDate dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setParceiro(Parceiro parceiro) {
-        this.parceiro = parceiro;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 }
