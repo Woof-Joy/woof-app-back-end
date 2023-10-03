@@ -1,14 +1,20 @@
 package org.woof.woofjoybackend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.entity.object.Dog;
 import org.woof.woofjoybackend.repository.DogRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+
 public class ServiceDog {
 
     private DogRepository dogRepository;
+
+    @Autowired
 
     public ServiceDog(DogRepository dogRepository) {
         this.dogRepository = dogRepository;
@@ -22,14 +28,20 @@ public class ServiceDog {
 
 
     //Listar
-    public List<Dog> listarDogs(Dog dog){
-        List<Dog> dogCadastrado = dogRepository.findAll();
-        return dogCadastrado;
+    public List<Dog> listarDogs(){
+        List<Dog> dogsCadastrados = dogRepository.findAll();
+        if (dogRepository.count() > 0){
+            return dogsCadastrados;
+        }
+        return null;
     }
 
-    public Dog listarDog(Dog dog){
-        Optional<Dog> dogCadastrado = dogRepository.findById(dog.getId());
-        return dogCadastrado.get();
+    public Dog listarDog(int id){
+        Optional<Dog> dogCadastrado = dogRepository.findById(id);
+        if (dogCadastrado.isEmpty()){
+            return dogCadastrado.get();
+        }
+        return null;
     }
 
     //Atulizar
