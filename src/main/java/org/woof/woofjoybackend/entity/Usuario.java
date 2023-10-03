@@ -17,8 +17,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @Entity
 public class Usuario implements iVerificaveis {
@@ -68,7 +68,6 @@ public class Usuario implements iVerificaveis {
         this.listaItens = new ArrayList<>();
     }
 
-
 //
 //    public ResponseEntity<Void> deleteItem(int id) {
 //        int IndexForId = transformaIdEmIndexItem(id, itemList);
@@ -80,4 +79,52 @@ public class Usuario implements iVerificaveis {
 //
 //    }
 
+
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public String getNome() {
+//        return nome;
+//    }
+//
+//    public String getSobrenome() {
+//        return sobrenome;
+//    }
+//
+//    public String getCpf() {
+//        return cpf;
+//    }
+//
+//    public String getCep() {
+//        return cep;
+//    }
+//
+//    public String getNumero() {
+//        return numero;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public String getSenha() {
+//        return senha;
+//    }
+//
+//    public LocalDate getDataNasc() {
+//        return dataNasc;
+//    }
+//
+//    public String getDescricao() {
+//        return descricao;
+//    }
+//
+//    public Parceiro getParceiro() {
+//        return parceiro;
+//    }
+//
+//    public Cliente getCliente() {
+//        return cliente;
+//    }
 }

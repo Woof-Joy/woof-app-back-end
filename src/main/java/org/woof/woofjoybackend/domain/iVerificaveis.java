@@ -1,12 +1,5 @@
 package org.woof.woofjoybackend.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.woof.woofjoybackend.entity.object.Item;
-import org.woof.woofjoybackend.entity.object.Pet;
-import org.woof.woofjoybackend.repository.UsuarioRepository;
-
-import java.util.List;
-
 public interface iVerificaveis {
 
 //    default int transformaIdEmIndex(int id, List<Usuario> list) {

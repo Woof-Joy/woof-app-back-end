@@ -1,19 +1,27 @@
 # WoofJoy
+
+---
 ## Como iniciar banco Mysql com Docker Compose
+
 1. ### `Baixe DOCKER DESKTOP`
-link: https://www.docker.com/products/docker-desktop/
+- [ link para instalação do Docker Desktop](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=module&_gl=1*1ab9l0j*_ga*MTIzNDQ1MTU5OS4xNjgzMDcxMDMz*_ga_XJWPQMJYHQ*MTY5NjI4MjIzMi40LjEuMTY5NjI4MjI2My4yOS4wLjA.)
 2. ### `No terminal:`
-#### `Criar container`   docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" up -d
-#### `Matar o container` docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" down 
+- #### `Criar container`   docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" up -d
+- #### `Matar o container` docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" down 
 3. ### `Console para consultas `
-Com a aplicação rodando e seguindo os passos anteriores, acesse este link abaixo no navegador, que é uma interface de consulta semelhante ao do H2( O DBeaver também pode ser utilizado).
+- Com a aplicação rodando e seguindo os passos anteriores, acesse este link abaixo no navegador, que é uma interface de consulta semelhante ao do H2( O DBeaver também pode ser utilizado).
 
-link: http://localhost:8000/index.php
-#### username:root
-#### password:bp1234
+[Acesse o link](http://localhost:8000/index.php)
+
+#### Credenciais:
+
+> #### username: root
+
+> #### password: bp1234
 
 
-# Boas práticas 
+---
+## Boas práticas 
 Nomenclatura de branch: 
 `feature/nome-da-atividade`
 
@@ -29,3 +37,5 @@ Nomenclatura de commit:
 
 Exemplos:
 `fix/validacao-usuario`
+
+---
