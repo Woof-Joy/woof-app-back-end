@@ -53,11 +53,4 @@ public interface iVerificaveis {
 //                && senha != null
 //                && senha.length() > 4);
 //    }
-
-    default boolean verificaIndex(int index){
-        return (index < 0 );
-    }
-
-
-
 }

@@ -3,6 +3,8 @@ package org.woof.woofjoybackend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.entity.Usuario;
+import org.woof.woofjoybackend.entity.object.Item;
+import org.woof.woofjoybackend.repository.ItemRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
 import java.util.List;
@@ -10,14 +12,15 @@ import java.util.List;
 @Service
 public class ServiceUser {
     private UsuarioRepository usuarioRepository;
+    private ItemRepository itemRepository;
 
-    @Autowired
-    public ServiceUser(UsuarioRepository usuarioRepository) {
+    public ServiceUser(UsuarioRepository usuarioRepository, ItemRepository itemRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.itemRepository = itemRepository;
     }
 
-    public void cadastrarUsuario(Usuario usuario) {
-        usuarioRepository.save(usuario);
+    public Usuario cadastrarUsuario(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 
     public List<Usuario> listaUsuarios() {
@@ -37,7 +40,7 @@ public class ServiceUser {
         usuarioRepository.deleteById(id);
     }
 
-    public boolean idValido(Integer id) {
+    public boolean idExiste(Integer id) {
         return usuarioRepository.existsById(id);
     }
 
@@ -50,6 +53,25 @@ public class ServiceUser {
             }
         }
         return true;
+    }
+
+    public Item cadastrarItem(Item it, Integer idUsuario) {
+        Usuario usuario = listaUsuarioPorId(idUsuario);
+        it.setDono(usuario);
+        return itemRepository.save(it);
+    }
+
+    public Item listaItemPorId(Integer id) {
+        return itemRepository.findById(id).get();
+    }
+
+    public Item attItem(Item it, Integer idItem) {
+        it.setId(idItem);
+        return itemRepository.save(it);
+    }
+
+    public void deleteItem(Integer idItem) {
+        itemRepository.deleteById(idItem);
     }
 
 //    public ResponseEntity<String> loginUsuario(String email, String senha) {

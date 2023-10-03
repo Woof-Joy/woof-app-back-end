@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Cliente;
 import org.woof.woofjoybackend.service.ServiceCliente;
 import org.woof.woofjoybackend.service.ServiceUser;
-import org.woof.woofjoybackend.service.gateway.CEPService;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class ClienteController {
 
     @PostMapping("/{idUsuario}")
     public ResponseEntity<Cliente> registrarCliente(@PathVariable Integer idUsuario) {
-        if (serviceUser.idValido(idUsuario)) {
+        if (serviceUser.idExiste(idUsuario)) {
             if (!serviceCliente.idExiste(idUsuario)) {
                 return ResponseEntity.status(200).body(serviceCliente.registrarCliente(idUsuario));
             }
