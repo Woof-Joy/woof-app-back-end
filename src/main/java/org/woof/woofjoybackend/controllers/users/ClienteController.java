@@ -24,16 +24,7 @@ public class ClienteController {
         this.serviceUser = serviceUser;
     }
 
-    @PostMapping("/{idUsuario}")
-    public ResponseEntity<Cliente> registrarCliente(@PathVariable Integer idUsuario) {
-        if (serviceUser.idValido(idUsuario)) {
-            if (!serviceCliente.idExiste(idUsuario)) {
-                return ResponseEntity.status(200).body(serviceCliente.registrarCliente(idUsuario));
-            }
-            return ResponseEntity.status(409).build();
-        }
-        return ResponseEntity.status(404).build();
-    }
+
 
     @GetMapping()
     public ResponseEntity<List<Cliente>> listaClientes() {
