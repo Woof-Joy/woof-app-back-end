@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Cliente;
+import org.woof.woofjoybackend.entity.object.Dog;
 import org.woof.woofjoybackend.service.ServiceCliente;
 import org.woof.woofjoybackend.service.ServiceDog;
 import org.woof.woofjoybackend.service.ServiceUser;
@@ -19,7 +20,7 @@ public class ClienteController {
     private ServiceUser serviceUser;
     private ServiceDog serviceDog;
 
-
+    @Autowired
     public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser, ServiceDog serviceDog) {
         this.serviceCliente = serviceCliente;
         this.serviceUser = serviceUser;
@@ -120,44 +121,34 @@ public class ClienteController {
 //    }
 //
 //
-//    @GetMapping("/pets")
-//    public ResponseEntity<List<Pet>> getPets() {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().allPetsGet();
-//    }
-//
-//    @GetMapping("/pets/{id}")
-//    public ResponseEntity<Pet> getOnePet(@PathVariable int id) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().OnePetGet(id);
-//    }
-//
-//    @PostMapping("/pets")
-//    public ResponseEntity<Pet> postPet(@RequestBody Pet pet) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().postPet(pet);
-//    }
-//
-//    @PutMapping("/pets/{id}")
-//    public ResponseEntity<Pet> putPet(@PathVariable int id, @RequestBody Pet pet) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().putPet(id, pet);
-//    }
-//
-    @DeleteMapping("/pets/{id}")
+    @GetMapping("/dogs")
+    public ResponseEntity<List<Dog>> getPets() {
+        List<Dog> dogsCadastrados = serviceDog.listarDogs();
+        return dogsCadastrados == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogsCadastrados);
+    }
+
+    @GetMapping("/dogs/{id}")
+    public ResponseEntity<Dog> getOnePet(@PathVariable int id) {
+        Dog dogCadastrado = serviceDog.listarDog(id);
+        return dogCadastrado == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogCadastrado);
+    }
+
+    @PostMapping("/dogs")
+    public ResponseEntity<Dog> postPet(@Valid @RequestBody Dog dog) {
+        Dog dogCriado = serviceDog.criarDog(dog);
+        return ResponseEntity.ok().body(dogCriado);
+    }
+
+    @PutMapping("/dogs/{id}")
+    public ResponseEntity<Dog> putPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
+        Dog dogAtualizado = serviceDog.atulizarDog(dog, id);
+        return dogAtualizado == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(dogAtualizado);
+    }
+
+    @DeleteMapping("/dogs/{id}")
     public ResponseEntity<Void> postPet(@PathVariable int id) {
-        if (clienteLogado() == null) {
-            return ResponseEntity.status(403).build();
-        }
-        return clienteLogado().deletePet(id);
+        Boolean dogDeletado = serviceDog.deletarDog(id);
+        return dogDeletado?ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
 }

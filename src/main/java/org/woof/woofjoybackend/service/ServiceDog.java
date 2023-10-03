@@ -1,14 +1,20 @@
 package org.woof.woofjoybackend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.entity.object.Dog;
 import org.woof.woofjoybackend.repository.DogRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+
 public class ServiceDog {
 
     private DogRepository dogRepository;
+
+    @Autowired
 
     public ServiceDog(DogRepository dogRepository) {
         this.dogRepository = dogRepository;
@@ -22,16 +28,28 @@ public class ServiceDog {
 
 
     //Listar
-    public List<Dog> listarDogs(Dog dog){
-        List<Dog> dogCadastrado = dogRepository.findAll();
-        return dogCadastrado;
+    public List<Dog> listarDogs(){
+        List<Dog> dogsCadastrados = dogRepository.findAll();
+        if (dogRepository.count() > 0){
+            return dogsCadastrados;
+        }
+        return null;
     }
 
-    public Dog listarDog(Dog dog){
-        Optional<Dog> dogCadastrado = dogRepository.findById(dog.getId());
+
+    public Dog listarDog(int id) {
+        Optional<Dog> dogCadastrado = dogRepository.findById(id);
         System.out.println(dogCadastrado.get());
         return dogCadastrado.get();
     }
+//    public Dog listarDog(int id){
+//        Optional<Dog> dogCadastrado = dogRepository.findById(id);
+//        if (dogCadastrado.isEmpty()){
+//            return dogCadastrado.get();
+//        }
+//        return null;
+//
+//    }
 
     //Atulizar
     public Dog atulizarDog(Dog dog, int id){
@@ -49,14 +67,15 @@ public class ServiceDog {
 
     //Deltar
 
-    public void deletarDog(int id){
+    public boolean deletarDog(int id){
         System.out.println("Tentando deletar...");
         if (dogRepository.existsById(id)) {
             dogRepository.deleteById(id);
             System.out.println("Cachorro deletado!");
-            return ;
+            return true;
         }
         System.out.println("O pet não foi deletado, pois ele não existe.");
+        return false;
     }
 
 }

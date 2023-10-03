@@ -1,7 +1,8 @@
 # WoofJoy
 
-
+---
 ## Como iniciar banco Mysql com Docker Compose
+
 1. ### `Baixe DOCKER DESKTOP`
 - [ link para instalação do Docker Desktop](https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe?utm_source=docker&utm_medium=webreferral&utm_campaign=dd-smartbutton&utm_location=module&_gl=1*1ab9l0j*_ga*MTIzNDQ1MTU5OS4xNjgzMDcxMDMz*_ga_XJWPQMJYHQ*MTY5NjI4MjIzMi40LjEuMTY5NjI4MjI2My4yOS4wLjA.)
 2. ### `No terminal:`
@@ -19,7 +20,7 @@
 > #### password: bp1234
 
 
-
+---
 ## Boas práticas 
 Nomenclatura de branch: 
 `feature/nome-da-atividade`
@@ -36,3 +37,5 @@ Nomenclatura de commit:
 
 Exemplos:
 `fix/validacao-usuario`
+
+---

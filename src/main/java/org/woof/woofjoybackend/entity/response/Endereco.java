@@ -1,8 +1,13 @@
 package org.woof.woofjoybackend.entity.response;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.woof.woofjoybackend.entity.Usuario;
 
+@Entity
 public class Endereco {
 
         @Getter
@@ -13,6 +18,8 @@ public class Endereco {
         private String    localidade;
         private String    uf;
 
+        @OneToOne
+        private Usuario usuario;
 
 
         public String getCep() {
