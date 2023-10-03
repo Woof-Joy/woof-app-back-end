@@ -8,22 +8,36 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Setter
+
 @AllArgsConstructor
 @Entity
 public class Parceiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     Integer idParceiro;
 
     @PastOrPresent
+    @Getter @Setter
     private LocalDate dataEntrada;
+
+    @Getter @Setter
     private Integer maxDogs;
+
+    @Getter @Setter
     private Boolean aceitaDogEspecial;
+
+    @Getter @Setter
     private Boolean aceitaDogIdoso;
+
+    @Getter @Setter
     private Boolean aceitaDogBravo;
+
+    @Getter @Setter
     private Boolean aceitaDogGrande;
+
+    @Getter @Setter
     private Boolean aceitaDogaCio;
 
     @OneToOne
