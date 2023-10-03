@@ -29,12 +29,14 @@ public class ServiceDog {
 
     public Dog listarDog(Dog dog){
         Optional<Dog> dogCadastrado = dogRepository.findById(dog.getId());
+        System.out.println(dogCadastrado.get());
         return dogCadastrado.get();
     }
 
     //Atulizar
-    public Dog atulizarDog(Dog dog){
+    public Dog atulizarDog(Dog dog, int id){
         System.out.println("Tentando cadastrar....");
+        dog.setId(id);
         if (dogRepository.existsById(dog.getId())) {
             Dog dogAtualizado = dogRepository.save(dog);
             System.out.println("Cachorro atulizado!");

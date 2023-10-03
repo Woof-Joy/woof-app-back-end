@@ -8,9 +8,11 @@
 - #### `Criar container`   docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" up -d
 - #### `Matar o container` docker-compose -f "C:\Users\asusn\Desktop\3 SEMESTRE\SPRINT PROJETO\woof-app-back-end\src\main\resources\docker-compose.yml" down 
 3. ### `Console para consultas `
-Com a aplicação rodando e seguindo os passos anteriores, acesse este link abaixo no navegador, que é uma interface de consulta semelhante ao do H2( O DBeaver também pode ser utilizado).
+- Com a aplicação rodando e seguindo os passos anteriores, acesse este link abaixo no navegador, que é uma interface de consulta semelhante ao do H2( O DBeaver também pode ser utilizado).
 
 [Acesse o link](http://localhost:8000/index.php)
+
+#### Credenciais:
 
 > #### username: root
 
@@ -18,7 +20,7 @@ Com a aplicação rodando e seguindo os passos anteriores, acesse este link abai
 
 
 
-# Boas práticas 
+## Boas práticas 
 Nomenclatura de branch: 
 `feature/nome-da-atividade`
 
