@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Cliente;
 import org.woof.woofjoybackend.service.ServiceCliente;
+import org.woof.woofjoybackend.service.ServiceDog;
 import org.woof.woofjoybackend.service.ServiceUser;
-import org.woof.woofjoybackend.service.gateway.CEPService;
 
 import java.util.List;
 
@@ -17,11 +17,13 @@ public class ClienteController {
 
     private ServiceCliente serviceCliente;
     private ServiceUser serviceUser;
+    private ServiceDog serviceDog;
 
-    @Autowired
-    public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser) {
+
+    public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser, ServiceDog serviceDog) {
         this.serviceCliente = serviceCliente;
         this.serviceUser = serviceUser;
+        this.serviceDog = serviceDog;
     }
 
 
@@ -150,12 +152,12 @@ public class ClienteController {
 //        return clienteLogado().putPet(id, pet);
 //    }
 //
-//    @DeleteMapping("/pets/{id}")
-//    public ResponseEntity<Void> postPet(@PathVariable int id) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().deletePet(id);
-//    }
+    @DeleteMapping("/pets/{id}")
+    public ResponseEntity<Void> postPet(@PathVariable int id) {
+        if (clienteLogado() == null) {
+            return ResponseEntity.status(403).build();
+        }
+        return clienteLogado().deletePet(id);
+    }
 
 }
