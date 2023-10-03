@@ -10,10 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-
-
 import java.time.LocalDate;
-@Getter
+
 @Setter
 @AllArgsConstructor
 @Entity
@@ -56,6 +54,8 @@ public class Usuario implements iVerificaveis {
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Cliente cliente;
+
+
 
 
 //    public ResponseEntity<Item> postItem(Item it) {
@@ -101,4 +101,52 @@ public class Usuario implements iVerificaveis {
 //
 //    }
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public LocalDate getDataNasc() {
+        return dataNasc;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Parceiro getParceiro() {
+        return parceiro;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
 }
