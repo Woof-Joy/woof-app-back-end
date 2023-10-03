@@ -10,7 +10,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
+import org.woof.woofjoybackend.entity.object.Item;
+
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -56,41 +61,13 @@ public class Usuario implements iVerificaveis {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Cliente cliente;
 
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> listaItens;
 
+    public Usuario() {
+        this.listaItens = new ArrayList<>();
+    }
 
-
-//    public ResponseEntity<Item> postItem(Item it) {
-//        it.setId(itemList.size() + 1);
-//        itemList.add(it);
-//        return ResponseEntity.status(200).body(it);
-//    }
-//
-//
-//    public ResponseEntity<List<Item>> AllItensGet() {
-//
-//        if (itemList.isEmpty()) {
-//            return ResponseEntity.status(204).build();
-//        }
-//        return ResponseEntity.status(200).body(itemList);
-//    }
-//
-//    public ResponseEntity<Item> OneItemGet(int id) {
-//        int IndexForId = transformaIdEmIndexItem(id, itemList);
-//        if (verificaIndex(IndexForId)) {
-//            return ResponseEntity.status(404).build();
-//        }
-//        return ResponseEntity.status(200).body(itemList.get(IndexForId));
-//    }
-//
-//    public ResponseEntity<Item> putItem(int id, Item it) {
-//        int IndexForId = transformaIdEmIndexItem(id, itemList);
-//        if (verificaIndex(IndexForId)) {
-//            return ResponseEntity.status(404).build();
-//        }
-//        it.setId(itemList.get(IndexForId).getId());
-//        itemList.set(IndexForId, it);
-//        return ResponseEntity.status(200).body(it);
-//    }
 //
 //    public ResponseEntity<Void> deleteItem(int id) {
 //        int IndexForId = transformaIdEmIndexItem(id, itemList);

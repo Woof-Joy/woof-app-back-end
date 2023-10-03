@@ -27,8 +27,6 @@ public class ClienteController {
         this.serviceDog = serviceDog;
     }
 
-
-
     @GetMapping()
     public ResponseEntity<List<Cliente>> listaClientes() {
         List<Cliente> lista = serviceCliente.listaClientes();

@@ -14,7 +14,6 @@ public class ServiceCliente {
     private UsuarioRepository usuarioRepository;
     private ClienteRepository clienteRepository;
 
-    @Autowired
     public ServiceCliente(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository) {
         this.usuarioRepository = usuarioRepository;
         this.clienteRepository = clienteRepository;
