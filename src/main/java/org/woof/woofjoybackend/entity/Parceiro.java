@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Setter
-@AllArgsConstructor
 @Entity
 public class Parceiro {
 
@@ -86,43 +85,5 @@ public class Parceiro {
     public Boolean getAceitaDogaCio() {
         return aceitaDogaCio;
     }
-    public Parceiro(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
-    public Integer getIdParceiro() {
-        return idParceiro;
-    }
-
-    public LocalDate getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public Integer getMaxDogs() {
-        return maxDogs;
-    }
-
-    public Boolean getAceitaDogEspecial() {
-        return aceitaDogEspecial;
-    }
-
-    public Boolean getAceitaDogIdoso() {
-        return aceitaDogIdoso;
-    }
-
-    public Boolean getAceitaDogBravo() {
-        return aceitaDogBravo;
-    }
-
-    public Boolean getAceitaDogGrande() {
-        return aceitaDogGrande;
-    }
-
-    public Boolean getAceitaDogaCio() {
-        return aceitaDogaCio;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
 }

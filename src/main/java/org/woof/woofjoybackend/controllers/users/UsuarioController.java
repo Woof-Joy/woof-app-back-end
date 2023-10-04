@@ -78,7 +78,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> attUsuario(@Valid @RequestBody Usuario usuario, @PathVariable Integer id) {
-        if (service.idValido(id)) {
+        if (service.idExiste(id)) {
             if (!service.emailExiste(usuario.getEmail())) {
                 return ResponseEntity.status(200).body(service.attUsuario(usuario, id));
             }
