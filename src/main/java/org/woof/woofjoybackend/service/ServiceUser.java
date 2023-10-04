@@ -36,6 +36,7 @@ public class ServiceUser {
         usuarioRepository.save(usuario);
         if (tipo == 0) {
             clienteRepository.save(new Cliente(usuario));
+            return;
         }
         parceiroRepository.save(new Parceiro(usuario));
     }
