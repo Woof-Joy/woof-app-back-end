@@ -22,16 +22,7 @@ public class ParceiroController {
         this.serviceUser = serviceUser;
     }
 
-    @PostMapping("/{idUsuario}")
-    public ResponseEntity<Parceiro> registrarParceiro(@PathVariable Integer idUsuario) {
-        if (serviceUser.idExiste(idUsuario)) {
-            if (!serviceParceiro.idExiste(idUsuario)) {
-                return ResponseEntity.status(200).body(serviceParceiro.registrarParceiro(idUsuario));
-            }
-            return ResponseEntity.status(409).build();
-        }
-        return ResponseEntity.status(404).build();
-    }
+
 
     @GetMapping()
     public ResponseEntity<List<Parceiro>> listagemParceiros() {

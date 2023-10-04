@@ -60,6 +60,14 @@ public class ServiceUser {
         return false;
     }
 
+    public boolean deleteUsuario(Integer id) {
+        if (existsById(id)) {
+            usuarioRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
     public List<Usuario> listaUsuarios() {
         return usuarioRepository.findAll();
     }
@@ -69,11 +77,7 @@ public class ServiceUser {
     }
 
 
-    public void deleteUsuario(Integer id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    public boolean idExiste(Integer id) {
+    public boolean existsById(Integer id) {
         return usuarioRepository.existsById(id);
     }
 

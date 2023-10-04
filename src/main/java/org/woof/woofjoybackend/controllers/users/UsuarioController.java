@@ -54,6 +54,14 @@ public class UsuarioController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarUsuario( @PathVariable Integer id) {
+        if (service.deleteUsuario(id)) {
+          return ResponseEntity.status(204).build();
+        }
+        return ResponseEntity.status(404).build();
+    }
+
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsers() {
         List<Usuario> listaUsuarios = service.listaUsuarios();
@@ -70,14 +78,7 @@ public class UsuarioController {
     }
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarUsuario(@PathVariable Integer id) {
-        if (service.idExiste(id)) {
-            service.deleteUsuario(id);
-            return ResponseEntity.status(200).build();
-        }
-        return ResponseEntity.status(404).build();
-    }
+
 
     @PostMapping("/itens/{idUsuario}")
     public ResponseEntity<Item> cadastrarItem(@Valid @RequestBody Item item, @PathVariable Integer idUsuario) {
