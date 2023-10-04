@@ -31,7 +31,7 @@ public class ServiceUser {
         this.itemRepository = itemRepository;
     }
 
-    public void cadastrarUsuario(Usuario usuario, int tipo) {
+    public void postUsuario(Usuario usuario, int tipo) {
         if (usuarioExiste(usuario.getEmail())) {
             usuarioRepository.save(usuario);
         }
@@ -50,6 +50,16 @@ public class ServiceUser {
         parceiroRepository.save(parceiro);
     }
 
+    public boolean putUsuario(Usuario usuario, int id) {
+        Optional<Usuario> usuarioOriginal = usuarioRepository.findById(id);
+        if (usuarioOriginal.isPresent()) {
+            usuario.setId(id);
+            usuarioRepository.save(usuario);
+            return true;
+        }
+        return false;
+    }
+
     public List<Usuario> listaUsuarios() {
         return usuarioRepository.findAll();
     }
@@ -58,10 +68,6 @@ public class ServiceUser {
         return usuarioRepository.findById(id).get();
     }
 
-    public Usuario attUsuario(Usuario usuarioAtt, Integer id) {
-        usuarioAtt.setId(id);
-        return usuarioRepository.save(usuarioAtt);
-    }
 
     public void deleteUsuario(Integer id) {
         usuarioRepository.deleteById(id);
@@ -91,7 +97,7 @@ public class ServiceUser {
         return false;
     }
 
-    private boolean usuarioExiste(String email) {
+    public boolean usuarioExiste(String email) {
         List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         if (usuarioEncontrado.size() <= 0 || usuarioEncontrado.isEmpty()) {
             return true;

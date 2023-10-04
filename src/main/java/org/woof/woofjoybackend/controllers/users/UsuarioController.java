@@ -31,27 +31,28 @@ public class UsuarioController {
     //CRUD - USUARIO
 
     @PostMapping("/{tipo}")
-    public ResponseEntity<Usuario> cadastrarUsuario(
-          @Valid @RequestBody Usuario usuario,
+    public ResponseEntity<Usuario> postUsuario(
+            @Valid @RequestBody Usuario usuario,
             @PathVariable int tipo) {
         if (service.usuarioPodeSerCadastrado(usuario, tipo)) {
-            service.cadastrarUsuario(usuario, tipo);
+            service.postUsuario(usuario, tipo);
             return ResponseEntity.status(201).body(usuario);
         }
         return ResponseEntity.status(409).build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> putUsuario(
+            @Valid @RequestBody Usuario usuario,
+             @PathVariable int id) {
 
-//    @GetMapping()
-//    public ResponseEntity<List<Cliente>> listaClientes() {
-//        List<Cliente> lista = serviceCliente.listaClientes();
-//
-//        if (!lista.isEmpty()) {
-//            return ResponseEntity.status(200).body(lista);
-//        }
-//        return ResponseEntity.status(204).build();
-//    }
+        if (service.putUsuario(usuario, id)) {
+            return ResponseEntity.status(201).body(usuario);
+        }
 
+        return ResponseEntity.status(404).build();
+
+    }
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getUsers() {
@@ -68,16 +69,6 @@ public class UsuarioController {
         return ResponseEntity.ok(service.listaUsuarioPorId(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> attUsuario(@Valid @RequestBody Usuario usuario, @PathVariable Integer id) {
-        if (service.idExiste(id)) {
-            if (!service.usuarioPodeSerCadastrado(usuario, 0)) {
-                return ResponseEntity.status(200).body(service.attUsuario(usuario, id));
-            }
-            return ResponseEntity.status(400).build();
-        }
-        return ResponseEntity.status(404).build();
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario(@PathVariable Integer id) {
