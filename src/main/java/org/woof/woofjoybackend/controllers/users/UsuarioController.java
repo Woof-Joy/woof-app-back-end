@@ -9,8 +9,6 @@ import org.woof.woofjoybackend.service.ServiceCliente;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
 import org.woof.woofjoybackend.entity.object.Item;
-import org.woof.woofjoybackend.repository.ItemRepository;
-import org.woof.woofjoybackend.service.ServiceUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,22 +30,16 @@ public class UsuarioController {
 
     //CRUD - USUARIO
 
-    @PostMapping("/{tipo}" )
+    @PostMapping("/{tipo}")
     public ResponseEntity<Usuario> cadastrarUsuario(
-             @RequestBody Usuario usuario,
+          @Valid @RequestBody Usuario usuario,
             @PathVariable int tipo) {
-        if (service.emailExiste(usuario.getEmail())) {
-            if (service.cadastrado(usuario, tipo)){
-                return ResponseEntity.status(409).build();
-            }
+        if (service.usuarioPodeSerCadastrado(usuario, tipo)) {
             service.cadastrarUsuario(usuario, tipo);
+            return ResponseEntity.status(201).body(usuario);
         }
-
-
-        return ResponseEntity.status(201).body(usuario);
+        return ResponseEntity.status(409).build();
     }
-
-
 
 
 //    @GetMapping()
@@ -79,7 +71,7 @@ public class UsuarioController {
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> attUsuario(@Valid @RequestBody Usuario usuario, @PathVariable Integer id) {
         if (service.idExiste(id)) {
-            if (!service.emailExiste(usuario.getEmail())) {
+            if (!service.usuarioPodeSerCadastrado(usuario, 0)) {
                 return ResponseEntity.status(200).body(service.attUsuario(usuario, id));
             }
             return ResponseEntity.status(400).build();

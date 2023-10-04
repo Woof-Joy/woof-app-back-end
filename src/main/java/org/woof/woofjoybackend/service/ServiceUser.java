@@ -19,7 +19,6 @@ import static java.util.Objects.isNull;
 @Service
 public class ServiceUser {
     private UsuarioRepository usuarioRepository;
-
     private ClienteRepository clienteRepository;
     private ParceiroRepository parceiroRepository;
     private ItemRepository itemRepository;
@@ -33,12 +32,22 @@ public class ServiceUser {
     }
 
     public void cadastrarUsuario(Usuario usuario, int tipo) {
-        usuarioRepository.save(usuario);
+        if (usuarioExiste(usuario.getEmail())) {
+            usuarioRepository.save(usuario);
+        }
+        String email = usuario.getEmail();
+        List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        Usuario usuarioFk = usuarioEncontrado.get(0);
+
         if (tipo == 0) {
-            clienteRepository.save(new Cliente(usuario));
+            Cliente cliente = new Cliente(usuarioFk);
+            usuario.setCliente(cliente);
+            clienteRepository.save(cliente);
             return;
         }
-        parceiroRepository.save(new Parceiro(usuario));
+        Parceiro parceiro = new Parceiro(usuarioFk);
+        usuario.setParceiro(parceiro);
+        parceiroRepository.save(parceiro);
     }
 
     public List<Usuario> listaUsuarios() {
@@ -62,10 +71,29 @@ public class ServiceUser {
         return usuarioRepository.existsById(id);
     }
 
-    public boolean emailExiste(String email) {
-        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+    public boolean usuarioPodeSerCadastrado(Usuario usuario, int tipo) {
+        String email = usuario.getEmail();
+        List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
+        if (usuarioEncontrado.size() > 0) {
+            Cliente cliente = usuarioEncontrado.get(0).getCliente();
+            Parceiro parceiro = usuarioEncontrado.get(0).getParceiro();
+            if (tipo == 0 && isNull(cliente)) {
+                return true;
+            }
+            if (tipo == 1 && isNull(parceiro)) {
+                return true;
+            }
+        }
+        if (usuarioEncontrado.size() <= 0 || usuarioEncontrado.isEmpty()) {
+            return true;
+        }
+        return false;
+    }
 
-        if (!usuarioEncontrado.isPresent() || usuarioEncontrado.isPresent() && usuarioEncontrado.get().getEmail().equals(email)) {
+    private boolean usuarioExiste(String email) {
+        List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        if (usuarioEncontrado.size() <= 0 || usuarioEncontrado.isEmpty()) {
             return true;
         }
         return false;
