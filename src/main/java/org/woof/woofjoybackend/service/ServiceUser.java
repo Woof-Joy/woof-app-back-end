@@ -32,7 +32,7 @@ public class ServiceUser {
     }
 
     public void postUsuario(Usuario usuario, int tipo) {
-        if (usuarioExiste(usuario.getEmail())) {
+        if (!usuarioExiste(usuario.getEmail())) {
             usuarioRepository.save(usuario);
         }
         String email = usuario.getEmail();
@@ -104,9 +104,9 @@ public class ServiceUser {
     public boolean usuarioExiste(String email) {
         List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         if (usuarioEncontrado.size() <= 0 || usuarioEncontrado.isEmpty()) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public boolean cadastrado(Usuario usuario, int tipo) {
