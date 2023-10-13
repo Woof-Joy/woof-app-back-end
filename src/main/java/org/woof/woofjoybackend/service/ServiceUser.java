@@ -22,14 +22,12 @@ public class ServiceUser {
 
     private ClienteRepository clienteRepository;
     private ParceiroRepository parceiroRepository;
-    private ItemRepository itemRepository;
 
     @Autowired
-    public ServiceUser(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, ParceiroRepository parceiroRepository, ItemRepository itemRepository) {
+    public ServiceUser(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, ParceiroRepository parceiroRepository) {
         this.usuarioRepository = usuarioRepository;
         this.clienteRepository = clienteRepository;
         this.parceiroRepository = parceiroRepository;
-        this.itemRepository = itemRepository;
     }
 
     public void cadastrarUsuario(Usuario usuario, int tipo) {
@@ -76,25 +74,6 @@ public class ServiceUser {
             return false;
         }
         return true;
-    }
-
-    public Item cadastrarItem(Item it, Integer idUsuario) {
-        Usuario usuario = listaUsuarioPorId(idUsuario);
-        it.setDono(usuario);
-        return itemRepository.save(it);
-    }
-
-    public Item listaItemPorId(Integer id) {
-        return itemRepository.findById(id).get();
-    }
-
-    public Item attItem(Item it, Integer idItem) {
-        it.setId(idItem);
-        return itemRepository.save(it);
-    }
-
-    public void deleteItem(Integer idItem) {
-        itemRepository.deleteById(idItem);
     }
 
 //    public ResponseEntity<String> loginUsuario(String email, String senha) {
