@@ -1,10 +1,7 @@
 package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,7 +46,7 @@ public class Usuario implements iVerificaveis {
     @NotBlank
     private String senha;
 
-    @PastOrPresent
+    @Past
     private LocalDate dataNasc;
 
     @Size(max = 500)
