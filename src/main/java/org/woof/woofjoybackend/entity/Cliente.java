@@ -3,7 +3,9 @@ package org.woof.woofjoybackend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-
+import org.woof.woofjoybackend.entity.object.Dog;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Setter
@@ -22,7 +24,12 @@ public class Cliente {
         this.usuario = usuario;
     }
 
+
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dog> dogList;
+
     public Cliente() {
+        this.dogList = new ArrayList<>();
     }
 
     public Integer getIdCliente() {
