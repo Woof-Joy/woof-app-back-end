@@ -119,34 +119,6 @@ public class ClienteController {
 //    }
 //
 //
-    @GetMapping("/dogs")
-    public ResponseEntity<List<Dog>> getPets() {
-        List<Dog> dogsCadastrados = serviceDog.listarDogs();
-        return dogsCadastrados == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogsCadastrados);
-    }
 
-    @GetMapping("/dogs/{id}")
-    public ResponseEntity<Dog> getOnePet(@PathVariable int id) {
-        Dog dogCadastrado = serviceDog.listarDog(id);
-        return dogCadastrado == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogCadastrado);
-    }
-
-    @PostMapping("/dogs")
-    public ResponseEntity<Dog> postPet(@Valid @RequestBody Dog dog) {
-        Dog dogCriado = serviceDog.criarDog(dog);
-        return ResponseEntity.ok().body(dogCriado);
-    }
-
-    @PutMapping("/dogs/{id}")
-    public ResponseEntity<Dog> putPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
-        Dog dogAtualizado = serviceDog.atulizarDog(dog, id);
-        return dogAtualizado == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(dogAtualizado);
-    }
-
-    @DeleteMapping("/dogs/{id}")
-    public ResponseEntity<Void> postPet(@PathVariable int id) {
-        Boolean dogDeletado = serviceDog.deletarDog(id);
-        return dogDeletado?ResponseEntity.ok().build() : ResponseEntity.notFound().build();
-    }
 
 }
