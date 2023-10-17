@@ -6,5 +6,5 @@ import jakarta.persistence.Id;
 @Entity
 public class TipoServico {
     @Id
-    private int id;
+    private Integer id;
 }
