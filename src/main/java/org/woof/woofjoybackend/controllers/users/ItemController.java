@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.woof.woofjoybackend.controllers.users.UsuarioController;
 import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.entity.object.Item;
 import org.woof.woofjoybackend.service.ServiceItem;
@@ -24,7 +23,7 @@ public class ItemController {
 
     @PostMapping("/{idUsuario}")
     public ResponseEntity<Item> cadastrarItem(@Valid @RequestBody Item item, @PathVariable Integer idUsuario) {
-        if (serviceUser.idExiste(idUsuario)) {
+        if (serviceUser.existsById(idUsuario)) {
             service.cadastrarItem(item, idUsuario);
             return ResponseEntity.status(201).body(item);
         }
@@ -68,20 +67,10 @@ public class ItemController {
         return ResponseEntity.status(204).build();
     }
 
-//    @GetMapping("/itens")
-//    public ResponseEntity<List<Item>> listaItensByCategoria() {
-//        List<Usuario> listaUsuarios = service.listaUsuarios();
-//        List<Item> listaItens = new ArrayList<>();
-//
-//        if (!listaItens.isEmpty()) {
-//            return ResponseEntity.status(200).body(listaItens);
-//        }
-//        return ResponseEntity.status(204).build();
-//    }
 
     @PutMapping("/{idUsuario}/{idItem}")
     public ResponseEntity<Item> attItem(@Valid @RequestBody Item it, @PathVariable Integer idUsuario, @PathVariable Integer idItem) {
-        if (serviceUser.idExiste(idUsuario) && service.listaItemPorId(idItem).isPresent()) {
+        if (serviceUser.existsById(idUsuario) && service.listaItemPorId(idItem).isPresent()) {
             return ResponseEntity.status(200).body(service.attItem(it, idItem));
         }
         return ResponseEntity.status(404).build();
@@ -90,7 +79,7 @@ public class ItemController {
     @DeleteMapping("/{idUsuario}/{idItem}")
     public ResponseEntity<Void> deleteItem(@PathVariable Integer idUsuario, @PathVariable Integer idItem) {
         Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
-        if (service.listaItemPorId(idItem) != null) {
+        if (service.listaItemPorId(idItem).isPresent()) {
             service.deleteItem(idItem);
             return ResponseEntity.status(200).build();
         }

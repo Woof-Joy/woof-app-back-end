@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.object.Dog;
 import org.woof.woofjoybackend.service.ServiceCliente;
-import org.woof.woofjoybackend.service.ServiceDog;
 import org.woof.woofjoybackend.service.ServiceUser;
 
 import java.util.List;
@@ -18,13 +16,11 @@ public class ClienteController {
 
     private ServiceCliente serviceCliente;
     private ServiceUser serviceUser;
-    private ServiceDog serviceDog;
 
     @Autowired
-    public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser, ServiceDog serviceDog) {
+    public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser) {
         this.serviceCliente = serviceCliente;
         this.serviceUser = serviceUser;
-        this.serviceDog = serviceDog;
     }
 
     @GetMapping()
