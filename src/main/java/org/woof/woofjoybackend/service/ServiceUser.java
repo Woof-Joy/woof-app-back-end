@@ -1,10 +1,16 @@
 package org.woof.woofjoybackend.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.entity.Usuario;
+import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
+import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.entity.object.Item;
@@ -19,14 +25,17 @@ import static java.util.Objects.isNull;
 @Service
 public class ServiceUser {
     private UsuarioRepository usuarioRepository;
+
     private ClienteRepository clienteRepository;
     private ParceiroRepository parceiroRepository;
+    private ItemRepository itemRepository;
 
     @Autowired
-    public ServiceUser(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, ParceiroRepository parceiroRepository) {
+    public ServiceUser(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, ParceiroRepository parceiroRepository, ItemRepository itemRepository) {
         this.usuarioRepository = usuarioRepository;
         this.clienteRepository = clienteRepository;
         this.parceiroRepository = parceiroRepository;
+        this.itemRepository = itemRepository;
     }
 
     public void postUsuario(Usuario usuario, int tipo) {
@@ -75,6 +84,7 @@ public class ServiceUser {
     }
 
 
+
     public boolean existsById(Integer id) {
         return usuarioRepository.existsById(id);
     }
@@ -114,28 +124,27 @@ public class ServiceUser {
         return true;
     }
 
-//    public ResponseEntity<String> loginUsuario(String email, String senha) {
-//        if (!verificarEmailSenha(email, senha)) {
-//            return ResponseEntity.status(400).build();
-//        }
-//        for (int i = 0; i < usuarioList.size(); i++) {
-//            String emailCadastrado = usuarioList.get(i).getEmail();
-//            String senhaCadastrado = usuarioList.get(i).getSenha();
-//            if (email.equals(emailCadastrado)) {
-//                if (senha.equals(senhaCadastrado)) {
-//                    setIndexUsuarioLogado(i);
-//                    return ResponseEntity.status(200).body("Login Realizado com sucesso\nBem vindo!");
-//                }
-//            }
-//        }
-//        return ResponseEntity.status(401).build();
-//    }
 
-//    public int getIndexUsuarioLogado() {
-//        return indexUsuarioLogado;
-//    }
-//
-//    public void setIndexUsuarioLogado(int indexUsuarioLogado) {
-//        this.indexUsuarioLogado = indexUsuarioLogado;
-//    }
+
+
+    public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
+
+        final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
+                usuarioLoginDto.getEmail(), usuarioLoginDto.getSenha());
+
+        final Authentication authentication = this.authenticationManager.authenticate(credentials);
+
+        Usuario usuarioAutenticado =
+                usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
+                        .orElseThrow(
+                                () -> new ResponseStatusException(404, "Email do usuário não cadastrado", null)
+                        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        final String token = gerenciadorTokenJwt.generateToken(authentication);
+
+        return UsuarioMapper.of(usuarioAutenticado, token);
+    }
+
 }
