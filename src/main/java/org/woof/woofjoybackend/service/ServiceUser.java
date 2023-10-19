@@ -33,6 +33,8 @@ public class ServiceUser {
 
 
     public void postUsuario(Usuario usuario, int tipo) {
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
         if (!usuarioExiste(usuario.getEmail())) {
             usuarioRepository.save(usuario);
         }
