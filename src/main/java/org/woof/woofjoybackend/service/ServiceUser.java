@@ -1,7 +1,6 @@
 package org.woof.woofjoybackend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,9 +12,9 @@ import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
 import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
-import org.woof.woofjoybackend.entity.object.Item;
-import org.woof.woofjoybackend.repository.ItemRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
+import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
+import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,20 +22,15 @@ import java.util.Optional;
 import static java.util.Objects.isNull;
 
 @Service
+@RequiredArgsConstructor
 public class ServiceUser {
-    private UsuarioRepository usuarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final ClienteRepository clienteRepository;
+    private final ParceiroRepository parceiroRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final GerenciadorTokenJwt gerenciadorTokenJwt;
+    private final AuthenticationManager authenticationManager;
 
-    private ClienteRepository clienteRepository;
-    private ParceiroRepository parceiroRepository;
-    private ItemRepository itemRepository;
-
-    @Autowired
-    public ServiceUser(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository, ParceiroRepository parceiroRepository, ItemRepository itemRepository) {
-        this.usuarioRepository = usuarioRepository;
-        this.clienteRepository = clienteRepository;
-        this.parceiroRepository = parceiroRepository;
-        this.itemRepository = itemRepository;
-    }
 
     public void postUsuario(Usuario usuario, int tipo) {
         if (!usuarioExiste(usuario.getEmail())) {
@@ -84,7 +78,6 @@ public class ServiceUser {
     }
 
 
-
     public boolean existsById(Integer id) {
         return usuarioRepository.existsById(id);
     }
@@ -123,8 +116,6 @@ public class ServiceUser {
         }
         return true;
     }
-
-
 
 
     public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
