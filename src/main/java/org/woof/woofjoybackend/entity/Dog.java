@@ -1,10 +1,8 @@
-package org.woof.woofjoybackend.entity.object;
+package org.woof.woofjoybackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import org.woof.woofjoybackend.entity.Cliente;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import jdk.jfr.BooleanFlag;
 
 import java.time.LocalDate;
 
@@ -14,32 +12,51 @@ import java.time.LocalDate;
 public class Dog {
     @Id
     private Integer id;
-
+    @NotBlank
+    @Size(max = 50)
     private String nome;
-
+    @PastOrPresent
     private LocalDate dtNasc;
-
+    @Size(max = 200)
     private String imgCachorro;
 
+    @Null
+    @Size(min = 13, max = 14)
     private Boolean rga;
 
+    @NotBlank
+    @Size(max = 50)
     private Double peso;
 
+    @NotBlank
+    @Size(max = 70)
+    private String raca;
+
+    @NotNull
+    @Pattern(regexp = "^(pequeno|médio|grande)$", message = "O tamanho deve ser 'pequeno', 'médio' ou 'grande'")
     private String porte;
 
+    @BooleanFlag
     private Boolean convenio;
 
+    @Size(max = 50)
     private String carteirinha;
 
+    @Pattern(regexp = "^[MF]$", message = "O gênero deve ser 'M' ou 'F'")
     private char genero;
 
-    private String agrecividade;
+    @BooleanFlag
+    private Boolean agressivo;
 
-    private String deficiencia;
+    @BooleanFlag
+    private Boolean deficiencia;
 
     @ManyToOne
+    @JoinColumn(name = "fkDono")
     private Cliente dono;
 
+    @OneToMany(mappedBy = "cachorro" )
+    private Dog cachorro;
 
     public Dog() {
     }
@@ -125,19 +142,19 @@ public class Dog {
         this.genero = genero;
     }
 
-    public String getAgrecividade() {
-        return agrecividade;
+    public Boolean getAgressivo() {
+        return agressivo;
     }
 
-    public void setAgrecividade(String agrecividade) {
-        this.agrecividade = agrecividade;
+    public void setAgressivo(Boolean agressivo) {
+        this.agressivo = agressivo;
     }
 
-    public String getDeficiencia() {
+    public Boolean getDeficiencia() {
         return deficiencia;
     }
 
-    public void setDeficiencia(String deficiencia) {
+    public void setDeficiencia(Boolean deficiencia) {
         this.deficiencia = deficiencia;
     }
 
@@ -147,5 +164,21 @@ public class Dog {
 
     public void setDono(Cliente dono) {
         this.dono = dono;
+    }
+
+    public String getRaca() {
+        return raca;
+    }
+
+    public void setRaca(String raca) {
+        this.raca = raca;
+    }
+
+    public Dog getCachorro() {
+        return cachorro;
+    }
+
+    public void setCachorro(Dog cachorro) {
+        this.cachorro = cachorro;
     }
 }

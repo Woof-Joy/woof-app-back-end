@@ -2,11 +2,10 @@ package org.woof.woofjoybackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.entity.object.Dog;
+import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.repository.DogRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 
@@ -27,7 +26,7 @@ public class ServiceDog {
     }
 
 
-    //Listar
+    //Listar todos os dogs
     public List<Dog> listarDogs(){
         List<Dog> dogsCadastrados = dogRepository.findAll();
         if (dogRepository.count() > 0){
@@ -37,25 +36,17 @@ public class ServiceDog {
     }
 
 
-    public Dog listarDog(int id) {
-        Optional<Dog> dogCadastrado = dogRepository.findById(id);
-        System.out.println(dogCadastrado.get());
-        return dogCadastrado.get();
+    //Listar dog especifico
+    public Dog listarDog(int id){
+        Dog dogCadastrado = dogRepository.findById(id).get();
+        return dogCadastrado;
     }
-//    public Dog listarDog(int id){
-//        Optional<Dog> dogCadastrado = dogRepository.findById(id);
-//        if (dogCadastrado.isEmpty()){
-//            return dogCadastrado.get();
-//        }
-//        return null;
-//
-//    }
 
     //Atulizar
     public Dog atulizarDog(Dog dog, int id){
-        System.out.println("Tentando cadastrar....");
+        System.out.println("Tentando atulizar....");
         dog.setId(id);
-        if (dogRepository.existsById(dog.getId())) {
+        if (dogRepository.existsById(id)) {
             Dog dogAtualizado = dogRepository.save(dog);
             System.out.println("Cachorro atulizado!");
             return dogAtualizado;

@@ -3,7 +3,7 @@ package org.woof.woofjoybackend.controllers.users;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.woof.woofjoybackend.entity.object.Dog;
+import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.service.ServiceDog;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class DogController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dog> getOnePet(@PathVariable int id) {
+    public ResponseEntity<Dog> getOnePet(@PathVariable Integer id) {
         Dog dogCadastrado = serviceDog.listarDog(id);
         return dogCadastrado == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogCadastrado);
     }

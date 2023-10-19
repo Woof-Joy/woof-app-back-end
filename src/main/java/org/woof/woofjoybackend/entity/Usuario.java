@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.object.Item;
 
 
 import java.time.LocalDate;
@@ -68,63 +67,4 @@ public class Usuario implements iVerificaveis {
         this.listaItens = new ArrayList<>();
     }
 
-//
-//    public ResponseEntity<Void> deleteItem(int id) {
-//        int IndexForId = transformaIdEmIndexItem(id, itemList);
-//        if (verificaIndex(IndexForId)) {
-//            return ResponseEntity.status(404).build();
-//        }
-//        itemList.remove(IndexForId);
-//        return ResponseEntity.status(204).build();
-//
-//    }
-
-
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public String getNome() {
-//        return nome;
-//    }
-//
-//    public String getSobrenome() {
-//        return sobrenome;
-//    }
-//
-//    public String getCpf() {
-//        return cpf;
-//    }
-//
-//    public String getCep() {
-//        return cep;
-//    }
-//
-//    public String getNumero() {
-//        return numero;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public String getSenha() {
-//        return senha;
-//    }
-//
-//    public LocalDate getDataNasc() {
-//        return dataNasc;
-//    }
-//
-//    public String getDescricao() {
-//        return descricao;
-//    }
-//
-//    public Parceiro getParceiro() {
-//        return parceiro;
-//    }
-//
-//    public Cliente getCliente() {
-//        return cliente;
-//    }
 }

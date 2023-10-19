@@ -1,21 +1,31 @@
 package org.woof.woofjoybackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import org.woof.woofjoybackend.entity.object.Dog;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.NoArgsConstructor;
 
 @Entity
-public class Obsevacao {
+@NoArgsConstructor
+public class Observacao {
 
     @Id
     private Integer id;
+    @NotBlank
+    @Size(max = 50)
     private String nome;
 
+    @NotBlank
+    @NotNull
+    @Size(max = 50)
     private String tipo;
-
+    @JoinColumn(name = "fkCachorro")
+    @ManyToOne
     private Dog cachorro;
 
-    private Cliente dono;
+
+
 
     public Integer getId() {
         return id;
@@ -49,11 +59,4 @@ public class Obsevacao {
         this.cachorro = cachorro;
     }
 
-    public Cliente getDono() {
-        return dono;
-    }
-
-    public void setDono(Cliente dono) {
-        this.dono = dono;
-    }
 }

@@ -7,7 +7,7 @@ import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
-import org.woof.woofjoybackend.entity.object.Item;
+import org.woof.woofjoybackend.entity.Item;
 import org.woof.woofjoybackend.repository.ItemRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
