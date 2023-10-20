@@ -1,7 +1,6 @@
 package org.woof.woofjoybackend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -9,12 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
 import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
-import org.woof.woofjoybackend.entity.object.Item;
-import org.woof.woofjoybackend.repository.ItemRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
@@ -28,23 +26,52 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class ServiceUser {
     private final UsuarioRepository usuarioRepository;
-    private final PasswordEncoder passwordEncoder;
     private final ClienteRepository clienteRepository;
     private final ParceiroRepository parceiroRepository;
-    private final ItemRepository itemRepository;
+    private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
     private final AuthenticationManager authenticationManager;
 
-    public void cadastrarUsuario(Usuario usuario, int tipo) {
+
+
+    public void postUsuario(Usuario usuario, int tipo) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
 
-        usuarioRepository.save(usuario);
+        if (!usuarioExiste(usuario.getEmail())) {
+            usuarioRepository.save(usuario);
+        }
+        String email = usuario.getEmail();
+        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        Usuario usuarioFk = usuarioEncontrado.get();
+
         if (tipo == 0) {
-            clienteRepository.save(new Cliente(usuario));
+            Cliente cliente = new Cliente(usuarioFk);
+            usuario.setCliente(cliente);
+            clienteRepository.save(cliente);
             return;
         }
-        parceiroRepository.save(new Parceiro(usuario));
+        Parceiro parceiro = new Parceiro(usuarioFk);
+        usuario.setParceiro(parceiro);
+        parceiroRepository.save(parceiro);
+    }
+
+    public boolean putUsuario(Usuario usuario, int id) {
+        Optional<Usuario> usuarioOriginal = usuarioRepository.findById(id);
+        if (usuarioOriginal.isPresent()) {
+            usuario.setId(id);
+            usuarioRepository.save(usuario);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteUsuario(Integer id) {
+        if (existsById(id)) {
+            usuarioRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     public List<Usuario> listaUsuarios() {
@@ -55,26 +82,37 @@ public class ServiceUser {
         return usuarioRepository.findById(id).get();
     }
 
-    public Usuario attUsuario(Usuario usuarioAtt, Integer id) {
-        usuarioAtt.setId(id);
-        return usuarioRepository.save(usuarioAtt);
-    }
 
-    public void deleteUsuario(Integer id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    public boolean idExiste(Integer id) {
+    public boolean existsById(Integer id) {
         return usuarioRepository.existsById(id);
     }
 
-    public boolean emailExiste(String email) {
+    public boolean usuarioPodeSerCadastrado(Usuario usuario, int tipo) {
+        String email = usuario.getEmail();
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
-
-        if (!usuarioEncontrado.isPresent() || usuarioEncontrado.isPresent() && usuarioEncontrado.get().getEmail().equals(email)) {
+        //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
+        if (usuarioEncontrado.isPresent()) {
+            Cliente cliente = usuarioEncontrado.get().getCliente();
+            Parceiro parceiro = usuarioEncontrado.get().getParceiro();
+            if (tipo == 0 && isNull(cliente)) {
+                return true;
+            }
+            if (tipo == 1 && isNull(parceiro)) {
+                return true;
+            }
+        }
+        if (usuarioEncontrado.isEmpty()) {
             return true;
         }
         return false;
+    }
+
+    public boolean usuarioExiste(String email) {
+        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        if (usuarioEncontrado.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     public boolean cadastrado(Usuario usuario, int tipo) {
@@ -84,24 +122,6 @@ public class ServiceUser {
         return true;
     }
 
-    public Item cadastrarItem(Item it, Integer idUsuario) {
-        Usuario usuario = listaUsuarioPorId(idUsuario);
-        it.setDono(usuario);
-        return itemRepository.save(it);
-    }
-
-    public Item listaItemPorId(Integer id) {
-        return itemRepository.findById(id).get();
-    }
-
-    public Item attItem(Item it, Integer idItem) {
-        it.setId(idItem);
-        return itemRepository.save(it);
-    }
-
-    public void deleteItem(Integer idItem) {
-        itemRepository.deleteById(idItem);
-    }
 
     public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
 
@@ -123,33 +143,4 @@ public class ServiceUser {
         return UsuarioMapper.of(usuarioAutenticado, token);
     }
 
-//    public void criar(UsuarioCriacaoDto usuarioCriacaoDto){
-//        final Usuario novoUsuario = UsuarioMapper.of(usuarioCriacaoDto);
-//        this.usuarioRepository.save(novoUsuario);
-//    }
-
-//    public ResponseEntity<String> loginUsuario(String email, String senha) {
-//        if (!verificarEmailSenha(email, senha)) {
-//            return ResponseEntity.status(400).build();
-//        }
-//        for (int i = 0; i < usuarioList.size(); i++) {
-//            String emailCadastrado = usuarioList.get(i).getEmail();
-//            String senhaCadastrado = usuarioList.get(i).getSenha();
-//            if (email.equals(emailCadastrado)) {
-//                if (senha.equals(senhaCadastrado)) {
-//                    setIndexUsuarioLogado(i);
-//                    return ResponseEntity.status(200).body("Login Realizado com sucesso\nBem vindo!");
-//                }
-//            }
-//        }
-//        return ResponseEntity.status(401).build();
-//    }
-
-//    public int getIndexUsuarioLogado() {
-//        return indexUsuarioLogado;
-//    }
-//
-//    public void setIndexUsuarioLogado(int indexUsuarioLogado) {
-//        this.indexUsuarioLogado = indexUsuarioLogado;
-//    }
 }

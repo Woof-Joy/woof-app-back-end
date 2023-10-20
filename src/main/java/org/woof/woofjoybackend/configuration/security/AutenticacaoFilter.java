@@ -47,6 +47,12 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
                 LOGGER.trace("[FALHA AUTENTICACAO] - stack trace: %s", exception);
 
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            } catch (Exception erro) {
+                LOGGER.info("[FALHA AUTENTICACAO] - Token não autorizado");
+
+                LOGGER.trace("[FALHA AUTENTICACAO] - stack trace: %s", erro);
+
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             }
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
