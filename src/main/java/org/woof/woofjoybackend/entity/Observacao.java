@@ -20,7 +20,7 @@ public class Observacao {
     @NotNull
     @Size(max = 50)
     private String tipo;
-    @JoinColumn(name = "fkCachorro")
+    @JoinColumn(name = "cachorro")
     @ManyToOne
     private Dog cachorro;
 

@@ -20,31 +20,31 @@ public class DogController {
 
 
     @GetMapping()
-    public ResponseEntity<List<Dog>> getPets() {
+    public ResponseEntity<List<Dog>> listarPet() {
         List<Dog> dogsCadastrados = serviceDog.listarDogs();
         return dogsCadastrados == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogsCadastrados);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dog> getOnePet(@PathVariable Integer id) {
+    public ResponseEntity<Dog> listarUmPet(@PathVariable Integer id) {
         Dog dogCadastrado = serviceDog.listarDog(id);
         return dogCadastrado == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogCadastrado);
     }
 
     @PostMapping()
-    public ResponseEntity<Dog> postPet(@Valid @RequestBody Dog dog) {
+    public ResponseEntity<Dog> cadastrarPet(@Valid @RequestBody Dog dog) {
         Dog dogCriado = serviceDog.criarDog(dog);
         return ResponseEntity.ok().body(dogCriado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dog> putPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
+    public ResponseEntity<Dog> atulizarPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
         Dog dogAtualizado = serviceDog.atulizarDog(dog, id);
         return dogAtualizado == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(dogAtualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> postPet(@PathVariable int id) {
+    public ResponseEntity<Void> deletePet(@PathVariable int id) {
         Boolean dogDeletado = serviceDog.deletarDog(id);
         return dogDeletado?ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }

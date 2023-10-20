@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -55,8 +56,8 @@ public class Dog {
     @JoinColumn(name = "fkDono")
     private Cliente dono;
 
-    @OneToMany(mappedBy = "cachorro" )
-    private Dog cachorro;
+    @OneToMany(mappedBy = "cachorro", cascade = CascadeType.ALL, orphanRemoval = true )
+    private List<Observacao> observacaoList;
 
     public Dog() {
     }
@@ -174,11 +175,11 @@ public class Dog {
         this.raca = raca;
     }
 
-    public Dog getCachorro() {
-        return cachorro;
+    public List<Observacao> getObservacaoList() {
+        return observacaoList;
     }
 
-    public void setCachorro(Dog cachorro) {
-        this.cachorro = cachorro;
+    public void setObservacaoList(List<Observacao> observacaoList) {
+        this.observacaoList = observacaoList;
     }
 }

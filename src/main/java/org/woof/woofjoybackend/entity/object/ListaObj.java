@@ -14,7 +14,7 @@ public class ListaObj <T>{
         vetor = (T[]) new Object[tamnhoVetor];
         nroElem = 0;
     }
-    
+
     public void adiciona(T n){
         if (Objects.equals(nroElem, vetor.length)){
             throw new IllegalStateException("Sua lista está cheia");
