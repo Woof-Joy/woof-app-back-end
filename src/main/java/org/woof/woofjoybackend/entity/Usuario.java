@@ -1,23 +1,20 @@
 package org.woof.woofjoybackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.object.Item;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @Entity
 public class Usuario implements iVerificaveis {
@@ -48,7 +45,7 @@ public class Usuario implements iVerificaveis {
     @NotBlank
     private String senha;
 
-    @Past
+    @PastOrPresent
     private LocalDate dataNasc;
 
     @Size(max = 500)
@@ -60,31 +57,48 @@ public class Usuario implements iVerificaveis {
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Item> listaItens;
 
-    public Usuario() {
-        this.listaItens = new ArrayList<>();
-    }
-
-    public Optional<Cliente> getCliente(){
-        return this.cliente != null ? Optional.of(this.cliente) : Optional.empty();
-    }
-
-    public Optional<Parceiro> getParceiro(){
-        return this.parceiro != null ? Optional.of(this.parceiro) : Optional.empty();
-    }
-
-    public String getRole(){
-        if (getParceiro().isPresent()) {
-            if (getCliente().isPresent()) {
-                return "A";
-            } else {
-                return "P";
-            }
-        } else {
-            return "C";
-        }
-    }
+//    public ResponseEntity<Item> postItem(Item it) {
+//        it.setId(itemList.size() + 1);
+//        itemList.add(it);
+//        return ResponseEntity.status(200).body(it);
+//    }
+//
+//
+//    public ResponseEntity<List<Item>> AllItensGet() {
+//
+//        if (itemList.isEmpty()) {
+//            return ResponseEntity.status(204).build();
+//        }
+//        return ResponseEntity.status(200).body(itemList);
+//    }
+//
+//    public ResponseEntity<Item> OneItemGet(int id) {
+//        int IndexForId = transformaIdEmIndexItem(id, itemList);
+//        if (verificaIndex(IndexForId)) {
+//            return ResponseEntity.status(404).build();
+//        }
+//        return ResponseEntity.status(200).body(itemList.get(IndexForId));
+//    }
+//
+//    public ResponseEntity<Item> putItem(int id, Item it) {
+//        int IndexForId = transformaIdEmIndexItem(id, itemList);
+//        if (verificaIndex(IndexForId)) {
+//            return ResponseEntity.status(404).build();
+//        }
+//        it.setId(itemList.get(IndexForId).getId());
+//        itemList.set(IndexForId, it);
+//        return ResponseEntity.status(200).body(it);
+//    }
+//
+//    public ResponseEntity<Void> deleteItem(int id) {
+//        int IndexForId = transformaIdEmIndexItem(id, itemList);
+//        if (verificaIndex(IndexForId)) {
+//            return ResponseEntity.status(404).build();
+//        }
+//        itemList.remove(IndexForId);
+//        return ResponseEntity.status(204).build();
+//
+//    }
 
 }
