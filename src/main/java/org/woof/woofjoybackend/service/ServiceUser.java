@@ -33,7 +33,6 @@ public class ServiceUser {
     private final AuthenticationProvider authenticationProvider;
 
 
-
     public void postUsuario(Usuario usuario, int tipo) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
@@ -66,10 +65,32 @@ public class ServiceUser {
         return false;
     }
 
-    public boolean deleteUsuario(Integer id) {
+    public boolean deleteUsuario(Integer id, String role) {
         if (existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return true;
+            Usuario usuario = usuarioRepository.findById(id).get();
+            String cargo = usuario.getRole();
+
+            if (cargo.equalsIgnoreCase(role) || cargo.equalsIgnoreCase("A")) {
+
+                switch (cargo) {
+                    case "P":
+                    case "C":
+                        usuarioRepository.deleteById(id);
+                        break;
+                    case "A":
+                        if (role.equalsIgnoreCase("C")) {
+                            usuario.setCliente(null);
+                        } else if (role.equalsIgnoreCase("P")) {
+                            usuario.setParceiro(null);
+                        } else {
+                            return false;
+                        }
+                        usuarioRepository.save(usuario);
+                        break;
+                }
+
+                return true;
+            }
         }
         return false;
     }
