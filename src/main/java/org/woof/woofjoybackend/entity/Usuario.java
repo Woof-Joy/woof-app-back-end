@@ -54,10 +54,10 @@ public class Usuario implements iVerificaveis {
     @Size(max = 500)
     private String descricao;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Parceiro parceiro;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)

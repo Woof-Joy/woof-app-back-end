@@ -56,8 +56,8 @@ import java.util.List;
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deletarUsuario(@PathVariable Integer id, @RequestParam String role) {
-            if (service.deleteUsuario(id, role)) {
+        public ResponseEntity<Void> deletarUsuario(@PathVariable Integer id) {
+            if (service.deleteUsuario(id)) {
                 return ResponseEntity.status(204).build();
             }
             return ResponseEntity.status(404).build();
