@@ -16,7 +16,6 @@ public class ServiceParceiro implements iVerificaveis {
     private UsuarioRepository usuarioRepository;
     private ParceiroRepository parceiroRepository;
 
-    @Autowired
     public ServiceParceiro(UsuarioRepository usuarioRepository, ParceiroRepository parceiroRepository) {
         this.usuarioRepository = usuarioRepository;
         this.parceiroRepository = parceiroRepository;
@@ -24,7 +23,7 @@ public class ServiceParceiro implements iVerificaveis {
 
     public Parceiro registrarParceiro(Integer id) {
         Usuario usuario = usuarioRepository.findById(id).get();
-        return parceiroRepository.save(new Parceiro());
+        return parceiroRepository.save(new Parceiro(usuario));
     }
 
     public List<Parceiro> listaParceiros() {
