@@ -1,77 +1,23 @@
 package org.woof.woofjoybackend.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
-import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
-import org.woof.woofjoybackend.entity.*;
-import org.woof.woofjoybackend.repository.ClienteRepository;
-import org.woof.woofjoybackend.repository.ParceiroRepository;
+import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
-import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
-import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 
 import java.util.List;
-import java.util.Optional;
-
-import static java.util.Objects.isNull;
 
 @Service
-@RequiredArgsConstructor
 public class ServiceUser {
-    private final UsuarioRepository usuarioRepository;
-    private final ClienteRepository clienteRepository;
-    private final ParceiroRepository parceiroRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final GerenciadorTokenJwt gerenciadorTokenJwt;
-    private final AuthenticationProvider authenticationProvider;
+    private UsuarioRepository usuarioRepository;
 
-
-
-    public void postUsuario(Usuario usuario, int tipo) {
-        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCriptografada);
-
-        if (!usuarioExiste(usuario.getEmail())) {
-            usuarioRepository.save(usuario);
-        }
-        String email = usuario.getEmail();
-        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
-        Usuario usuarioFk = usuarioEncontrado.get();
-
-        if (tipo == 0) {
-            Cliente cliente = new Cliente(usuarioFk);
-            usuario.setCliente(cliente);
-            clienteRepository.save(cliente);
-            return;
-        }
-        Parceiro parceiro = new Parceiro(usuarioFk);
-        usuario.setParceiro(parceiro);
-        parceiroRepository.save(parceiro);
+    @Autowired
+    public ServiceUser(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
-    public boolean putUsuario(Usuario usuario, int id) {
-        Optional<Usuario> usuarioOriginal = usuarioRepository.findById(id);
-        if (usuarioOriginal.isPresent()) {
-            usuario.setId(id);
-            usuarioRepository.save(usuario);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean deleteUsuario(Integer id) {
-        if (existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public void cadastrarUsuario(Usuario usuario) {
+        usuarioRepository.save(usuario);
     }
 
     public List<Usuario> listaUsuarios() {
@@ -82,65 +28,52 @@ public class ServiceUser {
         return usuarioRepository.findById(id).get();
     }
 
+    public Usuario attUsuario(Usuario usuarioAtt, Integer id) {
+        usuarioAtt.setId(id);
+        return usuarioRepository.save(usuarioAtt);
+    }
 
-    public boolean existsById(Integer id) {
+    public void deleteUsuario(Integer id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    public boolean idValido(Integer id) {
         return usuarioRepository.existsById(id);
     }
 
-    public boolean usuarioPodeSerCadastrado(Usuario usuario, int tipo) {
-        String email = usuario.getEmail();
-        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
-        //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
-        if (usuarioEncontrado.isPresent()) {
-            Optional<Cliente> cliente = usuarioEncontrado.get().getCliente();
-            Optional<Parceiro> parceiro = usuarioEncontrado.get().getParceiro();
-            if (tipo == 0 && cliente.isEmpty()) {
-                return true;
-            }
-            if (tipo == 1 && parceiro.isEmpty()) {
-                return true;
-            }
-        }
-        if (usuarioEncontrado.isEmpty()) {
-            return true;
-        }
-        return false;
-    }
+    public boolean emailValido(String email, Integer id) {
+        List<Usuario> listaUsuarios = listaUsuarios();
 
-    public boolean usuarioExiste(String email) {
-        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
-        if (usuarioEncontrado.isEmpty()) {
-            return false;
+        for (Usuario u : listaUsuarios) {
+            if (u.getEmail().equals(email) && u.getId() != id) {
+                return false;
+            }
         }
         return true;
     }
 
-    public boolean cadastrado(Usuario usuario, int tipo) {
-        if (tipo == 0 && usuario.getCliente().isEmpty() || tipo == 1 && usuario.getParceiro().isEmpty()) {
-            return false;
-        }
-        return true;
-    }
+//    public ResponseEntity<String> loginUsuario(String email, String senha) {
+//        if (!verificarEmailSenha(email, senha)) {
+//            return ResponseEntity.status(400).build();
+//        }
+//        for (int i = 0; i < usuarioList.size(); i++) {
+//            String emailCadastrado = usuarioList.get(i).getEmail();
+//            String senhaCadastrado = usuarioList.get(i).getSenha();
+//            if (email.equals(emailCadastrado)) {
+//                if (senha.equals(senhaCadastrado)) {
+//                    setIndexUsuarioLogado(i);
+//                    return ResponseEntity.status(200).body("Login Realizado com sucesso\nBem vindo!");
+//                }
+//            }
+//        }
+//        return ResponseEntity.status(401).build();
+//    }
 
-
-    public UsuarioTokenDto autenticar(UsuarioLoginDto usuarioLoginDto) {
-
-        final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
-                usuarioLoginDto.getEmail(), usuarioLoginDto.getSenha());
-
-        final Authentication authentication = this.authenticationProvider.authenticate(credentials, usuarioLoginDto.getRole());
-
-        Usuario usuarioAutenticado =
-                usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
-                        .orElseThrow(
-                                () -> new ResponseStatusException(404, "Email do usuário não cadastrado", null)
-                        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
-
-        return UsuarioMapper.of(usuarioAutenticado, token);
-    }
-
+//    public int getIndexUsuarioLogado() {
+//        return indexUsuarioLogado;
+//    }
+//
+//    public void setIndexUsuarioLogado(int indexUsuarioLogado) {
+//        this.indexUsuarioLogado = indexUsuarioLogado;
+//    }
 }

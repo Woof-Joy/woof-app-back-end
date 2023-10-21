@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-
+@Getter
 @Setter
 @AllArgsConstructor
 @Entity
@@ -15,7 +15,6 @@ public class Cliente {
     Integer idCliente;
 
     @OneToOne
-    @JoinColumn(name = "fkUsuario")
     private Usuario usuario;
 
     public Cliente(Usuario usuario) {
@@ -25,12 +24,13 @@ public class Cliente {
     public Cliente() {
     }
 
-
-    public Integer getIdCliente() {
-        return idCliente;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-//    public ResponseEntity<Pet> postPet(Pet it) {
+
+
+    //    public ResponseEntity<Pet> postPet(Pet it) {
 //        it.setId(petList.size() + 1);
 //        petList.add(it);
 //        return ResponseEntity.status(200).body(it);
