@@ -79,9 +79,10 @@ public class SecurityConfiguracao {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(new AuthenticationProvider(autenticacaoService, passwordEncoder()));
+        authenticationManagerBuilder.authenticationProvider((org.springframework.security.authentication.AuthenticationProvider) new AuthenticationProvider(autenticacaoService, passwordEncoder()));
         return authenticationManagerBuilder.build();
     }
+
 
     @Bean
     public AuthenticationEntryPoint jwtAuthenticationEntryPointBean() {

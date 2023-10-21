@@ -9,7 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.woof.woofjoybackend.service.AutenticacaoService;
+import org.woof.woofjoybackend.service.autenticacao.UsuarioDetalhesDto;
+import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 
+@Component
 @RequiredArgsConstructor
 public class AuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider {
     private final AutenticacaoService usuarioAutorizacaoService;
@@ -17,21 +20,31 @@ public class AuthenticationProvider implements org.springframework.security.auth
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        return null;
+    }
+
+    public Authentication authenticate(Authentication authentication, String role) throws AuthenticationException {
         final String username = authentication.getName();
         final String password = authentication.getCredentials().toString();
 
-        UserDetails userDetails = this.usuarioAutorizacaoService.loadUserByUsername(username);
+        UsuarioDetalhesDto userDetails = this.usuarioAutorizacaoService.loadUserByUsername(username);
 
         String senha = userDetails.getPassword();
+        String cargo = userDetails.getRole();
 
-        if (this.passwordEncoder.matches(password, userDetails.getPassword())) {
-            return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+        if (this.passwordEncoder.matches(password, senha)) {
+            if ((role.equalsIgnoreCase(cargo) || cargo.equalsIgnoreCase("A"))) {
+                return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            } else {
+                role = role.equalsIgnoreCase("C") ? "cliente" : role.equalsIgnoreCase("P") ? "parceiro" : role;
+                throw new BadCredentialsException(String.format("Usuário não cadastrado como %s", role));
+            }
         } else {
             throw new BadCredentialsException("Usuario ou Senha inválidos");
         }
     }
 
-    @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }

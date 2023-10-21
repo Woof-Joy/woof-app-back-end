@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
@@ -56,13 +57,22 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
             }
         }
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            addUsernameInContext(request, username, jwtToken);
+
+            try {
+                addUsernameInContext(request, username, jwtToken);
+            } catch (UsernameNotFoundException usernameNotFoundException) {
+                LOGGER.info("[FALHA AUTENTICACAO] - Usuário não encontrado");
+
+                LOGGER.trace("[FALHA AUTENTICACAO] - stack trace: %s", usernameNotFoundException);
+
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
         }
 
         filterChain.doFilter(request, response);
     }
 
-    private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) {
+    private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) throws UsernameNotFoundException {
         UserDetails userDetails = autenticacaoService.loadUserByUsername(username);
 
         if (jwtTokenManager.validateToken(jwtToken, userDetails)) {

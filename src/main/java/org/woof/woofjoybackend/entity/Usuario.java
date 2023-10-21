@@ -1,5 +1,6 @@
 package org.woof.woofjoybackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.woof.woofjoybackend.entity.object.Item;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Setter
 @Getter
@@ -65,63 +67,24 @@ public class Usuario implements iVerificaveis {
         this.listaItens = new ArrayList<>();
     }
 
-//
-//    public ResponseEntity<Void> deleteItem(int id) {
-//        int IndexForId = transformaIdEmIndexItem(id, itemList);
-//        if (verificaIndex(IndexForId)) {
-//            return ResponseEntity.status(404).build();
-//        }
-//        itemList.remove(IndexForId);
-//        return ResponseEntity.status(204).build();
-//
-//    }
+    public Optional<Cliente> getCliente(){
+        return this.cliente != null ? Optional.of(this.cliente) : Optional.empty();
+    }
 
+    public Optional<Parceiro> getParceiro(){
+        return this.parceiro != null ? Optional.of(this.parceiro) : Optional.empty();
+    }
 
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public String getNome() {
-//        return nome;
-//    }
-//
-//    public String getSobrenome() {
-//        return sobrenome;
-//    }
-//
-//    public String getCpf() {
-//        return cpf;
-//    }
-//
-//    public String getCep() {
-//        return cep;
-//    }
-//
-//    public String getNumero() {
-//        return numero;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public String getSenha() {
-//        return senha;
-//    }
-//
-//    public LocalDate getDataNasc() {
-//        return dataNasc;
-//    }
-//
-//    public String getDescricao() {
-//        return descricao;
-//    }
-//
-//    public Parceiro getParceiro() {
-//        return parceiro;
-//    }
-//
-//    public Cliente getCliente() {
-//        return cliente;
-//    }
+    public String getRole(){
+        if (getParceiro().isPresent()) {
+            if (getCliente().isPresent()) {
+                return "A";
+            } else {
+                return "P";
+            }
+        } else {
+            return "C";
+        }
+    }
+
 }

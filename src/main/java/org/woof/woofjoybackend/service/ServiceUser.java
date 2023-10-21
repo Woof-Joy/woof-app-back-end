@@ -30,7 +30,7 @@ public class ServiceUser {
     private final ParceiroRepository parceiroRepository;
     private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationProvider authenticationProvider;
 
 
 
@@ -92,12 +92,12 @@ public class ServiceUser {
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
         if (usuarioEncontrado.isPresent()) {
-            Cliente cliente = usuarioEncontrado.get().getCliente();
-            Parceiro parceiro = usuarioEncontrado.get().getParceiro();
-            if (tipo == 0 && isNull(cliente)) {
+            Optional<Cliente> cliente = usuarioEncontrado.get().getCliente();
+            Optional<Parceiro> parceiro = usuarioEncontrado.get().getParceiro();
+            if (tipo == 0 && cliente.isEmpty()) {
                 return true;
             }
-            if (tipo == 1 && isNull(parceiro)) {
+            if (tipo == 1 && parceiro.isEmpty()) {
                 return true;
             }
         }
@@ -116,7 +116,7 @@ public class ServiceUser {
     }
 
     public boolean cadastrado(Usuario usuario, int tipo) {
-        if (tipo == 0 && isNull(usuario.getCliente()) || tipo == 1 && isNull(usuario.getParceiro())) {
+        if (tipo == 0 && usuario.getCliente().isEmpty() || tipo == 1 && usuario.getParceiro().isEmpty()) {
             return false;
         }
         return true;
@@ -128,7 +128,7 @@ public class ServiceUser {
         final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
                 usuarioLoginDto.getEmail(), usuarioLoginDto.getSenha());
 
-        final Authentication authentication = this.authenticationManager.authenticate(credentials);
+        final Authentication authentication = this.authenticationProvider.authenticate(credentials, usuarioLoginDto.getRole());
 
         Usuario usuarioAutenticado =
                 usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
@@ -138,7 +138,7 @@ public class ServiceUser {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String token = gerenciadorTokenJwt.generateToken(authentication);
+        final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
 
         return UsuarioMapper.of(usuarioAutenticado, token);
     }

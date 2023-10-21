@@ -9,12 +9,15 @@ import java.util.Collection;
 public class UsuarioDetalhesDto implements UserDetails {
     private final String nome;
     private final String email;
+    private final String role;
     private final String senha;
 
     public UsuarioDetalhesDto(Usuario usuario) {
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
         this.senha = usuario.getSenha();
+        this.role = usuario.getRole();
+
     }
 
     public String getNome() {
@@ -34,6 +37,10 @@ public class UsuarioDetalhesDto implements UserDetails {
     @Override
     public String getUsername() {
         return email;
+    }
+
+    public String getRole(){
+        return role;
     }
 
     @Override
