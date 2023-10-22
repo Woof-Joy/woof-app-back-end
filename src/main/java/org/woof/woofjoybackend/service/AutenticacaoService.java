@@ -27,4 +27,4 @@ public class AutenticacaoService implements UserDetailsService {
         return new UsuarioDetalhesDto(usuarioOpt.get());
     }
 }
-//    MUDO AQUI
+//    MUDO DENOVO

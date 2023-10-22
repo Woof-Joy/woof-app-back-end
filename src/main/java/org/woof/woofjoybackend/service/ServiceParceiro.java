@@ -26,7 +26,7 @@ public class ServiceParceiro implements iVerificaveis {
         Usuario usuario = usuarioRepository.findById(id).get();
         return parceiroRepository.save(new Parceiro());
     }
-//    MUDO AQUI
+//    MUDO DENOVO
 
     public List<Parceiro> listaParceiros() {
         return parceiroRepository.findAll();
