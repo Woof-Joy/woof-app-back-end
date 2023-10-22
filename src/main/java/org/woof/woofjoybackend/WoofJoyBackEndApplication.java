@@ -10,6 +10,7 @@ public class WoofJoyBackEndApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WoofJoyBackEndApplication.class, args);
+//	MUDO AQUI
 	}
 
 }
