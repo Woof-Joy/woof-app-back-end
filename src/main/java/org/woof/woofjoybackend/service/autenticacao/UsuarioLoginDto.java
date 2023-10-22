@@ -14,4 +14,4 @@ public class UsuarioLoginDto {
     private String role;
     private String senha;
 }
-//    MUDO AQUI
+//    MUDO DENOVO

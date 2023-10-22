@@ -19,7 +19,7 @@ public class UsuarioDetalhesDto implements UserDetails {
         this.role = usuario.getRole();
 
     }
-//    MUDO AQUI
+//    MUDO DENOVO
 
     public String getNome() {
         return nome;
