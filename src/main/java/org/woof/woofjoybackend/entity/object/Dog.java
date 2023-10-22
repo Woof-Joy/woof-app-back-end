@@ -19,23 +19,23 @@ public class Dog {
 
     private LocalDate dtNasc;
 
-//    private String imgCachorro;
-//
-//    private Boolean rga;
-//
-//    private Double peso;
-//
-//    private String porte;
-//
-//    private Boolean convenio;
-//
-//    private String carteirinha;
-//
-//    private char genero;
-//
-//    private String agrecividade;
-//
-//    private String deficiencia;
+    private String imgCachorro;
+
+    private Boolean rga;
+
+    private Double peso;
+
+    private String porte;
+
+    private Boolean convenio;
+
+    private String carteirinha;
+
+    private char genero;
+
+    private String agressividade;
+
+    private String deficiencia;
 
     @ManyToOne
     private Cliente dono;
@@ -69,77 +69,77 @@ public class Dog {
         this.dtNasc = dtNasc;
     }
 
-//    public String getImgCachorro() {
-//        return imgCachorro;
-//    }
-//
-//    public void setImgCachorro(String imgCachorro) {
-//        this.imgCachorro = imgCachorro;
-//    }
-//
-//    public Boolean getRga() {
-//        return rga;
-//    }
-//
-//    public void setRga(Boolean rga) {
-//        this.rga = rga;
-//    }
-//
-//    public Double getPeso() {
-//        return peso;
-//    }
-//
-//    public void setPeso(Double peso) {
-//        this.peso = peso;
-//    }
-//
-//    public String getPorte() {
-//        return porte;
-//    }
-//
-//    public void setPorte(String porte) {
-//        this.porte = porte;
-//    }
-//
-//    public Boolean getConvenio() {
-//        return convenio;
-//    }
-//
-//    public void setConvenio(Boolean convenio) {
-//        this.convenio = convenio;
-//    }
-//
-//    public String getCarteirinha() {
-//        return carteirinha;
-//    }
-//
-//    public void setCarteirinha(String carteirinha) {
-//        this.carteirinha = carteirinha;
-//    }
-//
-//    public char getGenero() {
-//        return genero;
-//    }
-//
-//    public void setGenero(char genero) {
-//        this.genero = genero;
-//    }
-//
-//    public String getAgrecividade() {
-//        return agrecividade;
-//    }
-//
-//    public void setAgrecividade(String agrecividade) {
-//        this.agrecividade = agrecividade;
-//    }
-//
-//    public String getDeficiencia() {
-//        return deficiencia;
-//    }
-//
-//    public void setDeficiencia(String deficiencia) {
-//        this.deficiencia = deficiencia;
-//    }
+    public String getImgCachorro() {
+        return imgCachorro;
+    }
+
+    public void setImgCachorro(String imgCachorro) {
+        this.imgCachorro = imgCachorro;
+    }
+
+    public Boolean getRga() {
+        return rga;
+    }
+
+    public void setRga(Boolean rga) {
+        this.rga = rga;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public String getPorte() {
+        return porte;
+    }
+
+    public void setPorte(String porte) {
+        this.porte = porte;
+    }
+
+    public Boolean getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Boolean convenio) {
+        this.convenio = convenio;
+    }
+
+    public String getCarteirinha() {
+        return carteirinha;
+    }
+
+    public void setCarteirinha(String carteirinha) {
+        this.carteirinha = carteirinha;
+    }
+
+    public char getGenero() {
+        return genero;
+    }
+
+    public void setGenero(char genero) {
+        this.genero = genero;
+    }
+
+    public String getAgressividade() {
+        return agressividade;
+    }
+
+    public void setAgressividade(String agrecividade) {
+        this.agressividade = agrecividade;
+    }
+
+    public String getDeficiencia() {
+        return deficiencia;
+    }
+
+    public void setDeficiencia(String deficiencia) {
+        this.deficiencia = deficiencia;
+    }
 
     public Cliente getDono() {
         return dono;

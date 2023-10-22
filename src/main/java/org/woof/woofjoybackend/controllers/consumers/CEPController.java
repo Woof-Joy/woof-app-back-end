@@ -20,7 +20,7 @@ public class CEPController {
     }
 
     @GetMapping("/{cep}")
-    public ResponseEntity<Endereco> bucar(@PathVariable String cep){
+    public ResponseEntity<Endereco> buscar(@PathVariable String cep){
         Endereco end = cepService.buscaCEP(cep);
         return ResponseEntity.status(200).body(end);
     }
