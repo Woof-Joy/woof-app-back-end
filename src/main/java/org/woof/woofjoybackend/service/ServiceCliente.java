@@ -24,6 +24,7 @@ public class ServiceCliente {
         Usuario usuario = usuarioRepository.findById(id).get();
         return clienteRepository.save(new Cliente(usuario));
     }
+//    MUDO AQUI
 
     public List<Cliente> listaClientes() {
         return clienteRepository.findAll();

@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 public class Parceiro {
+//    MUDO AQUI
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

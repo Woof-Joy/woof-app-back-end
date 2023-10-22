@@ -25,6 +25,7 @@ public class Usuario implements iVerificaveis {
     @NotBlank
     @Size(max = 50)
     private String nome;
+//    MUDO AQUI
 
     @Size(max = 50)
     private String sobrenome;

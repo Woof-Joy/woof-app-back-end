@@ -1,4 +1,5 @@
 package org.woof.woofjoybackend.domain;
+//    MUDO AQUI
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.woof.woofjoybackend.entity.object.Item;

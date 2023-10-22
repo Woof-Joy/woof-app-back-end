@@ -21,6 +21,7 @@ public class ParceiroController {
         this.serviceParceiro = serviceParceiro;
         this.serviceUser = serviceUser;
     }
+//    MUDO AQUI
 
     @PostMapping("/{idUsuario}")
     public ResponseEntity<Parceiro> registrarParceiro(@PathVariable Integer idUsuario) {

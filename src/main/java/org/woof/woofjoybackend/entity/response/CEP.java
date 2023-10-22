@@ -1,11 +1,17 @@
 package org.woof.woofjoybackend.entity.response;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import org.woof.woofjoybackend.entity.Usuario;
 
-public class CEP {
-
-        @Getter
+@Getter
+@Entity
+public class Endereco {
+        @Id
         private String cep;
         private String    logradouro;
         private String    complemento;
@@ -13,6 +19,8 @@ public class CEP {
         private String    localidade;
         private String    uf;
 
+        @OneToOne
+        private Usuario usuario;
 
 
         public String getCep() {
