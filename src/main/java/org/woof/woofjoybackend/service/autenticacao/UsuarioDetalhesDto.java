@@ -19,6 +19,7 @@ public class UsuarioDetalhesDto implements UserDetails {
         this.role = usuario.getRole();
 
     }
+//    MUDO AQUI
 
     public String getNome() {
         return nome;

@@ -13,6 +13,7 @@ public class UsuarioMapper {
 
         return usuario;
     }
+//    MUDO AQUI
 
     public static UsuarioTokenDto of(Usuario usuario, String token){
         UsuarioTokenDto usuarioTokenDto = new UsuarioTokenDto();

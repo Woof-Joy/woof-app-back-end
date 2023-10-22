@@ -14,6 +14,7 @@ public class Servico {
     private LocalDate inicioDoServico;
     private LocalDate fimDoServico;
     private String status;
+//    MUDO AQUI
 
     @ManyToOne
     private Parceiro parceiro;

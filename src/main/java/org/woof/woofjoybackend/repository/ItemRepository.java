@@ -6,3 +6,4 @@ import org.woof.woofjoybackend.entity.object.Item;
 public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 }
+//    MUDO AQUI

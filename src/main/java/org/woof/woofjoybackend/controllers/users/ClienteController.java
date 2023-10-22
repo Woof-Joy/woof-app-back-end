@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
+//    MUDO AQUI
 
     private ServiceCliente serviceCliente;
     private ServiceUser serviceUser;

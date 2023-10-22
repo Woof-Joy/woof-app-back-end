@@ -13,6 +13,7 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer idCliente;
+//    MUDO AQUI
 
     @OneToOne
     @JoinColumn(name = "fkUsuario")

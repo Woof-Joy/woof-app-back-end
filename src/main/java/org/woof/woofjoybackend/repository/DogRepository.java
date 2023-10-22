@@ -6,3 +6,4 @@ import org.woof.woofjoybackend.entity.object.Dog;
 public interface DogRepository extends JpaRepository<Dog, Integer> {
 
 }
+//    MUDO AQUI

@@ -71,7 +71,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
+    //	MUDO AQUI
     private void addUsernameInContext(HttpServletRequest request, String username, String jwtToken) throws UsernameNotFoundException {
         UserDetails userDetails = autenticacaoService.loadUserByUsername(username);
 

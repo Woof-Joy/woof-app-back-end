@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 public class Parceiro {
+//    MUDO AQUI
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

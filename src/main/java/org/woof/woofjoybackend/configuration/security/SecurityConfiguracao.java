@@ -56,6 +56,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
     };
+//    MUDO AQUI
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

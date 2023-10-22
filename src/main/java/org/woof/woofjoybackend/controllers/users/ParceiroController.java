@@ -21,6 +21,7 @@ public class ParceiroController {
         this.serviceParceiro = serviceParceiro;
         this.serviceUser = serviceUser;
     }
+//    MUDO AQUI
 
     @GetMapping()
     public ResponseEntity<List<Parceiro>> listagemParceiros() {

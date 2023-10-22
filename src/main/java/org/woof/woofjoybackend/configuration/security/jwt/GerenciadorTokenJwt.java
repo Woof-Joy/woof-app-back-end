@@ -29,7 +29,7 @@ public class GerenciadorTokenJwt {
     public String getRoleFromToken(String token){
         return getClaimForToken(token, claims -> (String) claims.get("role"));
     }
-
+    //	MUDO AQUI
     public Date getExpirationDateFromToken(String token) {
         return getClaimForToken(token, Claims::getExpiration);
     }

@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.Usuario;
+//    MUDO AQUI
 
 @Setter
 @AllArgsConstructor

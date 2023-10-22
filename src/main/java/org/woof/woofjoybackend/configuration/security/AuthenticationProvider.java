@@ -31,7 +31,7 @@ public class AuthenticationProvider implements org.springframework.security.auth
 
         String senha = userDetails.getPassword();
         String cargo = userDetails.getRole();
-
+        //	MUDO AQUI
 
         if (this.passwordEncoder.matches(password, senha)) {
             if ((role.equalsIgnoreCase(cargo) || cargo.equalsIgnoreCase("A"))) {

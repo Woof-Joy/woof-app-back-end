@@ -7,6 +7,7 @@ import jakarta.persistence.OneToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.woof.woofjoybackend.entity.Usuario;
+//    MUDO AQUI
 
 @Getter
 @Entity
