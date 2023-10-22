@@ -10,3 +10,4 @@ import org.woof.woofjoybackend.entity.Usuario;
 public interface ParceiroRepository extends JpaRepository<Parceiro, Integer>{
     public Boolean existsByUsuario(Usuario usuario);
 }
+//    MUDO AQUI

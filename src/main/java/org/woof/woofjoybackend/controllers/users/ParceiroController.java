@@ -22,8 +22,6 @@ public class ParceiroController {
         this.serviceUser = serviceUser;
     }
 
-
-
     @GetMapping()
     public ResponseEntity<List<Parceiro>> listagemParceiros() {
         List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();

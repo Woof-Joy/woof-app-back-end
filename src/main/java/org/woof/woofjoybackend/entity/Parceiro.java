@@ -9,15 +9,16 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-
+@Getter
 @Setter
-
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Parceiro {
+//    MUDO AQUI
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer idParceiro;
 
     @PastOrPresent
@@ -40,21 +41,9 @@ public class Parceiro {
 
     @BooleanFlag
     private Boolean aceitaDogCio;
-
+  
     @OneToOne
-    @JoinColumn(name = "fkUsuario")
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    public Parceiro(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Parceiro() {
-
-    }
-
-
-    public Integer getIdParceiro() {
-        return idParceiro;
-    }
 }

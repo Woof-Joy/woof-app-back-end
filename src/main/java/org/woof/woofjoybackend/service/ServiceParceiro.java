@@ -16,6 +16,7 @@ public class ServiceParceiro implements iVerificaveis {
     private UsuarioRepository usuarioRepository;
     private ParceiroRepository parceiroRepository;
 
+    @Autowired
     public ServiceParceiro(UsuarioRepository usuarioRepository, ParceiroRepository parceiroRepository) {
         this.usuarioRepository = usuarioRepository;
         this.parceiroRepository = parceiroRepository;
@@ -23,8 +24,9 @@ public class ServiceParceiro implements iVerificaveis {
 
     public Parceiro registrarParceiro(Integer id) {
         Usuario usuario = usuarioRepository.findById(id).get();
-        return parceiroRepository.save(new Parceiro(usuario));
+        return parceiroRepository.save(new Parceiro());
     }
+//    MUDO DENOVO
 
     public List<Parceiro> listaParceiros() {
         return parceiroRepository.findAll();

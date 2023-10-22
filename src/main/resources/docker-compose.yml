@@ -13,5 +13,6 @@ services:
     image: phpmyadmin
     ports:
       - "8000:80"
+  #    MUDO AQUI
 
 

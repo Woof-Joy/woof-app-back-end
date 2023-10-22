@@ -17,7 +17,7 @@ public class AutenticacaoService implements UserDetailsService {
     private final UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UsuarioDetalhesDto loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(username);
 
         if (usuarioOpt.isEmpty()) {
@@ -27,3 +27,4 @@ public class AutenticacaoService implements UserDetailsService {
         return new UsuarioDetalhesDto(usuarioOpt.get());
     }
 }
+//    MUDO DENOVO

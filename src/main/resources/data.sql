@@ -7,3 +7,4 @@ VALUES
 ('Maria', 'Santos', '98765432109', '87654321', '202', 'maria.santos@email.com', 'senha456', '1985-03-20', 'Descrição da Maria'),
 ('Pedro', 'Ferreira', '45678901234', '56789012', '303', 'pedro.ferreira@email.com', 'senha789', '1995-07-10', 'Descrição do Pedro');
 -- Insere dados na tabela Cliente
+--    MUDO AQUI
