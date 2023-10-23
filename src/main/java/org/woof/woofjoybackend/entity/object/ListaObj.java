@@ -1,5 +1,7 @@
 package org.woof.woofjoybackend.entity.object;
 
+import org.woof.woofjoybackend.entity.Dog;
+
 import java.util.Objects;
 
 public class ListaObj <T>{
@@ -10,12 +12,12 @@ public class ListaObj <T>{
     private int nroElem;
 
 
-    ListaObj(int tamnhoVetor){
+    public ListaObj(int tamnhoVetor){
         vetor = (T[]) new Object[tamnhoVetor];
         nroElem = 0;
     }
 
-    public void adiciona(T n){
+    public void adicionar(T n){
         if (Objects.equals(nroElem, vetor.length)){
             throw new IllegalStateException("Sua lista está cheia");
         }
@@ -23,7 +25,19 @@ public class ListaObj <T>{
         nroElem++;
     }
 
-    public int busca(T elem){
+    public void adicionar(T n, int i){
+        if (Objects.equals(nroElem, vetor.length)){
+            throw new IllegalStateException("Sua lista está cheia");
+        }
+        for (int j = nroElem; j > i; j++) {
+            vetor[j] = vetor[j+1];
+        }
+
+        vetor[i] = n;
+        nroElem++;
+    }
+
+    public int buscar(T elem){
         for (int j = 0; j < nroElem; j++) {
             if (Objects.equals(elem, vetor[j])){
                 return j;
@@ -32,7 +46,7 @@ public class ListaObj <T>{
     }
 
 
-    public boolean removePeloIndice(int i){
+    public boolean removerPeloIndice(int i){
         if (i >= 0 && i < nroElem){
             nroElem--;
             int j = i;
@@ -46,8 +60,8 @@ public class ListaObj <T>{
     }
 
 
-    public boolean removeElemento(T elem){
-        return removePeloIndice(busca(elem));
+    public boolean removerElemento(T elem){
+        return removerPeloIndice(buscar(elem));
     }
 
     public void limpa() {
@@ -56,8 +70,23 @@ public class ListaObj <T>{
         nroElem =0;
     }
 
+    public static ListaObj<Dog> ordenarPorAdressividade(ListaObj<Dog> vetor){
+        for (int i = 0; i < vetor.getTamanho()  ; i++) {
+            int indiceMenor = i;
+            for (int j = i + 1; j < vetor.getTamanho(); j++) {
+                if(vetor.getElemento(j).getAgressivo() < vetor.getElemento(indiceMenor).getAgressivo()){
+                    indiceMenor = j;
+                }
+            }
+            Dog aux = vetor.getElemento(i);
+            vetor.adicionar(vetor.getElemento(indiceMenor), i);
+            vetor.adicionar(aux, indiceMenor);
+        }
+        return vetor;
+    }
 
-    public void exibe(){
+
+    public void exibir(){
         for (T i:vetor){
             System.out.println(i);
         }

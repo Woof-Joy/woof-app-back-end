@@ -16,14 +16,13 @@ import java.util.List;
 public class ClienteController {
 
     private ServiceCliente serviceCliente;
-    private ServiceUser serviceUser;
-    private ServiceDog serviceDog;
+
+
 
     @Autowired
-    public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser, ServiceDog serviceDog) {
+    public ClienteController(ServiceCliente serviceCliente) {
         this.serviceCliente = serviceCliente;
-        this.serviceUser = serviceUser;
-        this.serviceDog = serviceDog;
+
     }
 
     @GetMapping()

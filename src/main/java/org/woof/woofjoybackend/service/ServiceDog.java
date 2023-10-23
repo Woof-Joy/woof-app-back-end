@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.repository.DogRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,7 +15,6 @@ public class ServiceDog {
     private DogRepository dogRepository;
 
     @Autowired
-
     public ServiceDog(DogRepository dogRepository) {
         this.dogRepository = dogRepository;
     }
@@ -26,13 +26,13 @@ public class ServiceDog {
     }
 
 
-    //Listar todos os dogs
-    public List<Dog> listarDogs(){
-        List<Dog> dogsCadastrados = dogRepository.findAll();
+    //Listar todos os dogs de determinado dono
+    public List<Dog> listarDogs(Integer id){
+        List<Dog> dogsCadastrados = dogRepository.findDogsByOwnerId(id);
         if (dogRepository.count() > 0){
             return dogsCadastrados;
         }
-        return null;
+        return new ArrayList<>();
     }
 
 

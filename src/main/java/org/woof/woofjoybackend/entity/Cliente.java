@@ -20,13 +20,12 @@ public class Cliente {
     @JoinColumn(name = "fkUsuario")
     private Usuario usuario;
 
+    @OneToMany(mappedBy = "fkDono", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dog> dogList;
+
     public Cliente(Usuario usuario) {
         this.usuario = usuario;
     }
-
-
-    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Dog> dogList;
 
     public Cliente() {
         this.dogList = new ArrayList<>();

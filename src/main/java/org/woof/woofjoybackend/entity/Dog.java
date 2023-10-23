@@ -3,6 +3,7 @@ package org.woof.woofjoybackend.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
+import org.woof.woofjoybackend.entity.object.ListaObj;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "cachorro")
 public class Dog {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank
     @Size(max = 50)
@@ -21,8 +23,7 @@ public class Dog {
     @Size(max = 200)
     private String imgCachorro;
 
-    @Null
-    @Size(min = 13, max = 14)
+    @BooleanFlag
     private Boolean rga;
 
     @NotBlank
@@ -46,21 +47,20 @@ public class Dog {
     @Pattern(regexp = "^[MF]$", message = "O gênero deve ser 'M' ou 'F'")
     private char genero;
 
-    @BooleanFlag
-    private Boolean agressivo;
+    @Null
+    @Min(0)
+    @Max(5)
+    private Integer agressivo;
 
     @BooleanFlag
     private Boolean deficiencia;
 
     @ManyToOne
     @JoinColumn(name = "fkDono")
-    private Cliente dono;
+    private Cliente fkDono;
 
     @OneToMany(mappedBy = "cachorro", cascade = CascadeType.ALL, orphanRemoval = true )
     private List<Observacao> observacaoList;
-
-    public Dog() {
-    }
 
 
     public Integer getId() {
@@ -143,11 +143,11 @@ public class Dog {
         this.genero = genero;
     }
 
-    public Boolean getAgressivo() {
+    public Integer getAgressivo() {
         return agressivo;
     }
 
-    public void setAgressivo(Boolean agressivo) {
+    public void setAgressivo(Integer agressivo) {
         this.agressivo = agressivo;
     }
 
@@ -159,20 +159,20 @@ public class Dog {
         this.deficiencia = deficiencia;
     }
 
-    public Cliente getDono() {
-        return dono;
-    }
-
-    public void setDono(Cliente dono) {
-        this.dono = dono;
-    }
-
     public String getRaca() {
         return raca;
     }
 
     public void setRaca(String raca) {
         this.raca = raca;
+    }
+
+    public Cliente getFkDono() {
+        return fkDono;
+    }
+
+    public void setFkDono(Cliente fkDono) {
+        this.fkDono = fkDono;
     }
 
     public List<Observacao> getObservacaoList() {

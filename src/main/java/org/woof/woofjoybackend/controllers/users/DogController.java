@@ -1,9 +1,12 @@
 package org.woof.woofjoybackend.controllers.users;
 
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.entity.object.ListaObj;
+import org.woof.woofjoybackend.entity.object.ManipuladorDeArquivo;
 import org.woof.woofjoybackend.service.ServiceDog;
 
 import java.util.List;
@@ -11,17 +14,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/dogs")
 public class DogController {
-
+    @Autowired
     private ServiceDog serviceDog;
 
-    public DogController(ServiceDog serviceDog) {
-        this.serviceDog = serviceDog;
-    }
 
 
-    @GetMapping()
-    public ResponseEntity<List<Dog>> listarPet() {
-        List<Dog> dogsCadastrados = serviceDog.listarDogs();
+
+    @GetMapping("dono/{id}")
+    public ResponseEntity<List<Dog>> listarPet(@PathVariable Integer id) {
+        List<Dog> dogsCadastrados = serviceDog.listarDogs(id);
         return dogsCadastrados == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogsCadastrados);
     }
 
@@ -47,5 +48,39 @@ public class DogController {
     public ResponseEntity<Void> deletePet(@PathVariable int id) {
         Boolean dogDeletado = serviceDog.deletarDog(id);
         return dogDeletado?ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("csv/{idDono}")
+    public ResponseEntity<Void> upload(@PathVariable Integer idDono) {
+        List<Dog> list = serviceDog.listarDogs(idDono);
+        if (!list.isEmpty()) {
+            ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
+            for (Dog dog :
+                    list) {
+                listaObj.adicionar(dog);
+            }
+
+            ManipuladorDeArquivo.gravaArquivoCsv(listaObj, "lista-de-cachorros");
+
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("csv/ordenado-agrssivo/{idDono}")
+    public ResponseEntity<Void> uploadOrdenado(@PathVariable Integer idDono) {
+        List<Dog> list = serviceDog.listarDogs(idDono);
+        if (!list.isEmpty()){
+        ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
+        for (Dog dog:
+                list) {
+            listaObj.adicionar(dog);
+        }
+
+        ManipuladorDeArquivo.gravaArquivoCsv(ListaObj.ordenarPorAdressividade(listaObj), "lista-de-cachorros");
+
+        return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.noContent().build();
     }
 }
