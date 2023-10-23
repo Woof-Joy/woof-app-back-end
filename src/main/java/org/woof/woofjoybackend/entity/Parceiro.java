@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Getter
@@ -53,6 +54,9 @@ public class Parceiro {
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "parceiro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Servico> servicos;
 
     public Parceiro (Usuario usuario){
         this.usuario = usuario;

@@ -1,6 +1,9 @@
 package org.woof.woofjoybackend.entity.object;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import org.woof.woofjoybackend.entity.Cliente;
@@ -12,6 +15,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "cachorro")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +24,7 @@ public class Dog {
     @NotBlank
     @Size(max = 50)
     private String nome;
-    @PastOrPresent
+    @Past
     private LocalDate dtNasc;
     @Size(max = 200)
     private String imgCachorro;

@@ -59,6 +59,10 @@ public class ServiceUser {
         Optional<Usuario> usuarioOriginal = usuarioRepository.findById(id);
         if (usuarioOriginal.isPresent()) {
             usuario.setId(id);
+
+            String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+            usuario.setSenha(senhaCriptografada);
+
             usuarioRepository.save(usuario);
             return true;
         }

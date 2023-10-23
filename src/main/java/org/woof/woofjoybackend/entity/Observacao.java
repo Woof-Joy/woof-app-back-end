@@ -6,9 +6,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.woof.woofjoybackend.entity.object.Dog;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @NoArgsConstructor
 
 public class Observacao {

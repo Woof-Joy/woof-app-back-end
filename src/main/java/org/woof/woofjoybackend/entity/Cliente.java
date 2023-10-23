@@ -2,9 +2,7 @@ package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-
 import lombok.NoArgsConstructor;
-
 import lombok.Setter;
 import org.woof.woofjoybackend.entity.object.Dog;
 
@@ -30,9 +28,7 @@ public class Cliente {
         this.usuario = usuario;
     }
 
-
     public Integer getIdCliente() {
         return idCliente;
     }
-
 }
