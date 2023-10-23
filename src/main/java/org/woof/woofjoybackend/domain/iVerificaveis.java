@@ -1,4 +1,12 @@
 package org.woof.woofjoybackend.domain;
+//    MUDO AQUI
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.woof.woofjoybackend.entity.object.Item;
+import org.woof.woofjoybackend.entity.object.Pet;
+import org.woof.woofjoybackend.repository.UsuarioRepository;
+
+import java.util.List;
 
 public interface iVerificaveis {
 
@@ -46,4 +54,11 @@ public interface iVerificaveis {
 //                && senha != null
 //                && senha.length() > 4);
 //    }
+
+    default boolean verificaIndex(int index){
+        return (index < 0 );
+    }
+
+
+
 }

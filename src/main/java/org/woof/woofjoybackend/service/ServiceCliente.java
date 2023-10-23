@@ -14,6 +14,7 @@ public class ServiceCliente {
     private UsuarioRepository usuarioRepository;
     private ClienteRepository clienteRepository;
 
+    @Autowired
     public ServiceCliente(UsuarioRepository usuarioRepository, ClienteRepository clienteRepository) {
         this.usuarioRepository = usuarioRepository;
         this.clienteRepository = clienteRepository;
@@ -23,6 +24,7 @@ public class ServiceCliente {
         Usuario usuario = usuarioRepository.findById(id).get();
         return clienteRepository.save(new Cliente(usuario));
     }
+//    MUDO DENOVO
 
     public List<Cliente> listaClientes() {
         return clienteRepository.findAll();

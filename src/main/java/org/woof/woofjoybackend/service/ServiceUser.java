@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
 import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
@@ -27,7 +28,7 @@ public class ServiceUser {
     private final ParceiroRepository parceiroRepository;
     private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationProvider authenticationProvider;
 
 
     public void postUsuario(Usuario usuario, int tipo) {
@@ -60,11 +61,33 @@ public class ServiceUser {
         }
         return false;
     }
-
-    public boolean deleteUsuario(Integer id) {
+  
+    public boolean deleteUsuario(Integer id, String role) {
         if (existsById(id)) {
-            usuarioRepository.deleteById(id);
-            return true;
+            Usuario usuario = usuarioRepository.findById(id).get();
+            String cargo = usuario.getRole();
+
+            if (cargo.equalsIgnoreCase(role) || cargo.equalsIgnoreCase("A")) {
+
+                switch (cargo) {
+                    case "P":
+                    case "C":
+                        usuarioRepository.deleteById(id);
+                        break;
+                    case "A":
+                        if (role.equalsIgnoreCase("C")) {
+                            usuario.setCliente(null);
+                        } else if (role.equalsIgnoreCase("P")) {
+                            usuario.setParceiro(null);
+                        } else {
+                            return false;
+                        }
+                        usuarioRepository.save(usuario);
+                        break;
+                }
+
+                return true;
+            }
         }
         return false;
     }
@@ -84,34 +107,33 @@ public class ServiceUser {
 
     public boolean usuarioPodeSerCadastrado(Usuario usuario, int tipo) {
         String email = usuario.getEmail();
-        List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
-        if (usuarioEncontrado.size() > 0) {
-            Cliente cliente = usuarioEncontrado.get(0).getCliente();
-            Parceiro parceiro = usuarioEncontrado.get(0).getParceiro();
-            if (tipo == 0 && isNull(cliente)) {
+        if (usuarioEncontrado.isPresent()) {
+            Optional<Cliente> cliente = usuarioEncontrado.get().getCliente();
+            Optional<Parceiro> parceiro = usuarioEncontrado.get().getParceiro();
+            if (tipo == 0 && cliente.isEmpty()) {
                 return true;
             }
-            if (tipo == 1 && isNull(parceiro)) {
+            if (tipo == 1 && parceiro.isEmpty()) {
                 return true;
             }
         }
-        if (usuarioEncontrado.size() <= 0 || usuarioEncontrado.isEmpty()) {
+        if (usuarioEncontrado.isEmpty()) {
             return true;
         }
         return false;
     }
 
     public boolean usuarioExiste(String email) {
-        List<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
-        if (usuarioEncontrado.size() <= 0 || usuarioEncontrado.isEmpty()) {
+        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
+        if (usuarioEncontrado.isEmpty()) {
             return false;
         }
         return true;
     }
 
     public boolean cadastrado(Usuario usuario, int tipo) {
-        if (tipo == 0 && isNull(usuario.getCliente()) || tipo == 1 && isNull(usuario.getParceiro())) {
             return false;
         }
         return true;
@@ -123,7 +145,7 @@ public class ServiceUser {
         final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
                 usuarioLoginDto.getEmail(), usuarioLoginDto.getSenha());
 
-        final Authentication authentication = this.authenticationManager.authenticate(credentials);
+        final Authentication authentication = this.authenticationProvider.authenticate(credentials, usuarioLoginDto.getRole());
 
         Usuario usuarioAutenticado =
                 usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
@@ -133,7 +155,7 @@ public class ServiceUser {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        final String token = gerenciadorTokenJwt.generateToken(authentication);
+        final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
 
         return UsuarioMapper.of(usuarioAutenticado, token);
     }

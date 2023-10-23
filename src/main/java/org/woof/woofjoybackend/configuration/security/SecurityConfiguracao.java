@@ -43,14 +43,12 @@ public class SecurityConfiguracao {
     private AutenticacaoEntryPoint autenticacaoJwtEntryPoint;
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
-            new AntPathRequestMatcher("/swagger-ui/**"),
-            new AntPathRequestMatcher("/swagger-ui.html"),
+            new AntPathRequestMatcher("/users/{tipo}"),
+            new AntPathRequestMatcher("/users/login"),
             new AntPathRequestMatcher("/swagger-resources"),
             new AntPathRequestMatcher("/swagger-resources/**"),
             new AntPathRequestMatcher("/configuration/ui"),
             new AntPathRequestMatcher("/configuration/security"),
-            new AntPathRequestMatcher("/api/public/**"),
-            new AntPathRequestMatcher("/api/public/authenticate"),
             new AntPathRequestMatcher("/webjars/**"),
             new AntPathRequestMatcher("/v3/api-docs/**"),
             new AntPathRequestMatcher("/actuator/**"),
@@ -82,9 +80,10 @@ public class SecurityConfiguracao {
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(new AuthenticationProvider(autenticacaoService, passwordEncoder()));
+        authenticationManagerBuilder.authenticationProvider((org.springframework.security.authentication.AuthenticationProvider) new AuthenticationProvider(autenticacaoService, passwordEncoder()));
         return authenticationManagerBuilder.build();
     }
+
 
     @Bean
     public AuthenticationEntryPoint jwtAuthenticationEntryPointBean() {

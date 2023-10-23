@@ -1,21 +1,20 @@
 package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.object.Item;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @Entity
 public class Usuario implements iVerificaveis {
@@ -46,16 +45,15 @@ public class Usuario implements iVerificaveis {
     @NotBlank
     private String senha;
 
-    @Past
+    @PastOrPresent
     private LocalDate dataNasc;
 
     @Size(max = 500)
     private String descricao;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private Parceiro parceiro;
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = truete Parceiro parceiro;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -64,5 +62,6 @@ public class Usuario implements iVerificaveis {
     public Usuario() {
         this.listaItens = new ArrayList<>();
     }
+
 
 }

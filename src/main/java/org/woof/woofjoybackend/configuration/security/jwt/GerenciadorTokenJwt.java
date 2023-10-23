@@ -26,17 +26,22 @@ public class GerenciadorTokenJwt {
         return getClaimForToken(token, Claims::getSubject);
     }
 
+    public String getRoleFromToken(String token){
+        return getClaimForToken(token, claims -> (String) claims.get("role"));
+    }
+
     public Date getExpirationDateFromToken(String token) {
         return getClaimForToken(token, Claims::getExpiration);
     }
 
-    public String generateToken(final Authentication authentication) {
+    public String generateToken(final Authentication authentication, String role) {
         final String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim("role", role)
                 .signWith(parseSecret())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtTokenValidity * 1_000))

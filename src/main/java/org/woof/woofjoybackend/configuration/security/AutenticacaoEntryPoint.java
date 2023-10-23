@@ -16,7 +16,7 @@ public class AutenticacaoEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         Class excecao = authException.getClass();
-
+        //	MUDO AQUI
         if (excecao.equals(BadCredentialsException.class) || excecao.equals(InsufficientAuthenticationException.class)){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
