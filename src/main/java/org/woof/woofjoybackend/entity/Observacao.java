@@ -1,5 +1,6 @@
 package org.woof.woofjoybackend.entity;
 
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,10 +10,12 @@ import org.woof.woofjoybackend.entity.object.Dog;
 
 @Entity
 @NoArgsConstructor
+
 public class Observacao {
 
     @Id
     private Integer id;
+
     @NotBlank
     @Size(max = 50)
     private String nome;
@@ -24,6 +27,7 @@ public class Observacao {
     @JoinColumn(name = "cachorro")
     @ManyToOne
     private Dog cachorro;
+
 
 
 
@@ -59,5 +63,6 @@ public class Observacao {
     public void setCachorro(Dog cachorro) {
         this.cachorro = cachorro;
     }
+
 
 }

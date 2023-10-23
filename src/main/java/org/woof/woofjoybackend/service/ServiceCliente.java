@@ -19,11 +19,6 @@ public class ServiceCliente {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente registrarCliente(Integer id) {
-        Usuario usuario = usuarioRepository.findById(id).get();
-        return clienteRepository.save(new Cliente(usuario));
-    }
-
     public List<Cliente> listaClientes() {
         return clienteRepository.findAll();
     }

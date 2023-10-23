@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Cliente;
 import org.woof.woofjoybackend.service.ServiceCliente;
-import org.woof.woofjoybackend.service.ServiceDog;
 import org.woof.woofjoybackend.service.ServiceUser;
 
 import java.util.List;
@@ -14,14 +13,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
+//    MUDO AQUI
 
     private ServiceCliente serviceCliente;
 
-
+    private ServiceUser serviceUser;
 
     @Autowired
-    public ClienteController(ServiceCliente serviceCliente) {
+    public ClienteController(ServiceCliente serviceCliente, ServiceUser serviceUser) {
         this.serviceCliente = serviceCliente;
+        this.serviceUser = serviceUser;
 
     }
 
@@ -57,66 +58,6 @@ public class ClienteController {
         return ResponseEntity.status(404).build();
     }
 
-//    private Cliente clienteLogado() {
-//        int index = serviceUser.indexUsuarioLogado;
-//        if (index < 0) {
-//            return null;
-//        }
-//        Cliente clienteLogado = (Cliente) clientes.get(index);
-//
-//        return clienteLogado;
-//    }
-
-
-//    @GetMapping("/perfil")
-//    public ResponseEntity<Usuario> getPerfil() {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return ResponseEntity.status(200).body(clienteLogado());
-//    }
-//
-//    @PostMapping("/itens")
-//    public ResponseEntity<Item> postItem(@RequestBody Item it) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().postItem(it);
-//    }
-//
-//    @PutMapping("/itens/{id}")
-//    public ResponseEntity<Item> putItem(@RequestBody Item it, @PathVariable int id) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().putItem(id, it);
-//    }
-//
-//    @GetMapping("/itens/{id}")
-//    public ResponseEntity<Item> getItemById(@PathVariable int id) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().OneItemGet(id);
-//    }
-//
-//    @GetMapping("/itens")
-//    public ResponseEntity<List<Item>> getAllItens() {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().AllItensGet();
-//    }
-//
-//    @DeleteMapping("/itens/{id}")
-//    public ResponseEntity<Void> deleteItem(@PathVariable int id) {
-//        if (clienteLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return clienteLogado().deleteItem(id);
-//    }
-//
-//
-
 
 }
+

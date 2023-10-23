@@ -24,6 +24,7 @@ public class Dog {
     @Size(max = 200)
     private String imgCachorro;
 
+
     @BooleanFlag
     private Boolean rga;
 
@@ -55,6 +56,7 @@ public class Dog {
 
     @BooleanFlag
     private Boolean deficiencia;
+
 
     @ManyToOne
     @JoinColumn(name = "fkDono")

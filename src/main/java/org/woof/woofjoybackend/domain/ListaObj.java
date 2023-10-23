@@ -1,5 +1,6 @@
 package org.woof.woofjoybackend.domain;
 
+
 import org.woof.woofjoybackend.entity.object.Dog;
 
 import java.util.Objects;
@@ -101,9 +102,11 @@ public class ListaObj <T>{
         return vetor;
     }
 
+
     public int getTamanho() {
         return nroElem;
     }
+
 
     public T getElemento(int indice) {
         return indice >= 0 && indice < nroElem ? vetor[indice] : null;
