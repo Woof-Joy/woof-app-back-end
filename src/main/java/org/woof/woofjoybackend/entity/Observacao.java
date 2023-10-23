@@ -16,8 +16,6 @@ import org.woof.woofjoybackend.entity.object.Dog;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@NoArgsConstructor
-
 public class Observacao {
 
     @Id
