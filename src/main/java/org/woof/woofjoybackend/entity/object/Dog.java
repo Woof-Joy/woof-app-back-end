@@ -33,8 +33,8 @@ public class Dog {
     @BooleanFlag
     private Boolean rga;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotNull
+    @DecimalMax("30.0")
     private Double peso;
 
     @NotBlank
@@ -52,9 +52,9 @@ public class Dog {
     private String carteirinha;
 
     @Pattern(regexp = "^[MF]$", message = "O gênero deve ser 'M' ou 'F'")
-    private char genero;
+    private String genero;
 
-    @Null
+
     @Min(0)
     @Max(5)
     private Integer agressivo;
@@ -143,11 +143,11 @@ public class Dog {
         this.carteirinha = carteirinha;
     }
 
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 

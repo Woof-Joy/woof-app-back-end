@@ -26,10 +26,12 @@ public class ManipuladorDeArquivo {
         }
 
         try {
+            saida.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",
+                    "ID", "NOME", "DATA NASC", "PORTE", "PESO", "GENERO", "X", "REFERENCIA IMG", "CONVENIO", "DEFICIENTE");
             for (int i = 0; i < lista.getTamanho(); i++) {
                 Dog dog = lista.getElemento(i);
-                saida.format("%d;%s;%s;%.2f\n", dog.getId(), dog.getNome(),
-                        dog.getPorte(), dog.getPeso());
+                saida.format("%d;%s;%s;%s;%.2f;%s;%d;%s;%s;%s;\n", dog.getId(), dog.getNome(),
+                        dog.getDtNasc(), dog.getPorte(), dog.getPeso(), dog.getGenero(), dog.getAgressivo(), dog.getImgCachorro(), dog.getConvenio(), dog.getDeficiencia());
             }
         } catch (FormatterClosedException erro) {
             System.out.println("Erro ao gravar o arquivo");

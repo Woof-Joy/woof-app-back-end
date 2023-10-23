@@ -1,8 +1,10 @@
 package org.woof.woofjoybackend.controllers.users;
 
+import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.object.Dog;
@@ -11,6 +13,10 @@ import org.woof.woofjoybackend.entity.object.ManipuladorDeArquivo;
 
 import org.woof.woofjoybackend.service.ServiceDog;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 @RestController
@@ -53,8 +59,8 @@ public class DogController {
         return dogDeletado?ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("csv/{idDono}")
-    public ResponseEntity<Void> upload(@PathVariable Integer idDono) {
+    @GetMapping(value="csv/{idDono}/download", produces = "txt/csv")
+    public ResponseEntity<org.springframework.core.io.Resource> upload(@PathVariable Integer idDono) throws IOException{
         List<Dog> list = serviceDog.listarDogs(idDono);
         if (!list.isEmpty()) {
             ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
@@ -64,26 +70,52 @@ public class DogController {
             }
 
             ManipuladorDeArquivo.gravaArquivoCsv(listaObj, "lista-de-cachorros");
+            File csvFile = new File("lista-de-cachorros.csv");
+            FileInputStream fileInputStream = new FileInputStream(csvFile);
+            InputStreamResource resource =new InputStreamResource(fileInputStream);
 
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().header("content-disposition", "attachment; filename=\"lista-de-cachorros.csv\"").body( resource);
         }
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("csv/ordenado-agrssivo/{idDono}")
-    public ResponseEntity<Void> uploadOrdenado(@PathVariable Integer idDono) {
+    @GetMapping(value = "csv/ordenado-agrssivo/{idDono}/download", produces = "txt/csv")
+    public ResponseEntity<org.springframework.core.io.Resource> uploadOrdenado(@PathVariable Integer idDono) throws IOException {
         List<Dog> list = serviceDog.listarDogs(idDono);
         if (!list.isEmpty()){
-        ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
-        for (Dog dog:
+            ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
+            for (Dog dog:
                 list) {
-            listaObj.adicionar(dog);
-        }
+                listaObj.adicionar(dog);
+            }
 
-        ManipuladorDeArquivo.gravaArquivoCsv(ListaObj.ordenarPorAdressividade(listaObj), "lista-de-cachorros");
+            ManipuladorDeArquivo.gravaArquivoCsv(ordenarPorAdressividade(listaObj), "lista-de-cachorros");
+            File csvFile = new File("lista-de-cachorros.csv");
+            FileInputStream fileInputStream = new FileInputStream(csvFile);
+            InputStreamResource resource =new InputStreamResource(fileInputStream);
+            return ResponseEntity.ok().header("content-disposition", "attachment; filename=\"lista-de-cachorros.csv\"").body(resource);
 
-        return ResponseEntity.ok().build();
         }
         return ResponseEntity.noContent().build();
+
     }
+
+
+    public ListaObj<Dog> ordenarPorAdressividade(ListaObj<Dog> vetor){
+        for (int i = 0; i < vetor.getTamanho()  ; i++) {
+
+            int indiceMenor = i;
+            for (int j = i + 1; j < vetor.getTamanho(); j++) {
+                if(vetor.getElemento(j).getAgressivo() < vetor.getElemento(indiceMenor).getAgressivo()){
+                    indiceMenor = j;
+                }
+            }
+            Dog aux = vetor.getElemento(i);
+            vetor.subs(vetor.getElemento(indiceMenor), i);
+            vetor.subs(aux, indiceMenor);
+
+        }
+        return vetor;
+    }
+
 }

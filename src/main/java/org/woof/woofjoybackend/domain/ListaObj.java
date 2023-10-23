@@ -3,6 +3,7 @@ package org.woof.woofjoybackend.domain;
 
 import org.woof.woofjoybackend.entity.object.Dog;
 
+import javax.sound.midi.Soundbank;
 import java.util.Objects;
 
 public class ListaObj <T>{
@@ -19,23 +20,19 @@ public class ListaObj <T>{
     }
 
     public void adicionar(T n){
-        if (Objects.equals(nroElem, vetor.length)){
+        if (nroElem > vetor.length-1){
             throw new IllegalStateException("Sua lista está cheia");
         }
         vetor[nroElem] = n;
         nroElem++;
     }
 
-    public void adicionar(T n, int i){
-        if (Objects.equals(nroElem, vetor.length)){
-            throw new IllegalStateException("Sua lista está cheia");
+    public void subs(T n, int i){
+        if (i >= 0 && i < nroElem) {
+            vetor[i] = n;
+        }else {
+            System.out.println("Indice inválido");
         }
-        for (int j = nroElem; j > i; j++) {
-            vetor[j] = vetor[j+1];
-        }
-
-        vetor[i] = n;
-        nroElem++;
     }
 
     public int buscar(T elem){
@@ -71,20 +68,7 @@ public class ListaObj <T>{
         nroElem =0;
     }
 
-    public static ListaObj<Dog> ordenarPorAdressividade(ListaObj<Dog> vetor){
-        for (int i = 0; i < vetor.getTamanho()  ; i++) {
-            int indiceMenor = i;
-            for (int j = i + 1; j < vetor.getTamanho(); j++) {
-                if(vetor.getElemento(j).getAgressivo() < vetor.getElemento(indiceMenor).getAgressivo()){
-                    indiceMenor = j;
-                }
-            }
-            Dog aux = vetor.getElemento(i);
-            vetor.adicionar(vetor.getElemento(indiceMenor), i);
-            vetor.adicionar(aux, indiceMenor);
-        }
-        return vetor;
-    }
+
 
 
     public void exibir(){
