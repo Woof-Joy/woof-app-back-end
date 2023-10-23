@@ -3,7 +3,6 @@ package org.woof.woofjoybackend.controllers.users;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.entity.Observacao;
 import org.woof.woofjoybackend.service.ServiceObservacao;
 

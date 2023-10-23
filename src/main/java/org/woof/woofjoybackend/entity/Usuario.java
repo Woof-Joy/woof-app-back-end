@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
+import org.woof.woofjoybackend.entity.object.Item;
 
 
 import java.time.LocalDate;

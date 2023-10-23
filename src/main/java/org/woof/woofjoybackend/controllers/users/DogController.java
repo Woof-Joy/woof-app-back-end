@@ -4,8 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.woof.woofjoybackend.entity.Dog;
-import org.woof.woofjoybackend.entity.object.ListaObj;
+import org.woof.woofjoybackend.entity.object.Dog;
+import org.woof.woofjoybackend.domain.ListaObj;
 import org.woof.woofjoybackend.entity.object.ManipuladorDeArquivo;
 import org.woof.woofjoybackend.service.ServiceDog;
 
@@ -32,10 +32,10 @@ public class DogController {
         return dogCadastrado == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogCadastrado);
     }
 
-    @PostMapping()
-    public ResponseEntity<Dog> cadastrarPet(@Valid @RequestBody Dog dog) {
-        Dog dogCriado = serviceDog.criarDog(dog);
-        return ResponseEntity.ok().body(dogCriado);
+    @PostMapping("/{idDono}")
+    public ResponseEntity<Dog> cadastrarPet(@Valid @RequestBody Dog dog, @PathVariable Integer idDono) {
+        Dog dogCriado = serviceDog.criarDog(dog, idDono);
+        return dogCriado == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().body(dogCriado);
     }
 
     @PutMapping("/{id}")

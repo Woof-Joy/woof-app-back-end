@@ -2,7 +2,9 @@ package org.woof.woofjoybackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.entity.Cliente;
+import org.woof.woofjoybackend.entity.object.Dog;
+import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.DogRepository;
 
 import java.util.ArrayList;
@@ -13,14 +15,21 @@ import java.util.List;
 public class ServiceDog {
 
     private DogRepository dogRepository;
-
+    private ClienteRepository clienteRepository;
     @Autowired
-    public ServiceDog(DogRepository dogRepository) {
+    public ServiceDog(DogRepository dogRepository, ClienteRepository clienteRepository) {
         this.dogRepository = dogRepository;
+        this.clienteRepository = clienteRepository;
     }
 
+
     //Criar
-    public Dog criarDog(Dog dog){
+    public Dog criarDog(Dog dog, Integer fkdono){
+        Cliente dono = gerarFkCliente(fkdono);
+        if (dono == null){
+            return null;
+        }
+        dog.setFkDono(dono);
         Dog dogCadastrado = dogRepository.save(dog);
         return dogCadastrado;
     }
@@ -67,6 +76,11 @@ public class ServiceDog {
         }
         System.out.println("O pet não foi deletado, pois ele não existe.");
         return false;
+    }
+
+    public Cliente gerarFkCliente (Integer id){
+        Cliente cliente = clienteRepository.findById(id).get();
+        return cliente;
     }
 
 }

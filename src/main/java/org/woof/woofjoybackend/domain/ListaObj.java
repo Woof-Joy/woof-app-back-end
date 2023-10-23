@@ -1,6 +1,6 @@
-package org.woof.woofjoybackend.entity.object;
+package org.woof.woofjoybackend.domain;
 
-import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.entity.object.Dog;
 
 import java.util.Objects;
 

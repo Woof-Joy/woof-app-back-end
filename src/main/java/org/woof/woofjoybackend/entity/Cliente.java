@@ -3,6 +3,7 @@ package org.woof.woofjoybackend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import org.woof.woofjoybackend.entity.object.Dog;
 
 import java.util.ArrayList;
 import java.util.List;

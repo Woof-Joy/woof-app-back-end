@@ -1,9 +1,10 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.entity.object;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
-import org.woof.woofjoybackend.entity.object.ListaObj;
+import org.woof.woofjoybackend.entity.Cliente;
+import org.woof.woofjoybackend.entity.Observacao;
 
 import java.time.LocalDate;
 import java.util.List;

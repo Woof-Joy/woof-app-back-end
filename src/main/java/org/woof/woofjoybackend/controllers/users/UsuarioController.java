@@ -8,7 +8,7 @@ import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.service.ServiceCliente;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
-import org.woof.woofjoybackend.entity.Item;
+import org.woof.woofjoybackend.entity.object.Item;
 
 import java.util.ArrayList;
 import java.util.List;
