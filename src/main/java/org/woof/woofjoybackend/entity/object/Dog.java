@@ -1,16 +1,19 @@
 package org.woof.woofjoybackend.entity.object;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.woof.woofjoybackend.entity.Cliente;
+import org.woof.woofjoybackend.entity.Observacao;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
 @Table(name = "cachorro")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Dog {
     @Id
     private Integer id;
@@ -40,9 +43,8 @@ public class Dog {
     @ManyToOne
     private Cliente dono;
 
-
-    public Dog() {
-    }
+    @OneToMany(mappedBy = "cachorro", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Observacao> observacoes;
 
 
     public Integer getId() {

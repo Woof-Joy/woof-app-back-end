@@ -2,9 +2,14 @@ package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.woof.woofjoybackend.entity.object.Dog;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Observacao {
 
     @Id
@@ -13,9 +18,8 @@ public class Observacao {
 
     private String tipo;
 
+    @ManyToOne
     private Dog cachorro;
-
-    private Cliente dono;
 
     public Integer getId() {
         return id;
@@ -47,13 +51,5 @@ public class Observacao {
 
     public void setCachorro(Dog cachorro) {
         this.cachorro = cachorro;
-    }
-
-    public Cliente getDono() {
-        return dono;
-    }
-
-    public void setDono(Cliente dono) {
-        this.dono = dono;
     }
 }

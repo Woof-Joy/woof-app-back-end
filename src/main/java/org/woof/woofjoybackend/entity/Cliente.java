@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.woof.woofjoybackend.entity.object.Dog;
+
+import java.util.List;
 
 @Setter
 @AllArgsConstructor
@@ -16,6 +19,9 @@ public class Cliente {
 
     @OneToOne
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dog> cachorros;
 
     public Cliente(Usuario usuario) {
         this.usuario = usuario;

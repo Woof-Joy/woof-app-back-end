@@ -4,12 +4,16 @@ package org.woof.woofjoybackend.entity.response;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.woof.woofjoybackend.entity.Usuario;
 
 @Getter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Endereco {
         @Id
         private String cep;

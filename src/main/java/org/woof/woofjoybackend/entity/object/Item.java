@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.Usuario;
@@ -12,6 +13,7 @@ import org.woof.woofjoybackend.entity.Usuario;
 @Setter
 @AllArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +32,6 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "fkDono")
     private Usuario dono;
-    public Item() {
-    }
-
     public Integer getId() {
         return id;
     }
