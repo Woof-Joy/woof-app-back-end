@@ -15,11 +15,9 @@ import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
-
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
