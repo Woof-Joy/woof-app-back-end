@@ -6,6 +6,7 @@ import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.entity.object.Item;
 import org.woof.woofjoybackend.repository.ItemRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,10 @@ public class ServiceItem {
 
     public Optional<Item> listaItemPorId(Integer id) {
         return itemRepository.findById(id);
+    }
+
+    public List<Item> listaItens(){
+        return itemRepository.findAll();
     }
 
     public Item attItem(Item it, Integer idItem) {

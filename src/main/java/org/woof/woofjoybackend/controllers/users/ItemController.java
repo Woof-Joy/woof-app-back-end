@@ -54,12 +54,7 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<Item>> listaTodosItens() {
-        List<Usuario> listaUsuarios = serviceUser.listaUsuarios();
-        List<Item> listaItens = new ArrayList<>();
-
-        for (Usuario u : listaUsuarios) {
-            listaItens.addAll(u.getListaItens());
-        }
+        List<Item> listaItens = service.listaItens();
 
         if (!listaItens.isEmpty()) {
             return ResponseEntity.status(200).body(listaItens);
@@ -81,7 +76,7 @@ public class ItemController {
         Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
         if (service.listaItemPorId(idItem).isPresent()) {
             service.deleteItem(idItem);
-            return ResponseEntity.status(200).build();
+            return ResponseEntity.status(204).build();
         }
         return ResponseEntity.status(404).build();
     }
