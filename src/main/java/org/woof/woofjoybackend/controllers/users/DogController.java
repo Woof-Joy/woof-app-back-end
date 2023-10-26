@@ -128,7 +128,7 @@ public class DogController {
                 listaObj.adicionar(dog);
             }
             Dog dog = pesquisaBinaria( listaObj, agressividade);
-            return ResponseEntity.ok(dog);
+            return dog == null? ResponseEntity.notFound().build(): ResponseEntity.ok(dog);
         }
         return ResponseEntity.noContent().build();
     }
