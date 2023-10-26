@@ -79,7 +79,7 @@ public class DogController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "csv/ordenado-agrssivo/{idDono}/download", produces = "txt/csv")
+    @GetMapping(value = "csv/ordenado-agressivo/{idDono}/download", produces = "txt/csv")
     public ResponseEntity<org.springframework.core.io.Resource> uploadOrdenado(@PathVariable Integer idDono) throws IOException {
         List<Dog> list = serviceDog.listarDogs(idDono);
         if (!list.isEmpty()){
@@ -116,6 +116,38 @@ public class DogController {
 
         }
         return vetor;
+    }
+
+    @GetMapping("/{idDono}/{agressividade}")
+    public ResponseEntity<Dog> buscaPetAgressivo(@PathVariable Integer agressividade, @PathVariable Integer idDono) {
+        List<Dog> list = serviceDog.listarDogs(idDono);
+        if (!list.isEmpty()){
+            ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
+            for (Dog dog:
+                    list) {
+                listaObj.adicionar(dog);
+            }
+            Dog dog = pesquisaBinaria( listaObj, agressividade);
+            return ResponseEntity.ok(dog);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    public static Dog pesquisaBinaria(ListaObj<Dog> listaObj, int x){
+        int iInferior = listaObj.getElemento(0).getAgressivo();
+        int iSuperior = listaObj.getElemento(listaObj.getNroElem()-1).getAgressivo();
+
+        while (iInferior < iSuperior){
+            int meioVetor = (iInferior + iSuperior)/2;
+            if (listaObj.getElemento(meioVetor).getAgressivo() == x){
+                return listaObj.getElemento(meioVetor);
+            } else if (listaObj.getElemento(meioVetor).getAgressivo() < x){
+                iInferior = meioVetor + 1;
+            } else {
+                iSuperior = meioVetor -1;
+            }
+        }
+        return null;
     }
 
 }
