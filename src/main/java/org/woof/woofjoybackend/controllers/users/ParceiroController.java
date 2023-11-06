@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Parceiro;
+import org.woof.woofjoybackend.entity.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,11 +26,16 @@ public class ParceiroController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Parceiro>> listagemParceiros() {
+    public ResponseEntity<List<ParceiroDTO>> listagemParceiros() {
         List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();
 
         if (!listaParceiros.isEmpty()) {
-            return ResponseEntity.status(200).body(listaParceiros);
+            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
+            for (Parceiro p:
+                 listaParceiros) {
+                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
+            }
+            return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
     }
