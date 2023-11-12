@@ -1,8 +1,7 @@
 package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 
@@ -23,17 +22,20 @@ import java.util.List;
 @Entity
 public class Parceiro {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     Integer idParceiro;
 
     @PastOrPresent
     private LocalDate dataEntrada;
 
+    @Pattern(regexp = "^(ambos|dogWalker|dogSitter)$", message = "O tipo de serviõ deve ser 'Ambos', 'dogWalker' ou 'dogSitter'")
+    private String tipoServico;
+
+    @Max(value = 5)
+    @Min(value = 0)
+    private Double estrelas;
 
     @DecimalMin(value = "1")
-
     private Integer maxDogs;
 
     @BooleanFlag

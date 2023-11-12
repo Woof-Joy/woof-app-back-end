@@ -9,7 +9,6 @@ import org.woof.woofjoybackend.entity.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,14 +25,14 @@ public class ParceiroController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ParceiroDTO>> listagemParceiros() {
-        List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();
+    public ResponseEntity<List<ParceiroDTO>> getParceiros() {
+        List<Parceiro> listaParceiros = serviceParceiro.getParceiros();
 
         if (!listaParceiros.isEmpty()) {
             List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
             for (Parceiro p:
                  listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
+                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao(), p.getEstrelas()));
             }
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
@@ -41,14 +40,14 @@ public class ParceiroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Parceiro> listaParceiroPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(serviceParceiro.listaParceiroPorId(id));
+    public ResponseEntity<Parceiro> getParceiroById(@PathVariable Integer id) {
+        return ResponseEntity.ok(serviceParceiro.getParceirosById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Parceiro> attParceiro(@Valid @RequestBody Parceiro parceiro, @PathVariable Integer id) {
+    public ResponseEntity<Parceiro> putParceiro(@Valid @RequestBody Parceiro parceiro, @PathVariable Integer id) {
         if (serviceParceiro.idExiste(id)) {
-            return ResponseEntity.status(200).body(serviceParceiro.attParceiro(parceiro, id));
+            return ResponseEntity.status(200).body(serviceParceiro.putParceiro(parceiro, id));
         }
         return ResponseEntity.status(404).build();
     }

@@ -34,12 +34,12 @@ import java.util.List;
 //CRUD - USUARIO
 
         @PostMapping("/{tipo}")
-        public ResponseEntity<Usuario> postUsuario(
+        public ResponseEntity<Void> postUsuario(
                 @Valid @RequestBody Usuario usuario,
                 @PathVariable int tipo) {
             if (service.usuarioPodeSerCadastrado(usuario, tipo)) {
                 service.postUsuario(usuario, tipo);
-                return ResponseEntity.status(201).body(usuario);
+                return ResponseEntity.status(201).build();
             }
             return ResponseEntity.status(409).build();
         }

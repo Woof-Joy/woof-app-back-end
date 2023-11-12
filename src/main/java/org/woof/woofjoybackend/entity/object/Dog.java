@@ -19,16 +19,18 @@ import java.util.List;
 @NoArgsConstructor
 public class Dog {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+
     @NotBlank
     @Size(max = 50)
     private String nome;
+
     @Past
     private LocalDate dtNasc;
+
     @Size(max = 200)
     private String imgCachorro;
-
 
     @BooleanFlag
     private Boolean rga;

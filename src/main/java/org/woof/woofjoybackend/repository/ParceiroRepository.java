@@ -5,8 +5,12 @@ import org.springframework.stereotype.Repository;
 import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.Usuario;
 
+import java.util.List;
+
 
 @Repository
 public interface ParceiroRepository extends JpaRepository<Parceiro, Integer>{
-    public Boolean existsByUsuario(Usuario usuario);
+    Boolean existsByUsuario(Usuario usuario);
+    List<Parceiro> findByTipoServicoIgnoreCase(String tipo);
+    List<Parceiro> findByUsuarioNomeContainsIgnoreCase(String nome);
 }
