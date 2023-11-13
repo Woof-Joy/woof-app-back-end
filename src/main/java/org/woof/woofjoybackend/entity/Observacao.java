@@ -10,8 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.woof.woofjoybackend.entity.object.Dog;
 
 @Entity
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity.dto;
+package org.woof.woofjoybackend.dto;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,12 +9,15 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import java.time.LocalDate;
 
+
 public class ParceiroDTO {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     Integer idParceiro;
+
+    @Min(0)
+    @Max(5)
+    private Double avaliacao;
 
     @PastOrPresent
     private LocalDate dataEntrada;

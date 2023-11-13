@@ -5,11 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Usuario;
-import org.woof.woofjoybackend.entity.object.Item;
+import org.woof.woofjoybackend.entity.Item;
 import org.woof.woofjoybackend.service.ServiceItem;
 import org.woof.woofjoybackend.service.ServiceUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

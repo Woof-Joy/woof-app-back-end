@@ -1,6 +1,5 @@
 package org.woof.woofjoybackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.object.Item;
 import org.woof.woofjoybackend.entity.response.Endereco;
 
 

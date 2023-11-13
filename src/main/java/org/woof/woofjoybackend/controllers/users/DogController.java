@@ -1,22 +1,20 @@
 package org.woof.woofjoybackend.controllers.users;
 
-import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.woof.woofjoybackend.entity.object.Dog;
+import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.domain.ListaObj;
-import org.woof.woofjoybackend.entity.object.ManipuladorDeArquivo;
+import org.woof.woofjoybackend.entity.ManipuladorDeArquivo;
 
 import org.woof.woofjoybackend.service.ServiceDog;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 @RestController

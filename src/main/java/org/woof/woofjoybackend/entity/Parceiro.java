@@ -2,6 +2,8 @@ package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
 import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
@@ -23,17 +25,17 @@ import java.util.List;
 @Entity
 public class Parceiro {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idParceiro;
 
-    Integer idParceiro;
+    @Min(0)
+    @Max(5)
+    private Double avaliacao;
 
     @PastOrPresent
     private LocalDate dataEntrada;
 
-
     @DecimalMin(value = "1")
-
     private Integer maxDogs;
 
     @BooleanFlag

@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity.object;
+package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

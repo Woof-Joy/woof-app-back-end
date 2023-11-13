@@ -29,6 +29,14 @@ public class ServiceParceiro implements iVerificaveis {
         return parceiroRepository.findById(id).get();
     }
 
+    public List<Parceiro> listarParceiroEmOrdemDecrescentePorAvaliacao() {
+        return parceiroRepository.findByAvaliacaoOrderByAvaliacaoAsc();
+    }
+
+    public List<Parceiro> listarParceiroEmOrdemDecrescentePorAvaliacaoDesc() {
+        return parceiroRepository.findByAvaliacaoOrderByAvaliacaoDesc();
+    }
+
     public Parceiro attParceiro(Parceiro parceiro, Integer id) {
         parceiro.setIdParceiro(id);
         return parceiroRepository.save(parceiro);
