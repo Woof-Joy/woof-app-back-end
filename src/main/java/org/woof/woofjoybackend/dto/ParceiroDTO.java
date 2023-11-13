@@ -7,14 +7,12 @@ import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CPF;
-
 import java.time.LocalDate;
+
 @Data
 public class ParceiroDTO {
     @Id
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     Integer idParceiro;
 
     @PastOrPresent
@@ -59,7 +57,6 @@ public class ParceiroDTO {
     @NotBlank
     @Email
     private String email;
-
 
     @Past
     private LocalDate dataNasc;

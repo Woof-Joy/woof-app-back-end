@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.woof.woofjoybackend.entity.object.Dog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter

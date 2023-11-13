@@ -3,7 +3,7 @@ package org.woof.woofjoybackend.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.entity.Usuario;
-import org.woof.woofjoybackend.entity.object.Item;
+import org.woof.woofjoybackend.entity.Item;
 import org.woof.woofjoybackend.repository.ItemRepository;
 
 import java.util.List;

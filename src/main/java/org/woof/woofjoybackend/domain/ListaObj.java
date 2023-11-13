@@ -1,9 +1,6 @@
 package org.woof.woofjoybackend.domain;
 
 
-import org.woof.woofjoybackend.entity.object.Dog;
-
-import javax.sound.midi.Soundbank;
 import java.util.Objects;
 
 public class ListaObj <T>{

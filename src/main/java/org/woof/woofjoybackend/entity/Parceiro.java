@@ -1,6 +1,10 @@
 package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
