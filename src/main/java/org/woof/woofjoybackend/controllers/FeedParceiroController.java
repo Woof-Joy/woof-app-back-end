@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.entity.dto.ParceiroDTO;
+import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 
 import java.util.ArrayList;

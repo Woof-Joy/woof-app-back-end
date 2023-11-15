@@ -39,41 +39,7 @@ public class ParceiroController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("/avaliacao")
-    public ResponseEntity<List<ParceiroDTO>> listagemParceirosOrdenadosPorAvaliacao() {
-        List<Parceiro> listaParceiros = serviceParceiro.listarParceiroEmOrdemDecrescentePorAvaliacao();
-
-        if (!listaParceiros.isEmpty()) {
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                    listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
-            }
-            return ResponseEntity.status(200).body(listParceirosDTO);
-        }
-        return ResponseEntity.status(204).build();
-    }
-
-    @GetMapping("/avaliacao/desc")
-    public ResponseEntity<List<ParceiroDTO>> listagemParceirosOrdenadosPorAvaliacaoDesc() {
-        List<Parceiro> listaParceiros = serviceParceiro.listarParceiroEmOrdemDecrescentePorAvaliacaoDesc();
-
-        if (!listaParceiros.isEmpty()) {
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                    listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
-            }
-            return ResponseEntity.status(200).body(listParceirosDTO);
-        }
-        return ResponseEntity.status(204).build();
-    }
-
-
-
-
-
-    @GetMapping("/{id}")
+       @GetMapping("/{id}")
     public ResponseEntity<Parceiro> getParceiroById(@PathVariable Integer id) {
         return ResponseEntity.ok(serviceParceiro.getParceirosById(id));
     }
@@ -94,64 +60,5 @@ public class ParceiroController {
         }
         return ResponseEntity.status(404).build();
     }
-
-//    private Parceiro profissionalLogado() {
-//        int index = serviceUser.indexUsuarioLogado;
-//        if (index < 0) {
-//            return null;
-//        }
-//        Parceiro parceiroLogado = (Parceiro) clientes.get(index);
-//
-//        return parceiroLogado;
-//    }
-//
-//    @GetMapping("/perfil")
-//    public ResponseEntity<Usuario> getPerfil() {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return ResponseEntity.status(200).body(profissionalLogado());
-//    }
-//
-//    @PostMapping("/itens")
-//    public ResponseEntity<Item> postItem(@RequestBody Item it) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().postItem(it);
-//    }
-//
-//    @PutMapping("/itens/{id}")
-//    public ResponseEntity<Item> putItem(@RequestBody Item it, @PathVariable int id) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().putItem(id, it);
-//    }
-//
-//    @GetMapping("/itens/{id}")
-//    public ResponseEntity<Item> getItemById( @PathVariable int id) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().OneItemGet(id);
-//    }
-//
-//    @GetMapping("/itens")
-//    public ResponseEntity<List<Item>> getAllItens() {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().AllItensGet();
-//    }
-//
-//    @DeleteMapping("/itens/{id}")
-//    public ResponseEntity<Void> deleteItem(@PathVariable int id) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().deleteItem(id);
-//    }
-
 
 }
