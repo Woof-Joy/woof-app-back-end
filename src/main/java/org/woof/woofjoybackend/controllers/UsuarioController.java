@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.controllers.users;
+package org.woof.woofjoybackend.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

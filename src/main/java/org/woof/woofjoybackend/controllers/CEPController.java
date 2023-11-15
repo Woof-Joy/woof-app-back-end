@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.controllers.consumers;
+package org.woof.woofjoybackend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

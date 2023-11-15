@@ -4,6 +4,7 @@ package org.woof.woofjoybackend.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ public class Observacao {
     @NotBlank
     @NotNull
     @Size(max = 50)
+    @Pattern(regexp = "^(alergia|doença|medicação)$", message = "O tipo deve ser 'alergia', 'doença' ou 'medicação'")
     private String tipo;
     @JoinColumn(name = "cachorro")
     @ManyToOne
