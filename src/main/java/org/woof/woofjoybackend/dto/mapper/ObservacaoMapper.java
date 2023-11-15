@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ObservacaoMapper {
     public static ObservacaoDTO toDTO(Observacao entidadeObs){
+        if (entidadeObs == null) return null;
         ObservacaoDTO observacaoDTO = new ObservacaoDTO();
         observacaoDTO.setNome(entidadeObs.getNome());
         observacaoDTO.setTipo(entidadeObs.getTipo());

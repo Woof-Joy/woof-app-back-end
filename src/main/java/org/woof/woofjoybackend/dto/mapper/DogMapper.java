@@ -1,5 +1,6 @@
 package org.woof.woofjoybackend.dto.mapper;
 
+import org.woof.woofjoybackend.dto.ClienteDogDTO;
 import org.woof.woofjoybackend.dto.DogPerfilDTO;
 import org.woof.woofjoybackend.entity.Dog;
 
@@ -27,12 +28,34 @@ public class DogMapper {
         return dogPerfilDTO;
     }
 
+
     public static List<DogPerfilDTO> toDTO(List<Dog> listaDeDogs){
         List<DogPerfilDTO> listaDeDogsDTO = new ArrayList<>();
         for (Dog dog:
                 listaDeDogs) {
             if (dog == null) continue;
             listaDeDogsDTO.add(DogMapper.toDTO(dog));
+        }
+        return listaDeDogsDTO;
+    }
+
+    public static ClienteDogDTO toDTOCliente(Dog entidadeDog){
+        if (entidadeDog == null) return null;
+        ClienteDogDTO dogDTO = new ClienteDogDTO();
+        dogDTO.setId(entidadeDog.getId());
+        dogDTO.setNome(entidadeDog.getNome());
+        dogDTO.setDtNasc(entidadeDog.getDtNasc());
+        dogDTO.setImgCachorro(entidadeDog.getImgCachorro());
+        dogDTO.setIdDono(entidadeDog.getFkDono().getIdCliente());
+        return dogDTO;
+    }
+
+    public static List<ClienteDogDTO> toDTOCliente(List<Dog> listaDeDogs){
+        List<ClienteDogDTO> listaDeDogsDTO = new ArrayList<>();
+        for (Dog dog:
+                listaDeDogs) {
+            if (dog == null) continue;
+            listaDeDogsDTO.add(DogMapper.toDTOCliente(dog));
         }
         return listaDeDogsDTO;
     }

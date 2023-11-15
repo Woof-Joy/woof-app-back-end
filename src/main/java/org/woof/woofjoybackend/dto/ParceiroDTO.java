@@ -66,13 +66,5 @@ public class ParceiroDTO {
     @Size(max = 500)
     private String descricao;
 
-
-    f = cpf;
-        this.cep = cep;
-        this.numero = numero;
-        this.email = email;
-        this.dataNasc = dataNasc;
-        this.descricao = descricao;
-    }
 }
 
