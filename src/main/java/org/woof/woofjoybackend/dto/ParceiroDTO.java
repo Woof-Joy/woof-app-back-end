@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity.dto;
+package org.woof.woofjoybackend.dto;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

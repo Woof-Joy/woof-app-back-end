@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.domain.iVerificaveis;
 import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.entity.dto.ParceiroDTO;
+import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.entity.exception.BadRequestException;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
