@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.controllers.users;
+package org.woof.woofjoybackend.controllers;
 
 import jakarta.validation.Valid;
 
@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.dto.DogPerfilDTO;
+import org.woof.woofjoybackend.dto.mapper.DogMapper;
 import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.domain.ListaObj;
 import org.woof.woofjoybackend.entity.ManipuladorDeArquivo;
@@ -28,26 +30,26 @@ public class DogController {
 
 
     @GetMapping("dono/{id}")
-    public ResponseEntity<List<Dog>> listarPet(@PathVariable Integer id) {
-        List<Dog> dogsCadastrados = serviceDog.listarDogs(id);
+    public ResponseEntity<List<DogPerfilDTO>> listarPet(@PathVariable Integer id) {
+        List<DogPerfilDTO> dogsCadastrados = DogMapper.toDTO(serviceDog.listarDogs(id));
         return dogsCadastrados == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogsCadastrados);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dog> listarUmPet(@PathVariable Integer id) {
-        Dog dogCadastrado = serviceDog.listarDog(id);
+    public ResponseEntity<DogPerfilDTO> listarUmPet(@PathVariable Integer id) {
+        DogPerfilDTO dogCadastrado = DogMapper.toDTO(serviceDog.listarDog(id));
         return dogCadastrado == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogCadastrado);
     }
 
     @PostMapping("/{idDono}")
-    public ResponseEntity<Dog> cadastrarPet(@Valid @RequestBody Dog dog, @PathVariable Integer idDono) {
-        Dog dogCriado = serviceDog.criarDog(dog, idDono);
+    public ResponseEntity<DogPerfilDTO> cadastrarPet(@Valid @RequestBody Dog dog, @PathVariable Integer idDono) {
+        DogPerfilDTO dogCriado = DogMapper.toDTO(serviceDog.criarDog(dog, idDono));
         return dogCriado == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().body(dogCriado);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dog> atulizarPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
-        Dog dogAtualizado = serviceDog.atulizarDog(dog, id);
+    public ResponseEntity<DogPerfilDTO> atulizarPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
+        DogPerfilDTO dogAtualizado = DogMapper.toDTO(serviceDog.atulizarDog(dog, id));
         return dogAtualizado == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(dogAtualizado);
     }
 
@@ -117,7 +119,7 @@ public class DogController {
     }
 
     @GetMapping("/{idDono}/{agressividade}")
-    public ResponseEntity<Dog> buscaPetAgressivo(@PathVariable Integer agressividade, @PathVariable Integer idDono) {
+    public ResponseEntity<DogPerfilDTO> buscaPetAgressivo(@PathVariable Integer agressividade, @PathVariable Integer idDono) {
         List<Dog> list = serviceDog.listarDogs(idDono);
         if (!list.isEmpty()){
             ListaObj<Dog> listaObj = new ListaObj<Dog>(list.size());
@@ -126,7 +128,7 @@ public class DogController {
                 listaObj.adicionar(dog);
             }
             Dog dog = pesquisaBinaria( listaObj, agressividade);
-            return dog == null? ResponseEntity.notFound().build(): ResponseEntity.ok(dog);
+            return dog == null? ResponseEntity.notFound().build(): ResponseEntity.ok(DogMapper.toDTO(dog)  );
         }
         return ResponseEntity.noContent().build();
     }

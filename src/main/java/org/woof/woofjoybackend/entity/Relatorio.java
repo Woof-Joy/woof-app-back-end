@@ -2,8 +2,9 @@ package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,14 +15,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class FichaServico {
+public class Relatorio {
     @Id
     private Integer id;
 
-    @Pattern(regexp = "^(ambos|walker|sitter)$", message = "O tipo deve ser 'ambos', 'walker' ou 'sitter'")
-    private String tipoServico;
+    @Size(max = 255)
+    private String conteudo;
 
-    @Positive
-    private Double valor;
-
+    @OneToOne
+    @JoinColumn(name = "fkServico")
+    private Servico fkServico;
 }
