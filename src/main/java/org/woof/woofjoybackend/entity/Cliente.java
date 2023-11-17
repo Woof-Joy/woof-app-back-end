@@ -2,11 +2,13 @@ package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
+@Getter
 @Setter
 @AllArgsConstructor
 @Entity
@@ -24,9 +26,5 @@ public class Cliente {
 
     public Cliente(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public Integer getIdCliente() {
-        return idCliente;
     }
 }

@@ -50,6 +50,8 @@ public class Usuario implements iVerificaveis {
     @Past
     private LocalDate dataNasc;
 
+    private String imgUsuario;
+
     @Size(max = 500)
     private String descricao;
 
