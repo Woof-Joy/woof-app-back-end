@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -26,6 +27,7 @@ public class Servico {
     @NotNull
     @Pattern(regexp = "^(aguardandoConfimacao|aguardandoInicio|emAndamento|concluido)$", message = "O tamanho deve ser 'aguardandoConfimacao', 'aguardandoInicio', 'emAndamento' ou 'concluido'")
     private String status;
+    private String tipoServico;
 
     @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private Relatorio relatorio;
@@ -37,6 +39,6 @@ public class Servico {
     @JoinColumn(name = "fkFichaServico")
     private FichaServico fkFichaServico;
 
-
-
+    @ManyToMany
+    private List<Dog> cachorros;
 }

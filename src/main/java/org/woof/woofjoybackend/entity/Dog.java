@@ -3,11 +3,8 @@ package org.woof.woofjoybackend.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
-import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.Observacao;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,8 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Dog {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
 
     @NotBlank
     @Size(max = 50)
@@ -56,7 +53,6 @@ public class Dog {
     @Pattern(regexp = "^[MF]$", message = "O gênero deve ser 'M' ou 'F'")
     private String genero;
 
-
     @Min(0)
     @Max(5)
     private Integer agressivo;
@@ -64,8 +60,8 @@ public class Dog {
     @BooleanFlag
     private Boolean deficiencia;
 
-
     @ManyToOne
+    @PrimaryKeyJoinColumn
     @JoinColumn(name = "fkDono")
     private Cliente fkDono;
 

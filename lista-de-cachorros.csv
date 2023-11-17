@@ -1,0 +1,4 @@
+ID;NOME;DATA NASC;PORTE;PESO;GENERO;X;REFERENCIA IMG;CONVENIO;DEFICIENTE
+2;João;2022-10-22;pequeno;4,00;M;0;ABC;true;null;
+4;Rex;2022-10-22;pequeno;4,00;M;1;ABC;true;null;
+3;Rex;2022-10-22;pequeno;4,00;M;3;ABC;true;null;
