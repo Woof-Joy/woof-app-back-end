@@ -18,10 +18,8 @@ import java.util.List;
 
 @Getter
 @Setter
-
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 public class Parceiro {
     @Id
@@ -58,7 +56,7 @@ public class Parceiro {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "parceiro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Servico> servicos;
+    private List<FichaServico> servicos;
 
     public Parceiro (Usuario usuario){
         this.usuario = usuario;
