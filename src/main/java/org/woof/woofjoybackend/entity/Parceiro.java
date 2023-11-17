@@ -19,15 +19,13 @@ import java.util.List;
 
 @Getter
 @Setter
-
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 public class Parceiro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer idParceiro;
+    private Integer idParceiro;
 
     @PastOrPresent
     private LocalDate dataEntrada;
@@ -61,8 +59,11 @@ public class Parceiro {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    @OneToOne(mappedBy = "fkParceiro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Endereco endereco;
+
     @OneToMany(mappedBy = "parceiro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Servico> servicos;
+    private List<FichaServico> servicos;
 
     public Parceiro (Usuario usuario){
         this.usuario = usuario;

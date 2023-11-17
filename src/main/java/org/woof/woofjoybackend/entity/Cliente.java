@@ -29,4 +29,24 @@ public class Cliente {
     public Integer getIdCliente() {
         return idCliente;
     }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Dog> getDogList() {
+        return dogList;
+    }
+
+    public void setDogList(List<Dog> dogList) {
+        this.dogList = dogList;
+    }
 }

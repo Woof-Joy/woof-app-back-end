@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.response.Endereco;
+import org.woof.woofjoybackend.entity.response.Cep;
 
 
 import java.time.LocalDate;
@@ -63,7 +63,7 @@ public class Usuario implements iVerificaveis {
     private List<Item> listaItens;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Endereco endereco;
+    private Cep cep;
 
     public Usuario() {
         this.listaItens = new ArrayList<>();
