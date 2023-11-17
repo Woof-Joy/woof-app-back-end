@@ -26,10 +26,6 @@ public class Parceiro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idParceiro;
 
-    @Min(0)
-    @Max(5)
-    private Double avaliacao;
-
     @PastOrPresent
     private LocalDate dataEntrada;
 
@@ -54,6 +50,9 @@ public class Parceiro {
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @OneToOne(mappedBy = "fkParceiro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Endereco endereco;
 
     @OneToMany(mappedBy = "parceiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FichaServico> servicos;

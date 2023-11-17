@@ -4,10 +4,13 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.dto.ParceiroAvaliacaoFeedDTO;
+import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
 import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
+import org.woof.woofjoybackend.service.gateway.ServiceCEP;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,22 +21,21 @@ public class ParceiroController {
     private final ServiceParceiro serviceParceiro;
     private final ServiceUser serviceUser;
 
+    private final ServiceCEP serviceCEP;
+
     @Autowired
-    public ParceiroController(ServiceParceiro serviceParceiro, ServiceUser serviceUser) {
+    public ParceiroController(ServiceParceiro serviceParceiro, ServiceUser serviceUser, ServiceCEP serviceCEP) {
         this.serviceParceiro = serviceParceiro;
         this.serviceUser = serviceUser;
+        this.serviceCEP = serviceCEP;
     }
 
-    @GetMapping
-    public ResponseEntity<List<ParceiroDTO>> listagemParceiros() {
-        List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();
 
+    @GetMapping
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> listagemParceiros() {
+        List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();
         if (!listaParceiros.isEmpty()) {
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                 listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
-            }
+            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = ParceiroMapper.toDTOAvaliacao(listaParceiros);
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
@@ -45,10 +47,6 @@ public class ParceiroController {
 
         if (!listaParceiros.isEmpty()) {
             List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                    listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
-            }
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
@@ -60,10 +58,6 @@ public class ParceiroController {
 
         if (!listaParceiros.isEmpty()) {
             List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                    listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao()));
-            }
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
@@ -94,64 +88,6 @@ public class ParceiroController {
         }
         return ResponseEntity.status(404).build();
     }
-
-//    private Parceiro profissionalLogado() {
-//        int index = serviceUser.indexUsuarioLogado;
-//        if (index < 0) {
-//            return null;
-//        }
-//        Parceiro parceiroLogado = (Parceiro) clientes.get(index);
-//
-//        return parceiroLogado;
-//    }
-//
-//    @GetMapping("/perfil")
-//    public ResponseEntity<Usuario> getPerfil() {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return ResponseEntity.status(200).body(profissionalLogado());
-//    }
-//
-//    @PostMapping("/itens")
-//    public ResponseEntity<Item> postItem(@RequestBody Item it) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().postItem(it);
-//    }
-//
-//    @PutMapping("/itens/{id}")
-//    public ResponseEntity<Item> putItem(@RequestBody Item it, @PathVariable int id) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().putItem(id, it);
-//    }
-//
-//    @GetMapping("/itens/{id}")
-//    public ResponseEntity<Item> getItemById( @PathVariable int id) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().OneItemGet(id);
-//    }
-//
-//    @GetMapping("/itens")
-//    public ResponseEntity<List<Item>> getAllItens() {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().AllItensGet();
-//    }
-//
-//    @DeleteMapping("/itens/{id}")
-//    public ResponseEntity<Void> deleteItem(@PathVariable int id) {
-//        if (profissionalLogado() == null) {
-//            return ResponseEntity.status(403).build();
-//        }
-//        return profissionalLogado().deleteItem(id);
-//    }
 
 
 }

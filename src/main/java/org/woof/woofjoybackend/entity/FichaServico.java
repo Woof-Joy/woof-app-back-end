@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,11 +22,12 @@ public class FichaServico {
     private Integer id;
     @Pattern(regexp = "^(ambos|walker|sitter)$", message = "O tipo deve ser 'ambos', 'walker' ou 'sitter'")
     private String tipoServico;
-
     @Positive
     private Double valor;
     @ManyToOne
     @JoinColumn(name = "parceiro")
     private Parceiro parceiro;
+    @OneToMany(mappedBy = "fkFichaServico")
+    private List<Servico> servicos;
 
 }
