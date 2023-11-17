@@ -11,7 +11,6 @@ import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
 import org.woof.woofjoybackend.service.gateway.ServiceCEP;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +42,10 @@ public class ParceiroController {
 
     @GetMapping("/avaliacao")
     public ResponseEntity<List<ParceiroDTO>> listagemParceirosOrdenadosPorAvaliacao() {
-        List<Parceiro> listaParceiros = serviceParceiro.listarParceiroEmOrdemDecrescentePorAvaliacao();
-
+        List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();
         if (!listaParceiros.isEmpty()) {
             List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
+
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
