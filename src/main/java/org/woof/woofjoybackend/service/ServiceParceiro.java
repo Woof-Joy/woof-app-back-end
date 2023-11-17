@@ -25,10 +25,17 @@ public class ServiceParceiro implements iVerificaveis {
         return parceiroRepository.findAll();
     }
 
-    public Parceiro listaParceiroPorId(Integer id) {
+    public Parceiro listarParceiroPorId(Integer id) {
         return parceiroRepository.findById(id).get();
     }
 
+    public List<Parceiro> listarParceiroOrdenadoPorAvaliacaoAsc(Integer id) {
+        return parceiroRepository.findParceiroByAvaliacoesOrderByNotaAsc(id);
+    }
+
+    public List<Parceiro> listarParceiroOrdenadoPorAvaliacaoDesc(Integer id) {
+        return parceiroRepository.findParceiroByAvaliacoesOrderByNotaDesc(id);
+    }
 
     public Parceiro attParceiro(Parceiro parceiro, Integer id) {
         parceiro.setIdParceiro(id);

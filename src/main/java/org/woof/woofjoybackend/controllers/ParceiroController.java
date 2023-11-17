@@ -40,23 +40,21 @@ public class ParceiroController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("/avaliacao")
-    public ResponseEntity<List<ParceiroDTO>> listagemParceirosOrdenadosPorAvaliacao() {
-        List<Parceiro> listaParceiros = serviceParceiro.listaParceiros();
+    @GetMapping("/avaliacao/asc")
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> listagemParceirosOrdenadosPorAvaliacao(@RequestParam Integer id) {
+        List<Parceiro> listaParceiros = serviceParceiro.listarParceiroOrdenadoPorAvaliacaoAsc(id);
         if (!listaParceiros.isEmpty()) {
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
-
+            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = ParceiroMapper.toDTOAvaliacao(listaParceiros);
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
     }
 
     @GetMapping("/avaliacao/desc")
-    public ResponseEntity<List<ParceiroDTO>> listagemParceirosOrdenadosPorAvaliacaoDesc() {
-        List<Parceiro> listaParceiros = serviceParceiro.listarParceiroEmOrdemDecrescentePorAvaliacaoDesc();
-
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> listagemParceirosOrdenadosPorAvaliacaoDesc(@RequestParam Integer id) {
+        List<Parceiro> listaParceiros = serviceParceiro.listarParceiroOrdenadoPorAvaliacaoDesc(id);
         if (!listaParceiros.isEmpty()) {
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
+            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = ParceiroMapper.toDTOAvaliacao(listaParceiros);
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
         return ResponseEntity.status(204).build();
@@ -68,7 +66,7 @@ public class ParceiroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Parceiro> listaParceiroPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(serviceParceiro.listaParceiroPorId(id));
+        return ResponseEntity.ok(serviceParceiro.listarParceiroPorId(id));
     }
 
     @PutMapping("/{id}")
@@ -87,6 +85,8 @@ public class ParceiroController {
         }
         return ResponseEntity.status(404).build();
     }
+
+    
 
 
 }
