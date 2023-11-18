@@ -34,6 +34,9 @@ public class Usuario implements iVerificaveis {
     @CPF
     private String cpf;
 
+    @Size(min = 8, max = 8)
+    private String cep;
+
     @Size(max = 10)
     private String numero;
 
@@ -61,8 +64,8 @@ public class Usuario implements iVerificaveis {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Cep cep;
+//    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Cep cep;
 
     public Usuario() {
         this.listaItens = new ArrayList<>();

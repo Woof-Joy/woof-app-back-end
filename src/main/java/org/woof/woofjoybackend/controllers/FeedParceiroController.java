@@ -3,6 +3,8 @@ package org.woof.woofjoybackend.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.dto.ParceiroAvaliacaoFeedDTO;
+import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
 import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
@@ -18,14 +20,14 @@ public class FeedParceiroController {
     private final ServiceParceiro serviceParceiro;
 
     @GetMapping()
-    public ResponseEntity<List<ParceiroDTO>> getParceirosByTipoServico(@RequestParam String tipo){
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceirosByTipoServico(@RequestParam String tipo){
         List<Parceiro> listaParceiros = serviceParceiro.getParceirosByTipoServico(tipo);
 
         if (!listaParceiros.isEmpty()){
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
+            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = new ArrayList<>();
             for (Parceiro p:
                     listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao(), p.getEstrelas()));
+                listParceirosDTO.add(ParceiroMapper.toDTOAvaliacao(p));
             }
             return ResponseEntity.status(200).body(listParceirosDTO);
         }
@@ -33,14 +35,14 @@ public class FeedParceiroController {
     }
 
     @GetMapping("/{nome}")
-    public ResponseEntity<List<ParceiroDTO>> getParceirosByNome(@PathVariable String nome){
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceirosByNome(@PathVariable String nome){
         List<Parceiro> listaParceiros = serviceParceiro.getParceirosByNome(nome);
 
         if (!listaParceiros.isEmpty()){
-            List<ParceiroDTO> listParceirosDTO = new ArrayList<>();
+            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = new ArrayList<>();
             for (Parceiro p:
                     listaParceiros) {
-                listParceirosDTO.add(new ParceiroDTO(p.getIdParceiro(), p.getDataEntrada(), p.getMaxDogs(), p.getAceitaDogEspecial(), p.getAceitaDogIdoso(), p.getAceitaDogBravo(), p.getAceitaDogGrande(), p.getAceitaDogCio(), p.getUsuario().getNome(), p.getUsuario().getSobrenome(), p.getUsuario().getCpf(), p.getUsuario().getCep(), p.getUsuario().getNumero(), p.getUsuario().getEmail(), p.getUsuario().getDataNasc(), p.getUsuario().getDescricao(), p.getEstrelas()));
+                listParceirosDTO.add(ParceiroMapper.toDTOAvaliacao(p));
             }
             return ResponseEntity.status(200).body(listParceirosDTO);
         }

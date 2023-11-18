@@ -13,7 +13,7 @@ public class ParceiroMapper {
         ParceiroDTO parceiroDTO = new ParceiroDTO();
         parceiroDTO.setNome(entidadeParceiro.getUsuario().getNome());
         parceiroDTO.setSobrenome(entidadeParceiro.getUsuario().getSobrenome());
-        parceiroDTO.setCep(entidadeParceiro.getUsuario().getCep().getCep());
+        parceiroDTO.setCep(entidadeParceiro.getUsuario().getCep());
         parceiroDTO.setEmail(entidadeParceiro.getUsuario().getEmail());
         parceiroDTO.setDataEntrada(entidadeParceiro.getUsuario().getDataNasc());
         parceiroDTO.setEstrelas(entidadeParceiro.getEstrelas());
