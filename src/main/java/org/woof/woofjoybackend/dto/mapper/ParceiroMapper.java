@@ -1,6 +1,7 @@
 package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.*;
+import org.woof.woofjoybackend.entity.FichaServico;
 import org.woof.woofjoybackend.entity.Parceiro;
 
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class ParceiroMapper {
         parceiroDTO.setDataEntrada(entidadeParceiro.getUsuario().getDataNasc());
         parceiroDTO.setEstrelas(entidadeParceiro.getEstrelas());
         parceiroDTO.setServicos(FichaServicoMapper.toDTO(entidadeParceiro.getServicos()));
+        Integer acumulador = 0;
+        for (FichaServico fS:
+             entidadeParceiro.getServicos()) {
+            acumulador += fS.getServicos().size();
+        }
+        parceiroDTO.setQtdServicosPrestados(acumulador);
         return parceiroDTO;
     }
 

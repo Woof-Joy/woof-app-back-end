@@ -23,7 +23,7 @@ public class ParceiroController {
     private final ServiceCEP serviceCEP;
 
 
-    @GetMapping("/perfil")
+    @GetMapping("/")
     public ResponseEntity<List<ParceiroDTO>> listagemParceiros() {
         List<Parceiro> listaParceiros = serviceParceiro.getParceiros();
         if (!listaParceiros.isEmpty()) {
@@ -37,7 +37,6 @@ public class ParceiroController {
     public ResponseEntity<ParceiroDTO> listaParceiroPorId(@PathVariable Integer id) {
         return ResponseEntity.ok(ParceiroMapper.toDTO(serviceParceiro.getParceiroPorId(id)));
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<ParceiroDTO> attParceiro(@Valid @RequestBody Parceiro parceiro, @PathVariable Integer id) {
         if (serviceParceiro.idExiste(id)) {
@@ -45,7 +44,6 @@ public class ParceiroController {
         }
         return ResponseEntity.status(404).build();
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteParceiro(@PathVariable Integer id) {
         if (serviceParceiro.idExiste(id)) {
@@ -54,8 +52,4 @@ public class ParceiroController {
         }
         return ResponseEntity.status(404).build();
     }
-
-
-
-
 }

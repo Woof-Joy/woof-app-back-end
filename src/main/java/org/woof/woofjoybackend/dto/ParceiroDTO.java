@@ -25,7 +25,8 @@ public class ParceiroDTO {
     @Max(value = 5)
     @Min(value = 0)
     private Double estrelas;
-
+    @Positive
+    private Integer qtdServicosPrestados;
     private List<FichaServicoDTO> servicos;
 
 }
