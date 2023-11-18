@@ -33,7 +33,6 @@ public class ItemController {
     public ResponseEntity<Item> listaItem(@PathVariable Integer idUsuario, @PathVariable Integer idItem) {
         Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
         Item item = service.listaItemPorId(idItem).get();
-
         if (item != null) {
             return ResponseEntity.status(200).body(item);
         }
@@ -44,7 +43,6 @@ public class ItemController {
     public ResponseEntity<List<Item>> listaItensUsuario(@PathVariable Integer idUsuario) {
         Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
         List<Item> listaItens = usuario.getListaItens();
-
         if (!listaItens.isEmpty()) {
             return ResponseEntity.status(200).body(listaItens);
         }
@@ -54,7 +52,6 @@ public class ItemController {
     @GetMapping
     public ResponseEntity<List<Item>> listaTodosItens() {
         List<Item> listaItens = service.listaItens();
-
         if (!listaItens.isEmpty()) {
             return ResponseEntity.status(200).body(listaItens);
         }
