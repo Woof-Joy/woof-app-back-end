@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -37,6 +38,6 @@ public class Servico {
     @JoinColumn(name = "fkFichaServico")
     private FichaServico fkFichaServico;
 
-
-
+    @ManyToMany
+    private List<Dog> cachorros;
 }

@@ -12,11 +12,7 @@ import java.util.List;
 
 @Repository
 public interface ParceiroRepository extends JpaRepository<Parceiro, Integer>{
-    public Boolean existsByUsuario(Usuario usuario);
-
-    @Query("SELECT DISTINCT p FROM Parceiro p JOIN p.servicos fKFichaServico JOIN fKFichaServico.servicos fKServicos JOIN fKServicos.avaliacao a WHERE p.idParceiro = :id ORDER BY a.nota ASC")
-    public List<Parceiro> findParceiroByAvaliacoesOrderByNotaAsc(@Param("id") Integer id);
-
-    @Query("SELECT DISTINCT p FROM Parceiro p JOIN p.servicos fKFichaServico JOIN fKFichaServico.servicos fKServicos JOIN fKServicos.avaliacao a WHERE p.idParceiro = :id ORDER BY a.nota DESC")
-    public List<Parceiro> findParceiroByAvaliacoesOrderByNotaDesc(@Param("id") Integer id);
+    Boolean existsByUsuario(Usuario usuario);
+    List<Parceiro> findByTipoServicoIgnoreCase(String tipo);
+    List<Parceiro> findByUsuarioNomeContainsIgnoreCase(String nome);
 }

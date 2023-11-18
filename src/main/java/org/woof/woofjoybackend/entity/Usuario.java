@@ -50,6 +50,8 @@ public class Usuario implements iVerificaveis {
     @Past
     private LocalDate dataNasc;
 
+    private String imgUsuario;
+
     @Size(max = 500)
     private String descricao;
 
@@ -61,6 +63,7 @@ public class Usuario implements iVerificaveis {
 
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
+
 
     @OneToOne(mappedBy = "fkParceiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private Endereco endereco;

@@ -2,7 +2,6 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.*;
 import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.entity.response.Cep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,8 @@ public class ParceiroMapper {
         parceiroDTO.setSobrenome(entidadeParceiro.getUsuario().getSobrenome());
         parceiroDTO.setCep(entidadeParceiro.getUsuario().getCep());
         parceiroDTO.setEmail(entidadeParceiro.getUsuario().getEmail());
-        parceiroDTO.setDataNasc(entidadeParceiro.getUsuario().getDataNasc());
+        parceiroDTO.setDataEntrada(entidadeParceiro.getUsuario().getDataNasc());
+        parceiroDTO.setEstrelas(entidadeParceiro.getEstrelas());
         parceiroDTO.setServicos(FichaServicoMapper.toDTO(entidadeParceiro.getServicos()));
         return parceiroDTO;
     }
