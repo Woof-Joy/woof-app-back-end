@@ -13,7 +13,7 @@ public class ServiceAvaliacao {
     private final AvaliacaoRepository avaliacaoRepository;
 
     public List<Avaliacao> getAvaliacaoById(Integer id){
-        return avaliacaoRepository.findByServicoParceiroIdParceiro(id);
+        return avaliacaoRepository.findByFkServicoFkFichaServicoParceiroIdParceiro(id);
     }
 
 }

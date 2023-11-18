@@ -7,6 +7,6 @@ import org.woof.woofjoybackend.entity.Avaliacao;
 import java.util.List;
 
 @Repository public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Integer> {
-    List<Avaliacao> findByServicoParceiroIdParceiro(Integer id);
+    List<Avaliacao> findByFkServicoFkFichaServicoParceiroIdParceiro(Integer id);
 
 }

@@ -1,12 +1,8 @@
 package org.woof.woofjoybackend.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import jdk.jfr.BooleanFlag;
 import lombok.Data;
-import org.hibernate.validator.constraints.br.CPF;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,7 +21,10 @@ public class ParceiroDTO {
     @Email
     private String email;
     @Past
-    private LocalDate dataNasc;
+    private LocalDate dataEntrada;
+    @Max(value = 5)
+    @Min(value = 0)
+    private Double estrelas;
 
     private List<FichaServicoDTO> servicos;
 

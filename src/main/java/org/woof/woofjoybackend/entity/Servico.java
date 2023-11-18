@@ -27,7 +27,6 @@ public class Servico {
     @NotNull
     @Pattern(regexp = "^(aguardandoConfimacao|aguardandoInicio|emAndamento|concluido)$", message = "O tamanho deve ser 'aguardandoConfimacao', 'aguardandoInicio', 'emAndamento' ou 'concluido'")
     private String status;
-    private String tipoServico;
 
     @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private Relatorio relatorio;

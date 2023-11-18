@@ -34,9 +34,6 @@ public class Usuario implements iVerificaveis {
     @CPF
     private String cpf;
 
-    @Size(min = 8, max = 8)
-    private String cep;
-
     @Size(max = 10)
     private String numero;
 
