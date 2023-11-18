@@ -21,11 +21,11 @@ public class ServiceParceiro implements iVerificaveis {
         this.parceiroRepository = parceiroRepository;
     }
 
-    public List<Parceiro> listaParceiros() {
+    public List<Parceiro> getParceiros() {
         return parceiroRepository.findAll();
     }
 
-    public Parceiro listarParceiroPorId(Integer id) {
+    public Parceiro getParceiroPorId(Integer id) {
         return parceiroRepository.findById(id).get();
     }
 

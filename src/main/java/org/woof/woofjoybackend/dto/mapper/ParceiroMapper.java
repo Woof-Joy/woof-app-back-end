@@ -48,7 +48,7 @@ public class ParceiroMapper {
         }
         parceiroDTO.setAvaliacao(AvaliacaoMapper.toDouble(avaliacoesDTO));
         //Fezer a tratativa do endereco
-        parceiroDTO.setEndereco(EnderecoMapper.toDTO(entidadeParceiro.getEndereco()));
+        parceiroDTO.setEndereco(EnderecoMapper.toDTO(entidadeParceiro.getUsuario().getEndereco()));
 
         return parceiroDTO;
     }
