@@ -58,6 +58,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/usuarios/login/**"),
             new AntPathRequestMatcher("/h2-console/**"),
             new AntPathRequestMatcher("/error/**"),
+            new AntPathRequestMatcher("/websocket/**"),
     };
 
     @Bean
