@@ -7,5 +7,5 @@ import org.woof.woofjoybackend.entity.Mensagem;
 import java.util.List;
 
 public interface MensagemRepository extends JpaRepository<Mensagem, Integer> {
-    List<Mensagem> findAllByFkChat(Chat chat);
+    List<Mensagem> findAllByFkChatOrderByDataHora(Chat chat);
 }
