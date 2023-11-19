@@ -12,7 +12,7 @@ import java.util.List;
 public class ServiceAvaliacao {
     private final AvaliacaoRepository avaliacaoRepository;
 
-    public List<Avaliacao> getAvaliacaoById(Integer id){
+    public List<Avaliacao> getAvaliacaoByIdParceiro(Integer id){
         return avaliacaoRepository.findByFkServicoFkFichaServicoParceiroIdParceiro(id);
     }
 
