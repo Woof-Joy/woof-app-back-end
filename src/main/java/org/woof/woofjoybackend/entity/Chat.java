@@ -31,6 +31,6 @@ public class Chat {
     }
 
     public String getTopico() {
-        return String.format("topic/%s/%d/%d", tipo + fkRemetente.getId() + fkDestinatario.getId());
+        return String.format("topic/%s/%d/%d", tipo, fkRemetente.getId(), fkDestinatario.getId());
     }
 }
