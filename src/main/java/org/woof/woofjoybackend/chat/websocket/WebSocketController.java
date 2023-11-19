@@ -46,5 +46,15 @@ public class WebSocketController {
         return ResponseEntity.ok(ChatMapper.toResponseDtoList(lista));
     }
 
+    @GetMapping("/topicos/{idUsuario}")
+    public ResponseEntity<List<String>> getTopicosByUser(@PathVariable Integer idUsuario){
+        List<String> lista = webSocketService.getTopicoByUser(idUsuario);
+
+        if (lista.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(lista);
+    }
 
 }

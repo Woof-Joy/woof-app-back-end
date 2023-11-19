@@ -14,6 +14,7 @@ import org.woof.woofjoybackend.repository.ChatRepository;
 import org.woof.woofjoybackend.repository.MensagemRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,10 +50,21 @@ public class WebSocketService {
 
     public List<Mensagem> getMensagemByChat(String tipo, Integer idRemetente, Integer idDestinatario) {
         Chat chat = chatRepository.findByArgs(tipo, idRemetente, idDestinatario).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
-        return mensagemRepository.findAllByFkChat(chat);
+        return mensagemRepository.findAllByFkChatOrderByDataHora(chat);
     }
 
     public List<Chat> getChatsByUser(Integer idUsuario){
         return chatRepository.findByUser(idUsuario);
+    }
+
+    public List<String> getTopicoByUser(Integer idUsuario){
+        List<String> topicos = new ArrayList<>();
+        List<Chat> chats = chatRepository.findByUser(idUsuario);
+
+        for (Chat c : chats){
+            topicos.add(c.getTopico());
+        }
+
+        return topicos;
     }
 }
