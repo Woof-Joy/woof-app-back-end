@@ -20,9 +20,9 @@ public class WebSocketController {
     private WebSocketService webSocketService;
 
     @PostMapping
-    @CrossOrigin
-    public void sendMessage(@RequestBody MessageDto messageDto) {
-        webSocketService.sendMessage(messageDto);
+    public ResponseEntity<MensagemResponseDto> sendMessage(@RequestBody MessageDto messageDto) {
+
+        return ResponseEntity.status(201).body(MessageMapper.toResponseDto(webSocketService.sendMessage(messageDto)));
     }
 
     @GetMapping("/{tipo}/{idRemetente}/{idDestinatario}")
@@ -51,7 +51,7 @@ public class WebSocketController {
         List<String> lista = webSocketService.getTopicoByUser(idUsuario);
 
         if (lista.isEmpty()){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(204).body(lista);
         }
 
         return ResponseEntity.ok(lista);

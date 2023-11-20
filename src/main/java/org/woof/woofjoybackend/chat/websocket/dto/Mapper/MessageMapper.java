@@ -14,7 +14,10 @@ public class MessageMapper {
 
     public static Mensagem toEntity(MessageDto messageDto, Usuario remetente, Chat chat){
 
-        Mensagem msg = new Mensagem(messageDto.getMessage(), chat, remetente);
+        Mensagem msg = new Mensagem();
+        msg.setMensagem(messageDto.getMessage());
+        msg.setFkRemetente(remetente);
+        msg.setFkChat(chat);
         return msg;
     }
 

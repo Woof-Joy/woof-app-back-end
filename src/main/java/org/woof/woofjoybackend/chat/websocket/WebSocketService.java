@@ -27,12 +27,12 @@ public class WebSocketService {
     private final ChatRepository chatRepository;
     private final UsuarioRepository usuarioRepository;
 
-    public void sendMessage(MessageDto message) {
+    public Mensagem sendMessage(MessageDto message) {
         template.convertAndSend(getTopico(message), message.getMessage());
 
         Usuario remetente = usuarioRepository.findById(message.getIdRemetente()).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
         Chat chat = chatRepository.findByArgs(message.getTipo(), message.getIdRemetente(), message.getIdDestinatario()).get();
-        mensagemRepository.save(MessageMapper.toEntity(message, remetente, chat));
+      return mensagemRepository.save(MessageMapper.toEntity(message, remetente, chat));
     }
 
     public String getTopico(MessageDto messageDto) {
