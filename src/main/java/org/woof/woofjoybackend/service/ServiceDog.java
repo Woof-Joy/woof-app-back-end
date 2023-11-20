@@ -54,8 +54,8 @@ public class ServiceDog {
     //Atulizar
     public Dog atulizarDog(Dog dog, int id){
         System.out.println("Tentando atulizar....");
-        dog.setId(id);
         if (dogRepository.existsById(id)) {
+            dog.setId(id);
             Dog dogAtualizado = dogRepository.save(dog);
             System.out.println("Cachorro atulizado!");
             return dogAtualizado;

@@ -4,6 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.dto.DogPerfilDTO;
+import org.woof.woofjoybackend.dto.ItemDTO;
+import org.woof.woofjoybackend.dto.ItemFeedDTO;
+import org.woof.woofjoybackend.dto.mapper.DogMapper;
+import org.woof.woofjoybackend.dto.mapper.ItemMapper;
+import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.entity.Item;
 import org.woof.woofjoybackend.service.ServiceItem;
@@ -17,63 +23,35 @@ import java.util.List;
 public class ItemController {
 
     private final ServiceItem service;
-    private final ServiceUser serviceUser;
-
-
-    @PostMapping("/{idUsuario}")
-    public ResponseEntity<Item> cadastrarItem(@Valid @RequestBody Item item, @PathVariable Integer idUsuario) {
-        if (serviceUser.existsById(idUsuario)) {
-            service.cadastrarItem(item, idUsuario);
-            return ResponseEntity.status(201).body(item);
-        }
-        return ResponseEntity.status(404).build();
-    }
-
-    @GetMapping("/{idUsuario}/{idItem}")
-    public ResponseEntity<Item> listaItem(@PathVariable Integer idUsuario, @PathVariable Integer idItem) {
-        Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
-        Item item = service.listaItemPorId(idItem).get();
-        if (item != null) {
-            return ResponseEntity.status(200).body(item);
-        }
-        return ResponseEntity.status(404).build();
-    }
-
-    @GetMapping("/{idUsuario}")
-    public ResponseEntity<List<Item>> listaItensUsuario(@PathVariable Integer idUsuario) {
-        Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
-        List<Item> listaItens = usuario.getListaItens();
-        if (!listaItens.isEmpty()) {
-            return ResponseEntity.status(200).body(listaItens);
-        }
-        return ResponseEntity.status(204).build();
-    }
-
+    
     @GetMapping
-    public ResponseEntity<List<Item>> listaTodosItens() {
-        List<Item> listaItens = service.listaItens();
-        if (!listaItens.isEmpty()) {
-            return ResponseEntity.status(200).body(listaItens);
-        }
-        return ResponseEntity.status(204).build();
+    public ResponseEntity<List<ItemDTO>> getItens(@PathVariable Integer id) {
+        List<ItemDTO> itensCadastrados = ItemMapper.toDTO(service.listaItens());
+        return itensCadastrados.isEmpty() ? ResponseEntity.noContent().build():ResponseEntity.ok().body(itensCadastrados);
     }
 
-
-    @PutMapping("/{idUsuario}/{idItem}")
-    public ResponseEntity<Item> attItem(@Valid @RequestBody Item it, @PathVariable Integer idUsuario, @PathVariable Integer idItem) {
-        if (serviceUser.existsById(idUsuario) && service.listaItemPorId(idItem).isPresent()) {
-            return ResponseEntity.status(200).body(service.attItem(it, idItem));
-        }
-        return ResponseEntity.status(404).build();
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemFeedDTO> getItem(@PathVariable Integer id) {
+        ItemFeedDTO item = ItemMapper.toDTOFeed(service.listaItemPorId(id).get());
+        return item == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(item);
     }
 
-    @DeleteMapping("/{idUsuario}/{idItem}")
-    public ResponseEntity<Void> deleteItem(@PathVariable Integer idUsuario, @PathVariable Integer idItem) {
-        Usuario usuario = serviceUser.listaUsuarioPorId(idUsuario);
-        if (service.listaItemPorId(idItem).isPresent()) {
-            service.deleteItem(idItem);
-            return ResponseEntity.status(204).build();
-        }
-        return ResponseEntity.status(404).build();
+    @PostMapping("/{idDono}")
+    public ResponseEntity<ItemDTO> postItem(@Valid @RequestBody Item item, @PathVariable Integer idDono) {
+        ItemDTO itemCriado = ItemMapper.toDTO(service.postItem(item, idDono));
+        return itemCriado == null ? ResponseEntity.badRequest().build() : ResponseEntity.ok().body(itemCriado);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ItemDTO> atulizarPet(@Valid @RequestBody Item item, @PathVariable Integer id) {
+        ItemDTO itemAtualizado = ItemMapper.toDTO(service.putItem(item, id));
+        return itemAtualizado == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(itemAtualizado);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePet(@PathVariable int id) {
+        Boolean dogDeletado = service.deleteItem(id);
+        return dogDeletado?ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
 }

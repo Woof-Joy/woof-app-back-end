@@ -23,7 +23,7 @@ public class ParceiroController {
     private final ServiceCEP serviceCEP;
 
 
-    @GetMapping("/")
+    @GetMapping()
     public ResponseEntity<List<ParceiroDTO>> listagemParceiros() {
         List<Parceiro> listaParceiros = serviceParceiro.getParceiros();
         if (!listaParceiros.isEmpty()) {
