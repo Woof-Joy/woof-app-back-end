@@ -12,7 +12,7 @@ public class ChatResponseDto {
     private List<Chat> Servico;
 
     public ChatResponseDto() {
-        Doacao = new ArrayList<>();
-        Servico = new ArrayList<>();
+        this.Doacao = new ArrayList<>();
+        this.Servico = new ArrayList<>();
     }
 }
