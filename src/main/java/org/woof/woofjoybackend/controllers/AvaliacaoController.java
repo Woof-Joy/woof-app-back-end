@@ -22,7 +22,7 @@ public class AvaliacaoController {
 
     @GetMapping("/parceiro/{id}")
     ResponseEntity<List<AvaliacaoPrestadorDTO>> getAvaliacaoByParceiro(@PathVariable Integer id) {
-        List<Avaliacao> lista = serviceAvaliacao.getAvaliacaoById(id);
+        List<Avaliacao> lista = serviceAvaliacao.getAvaliacaoByIdParceiro(id);
 
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();
