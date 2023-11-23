@@ -11,6 +11,7 @@ import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.Usuario;
 
 @Setter
+@Getter
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
@@ -22,45 +23,18 @@ public class Item {
     @Size(max = 50)
     private String titulo;
     private String imgItemDoacao;
+    private String categoria;
+    private String estado;
     @Size(max = 1000)
     private String descricao;
     private Boolean entrega;
     private Boolean marcaPontoEncontro;
     private Boolean enviaCorreio;
     private Boolean cobraTaxa;
+    private Boolean necessarioRetirada;
 
     @ManyToOne
     @JoinColumn(name = "fkDono")
     private Usuario dono;
-    public Integer getId() {
-        return id;
-    }
 
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getImgItemDoacao() {
-        return imgItemDoacao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public Boolean getEntrega() {
-        return entrega;
-    }
-
-    public Boolean getMarcaPontoEncontro() {
-        return marcaPontoEncontro;
-    }
-
-    public Boolean getEnviaCorreio() {
-        return enviaCorreio;
-    }
-
-    public Boolean getCobraTaxa() {
-        return cobraTaxa;
-    }
 }

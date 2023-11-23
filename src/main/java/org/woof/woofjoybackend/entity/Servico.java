@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -30,6 +31,13 @@ public class Servico {
     @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private Relatorio relatorio;
 
+    @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Avaliacao avaliacao;
 
+    @ManyToOne
+    @JoinColumn(name = "fkFichaServico")
+    private FichaServico fkFichaServico;
 
+    @ManyToMany
+    private List<Dog> cachorros;
 }

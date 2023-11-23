@@ -5,6 +5,7 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 
@@ -18,22 +19,23 @@ import java.util.List;
 
 @Getter
 @Setter
-
 @AllArgsConstructor
 @NoArgsConstructor
-
 @Entity
 public class Parceiro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idParceiro;
 
-    @Min(0)
-    @Max(5)
-    private Double avaliacao;
-
     @PastOrPresent
     private LocalDate dataEntrada;
+
+    @Pattern(regexp = "^(ambos|dogWalker|dogSitter)$", message = "O tipo de serviõ deve ser 'Ambos', 'dogWalker' ou 'dogSitter'")
+    private String tipoServico;
+
+    @Max(value = 5)
+    @Min(value = 0)
+    private Double estrelas;
 
     @DecimalMin(value = "1")
     private Integer maxDogs;
@@ -58,7 +60,7 @@ public class Parceiro {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "parceiro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Servico> servicos;
+    private List<FichaServico> servicos;
 
     public Parceiro (Usuario usuario){
         this.usuario = usuario;

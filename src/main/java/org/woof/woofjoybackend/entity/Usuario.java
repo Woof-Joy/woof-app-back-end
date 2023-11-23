@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.br.CPF;
 import org.woof.woofjoybackend.domain.iVerificaveis;
-import org.woof.woofjoybackend.entity.response.Endereco;
+import org.woof.woofjoybackend.entity.response.Cep;
 
 
 import java.time.LocalDate;
@@ -50,6 +50,8 @@ public class Usuario implements iVerificaveis {
     @Past
     private LocalDate dataNasc;
 
+    private String imgUsuario;
+
     @Size(max = 500)
     private String descricao;
 
@@ -62,7 +64,8 @@ public class Usuario implements iVerificaveis {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToOne(mappedBy = "fkParceiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private Endereco endereco;
 
     public Usuario() {

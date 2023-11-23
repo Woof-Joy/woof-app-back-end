@@ -2,6 +2,7 @@ package org.woof.woofjoybackend.controllers;
 
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ObservacaoDTO;
@@ -11,13 +12,11 @@ import org.woof.woofjoybackend.service.ServiceObservacao;
 
 @RestController
 @RequestMapping("/pet-observacao")
+@RequiredArgsConstructor
 public class ObservacaoController {
 
-    private ServiceObservacao serviceObservacao;
+    private final ServiceObservacao serviceObservacao;
 
-    public ObservacaoController(ServiceObservacao serviceObservacao) {
-        this.serviceObservacao = serviceObservacao;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ObservacaoDTO> buscar(@PathVariable Integer id) {
@@ -31,8 +30,8 @@ public class ObservacaoController {
         return ResponseEntity.ok().body(obsCriada);
     }
 
-    @PutMapping
-    public ResponseEntity<ObservacaoDTO> atulizar (@Valid @RequestBody Observacao obs, int id){
+    @PutMapping("/{id}")
+    public ResponseEntity<ObservacaoDTO> atulizar (@Valid @RequestBody Observacao obs, @PathVariable int id){
         ObservacaoDTO obsAtualizada = ObservacaoMapper.toDTO(serviceObservacao.atulizar(id, obs));
         return obsAtualizada == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(obsAtualizada);
     }

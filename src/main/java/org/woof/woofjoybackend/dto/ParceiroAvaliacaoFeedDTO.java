@@ -1,0 +1,27 @@
+package org.woof.woofjoybackend.dto;
+
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class ParceiroAvaliacaoFeedDTO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @NotBlank
+    @Size(max = 50)
+    private String nome;
+    @Size(max = 50)
+    private String sobrenome;
+    private Double avaliacao;
+    private UsuarioEnderecoFeedDTO endereco;
+    @Size(max = 500)
+    private String descricao;
+    private List<ParceiroFichaServicoDTO> servicos;
+}
