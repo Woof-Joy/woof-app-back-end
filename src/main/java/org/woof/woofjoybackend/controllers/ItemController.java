@@ -23,7 +23,7 @@ import java.util.List;
 public class ItemController {
 
     private final ServiceItem service;
-    
+
     @GetMapping
     public ResponseEntity<List<ItemDTO>> getItens(@PathVariable Integer id) {
         List<ItemDTO> itensCadastrados = ItemMapper.toDTO(service.listaItens());
