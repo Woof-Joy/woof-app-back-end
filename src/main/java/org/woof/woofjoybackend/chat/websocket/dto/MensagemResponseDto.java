@@ -1,17 +1,15 @@
 package org.woof.woofjoybackend.chat.websocket.dto;
 
-import jakarta.persistence.ManyToOne;
 import lombok.Data;
-import org.woof.woofjoybackend.entity.Chat;
-import org.woof.woofjoybackend.entity.Usuario;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class MensagemResponseDto {
     private Integer id;
     private String mensagem;
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
     private Boolean visto;
     private Integer fkRemetente;
 }
