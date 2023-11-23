@@ -64,8 +64,9 @@ public class Usuario implements iVerificaveis {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
 
-//    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Cep cep;
+
+    @OneToOne(mappedBy = "fkParceiro", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Endereco endereco;
 
     public Usuario() {
         this.listaItens = new ArrayList<>();

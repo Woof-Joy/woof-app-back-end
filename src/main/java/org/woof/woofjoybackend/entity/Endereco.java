@@ -25,5 +25,5 @@ public class Endereco {
     private String    uf;
     @OneToOne
     @JoinColumn(name = "fkParceiro")
-    private Parceiro fkParceiro;
+    private Usuario fkParceiro;
 }

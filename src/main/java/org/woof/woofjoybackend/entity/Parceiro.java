@@ -59,9 +59,6 @@ public class Parceiro {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @OneToOne(mappedBy = "fkParceiro", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Endereco endereco;
-
     @OneToMany(mappedBy = "parceiro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FichaServico> servicos;
 

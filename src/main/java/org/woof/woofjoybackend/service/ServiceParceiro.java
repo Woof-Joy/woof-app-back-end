@@ -23,7 +23,8 @@ public class ServiceParceiro implements iVerificaveis {
         return parceiroRepository.findAll();
     }
 
-    public Parceiro getParceiroById(Integer id) {
+
+    public Parceiro getParceiroPorId(Integer id) {
         return parceiroRepository.findById(id).get();
     }
 
