@@ -2,6 +2,7 @@ package org.woof.woofjoybackend.chat.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.chat.websocket.dto.ChatResponseDto;
 import org.woof.woofjoybackend.chat.websocket.dto.Mapper.ChatMapper;
@@ -12,17 +13,20 @@ import org.woof.woofjoybackend.entity.Chat;
 import org.woof.woofjoybackend.entity.Mensagem;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/notification")
 public class WebSocketController {
     @Autowired
     private WebSocketService webSocketService;
-
+    @Async
     @PostMapping
-    public ResponseEntity<MensagemResponseDto> sendMessage(@RequestBody MessageDto messageDto) {
-
-        return ResponseEntity.status(201).body(MessageMapper.toResponseDto(webSocketService.sendMessage(messageDto)));
+    public CompletableFuture<ResponseEntity<MessageDto>> sendMessage(@RequestBody MessageDto messageDto) {
+        MessageMapper.toResponseDto(webSocketService.sendMessage(messageDto));
+        return CompletableFuture.completedFuture(
+                ResponseEntity.status(201).body(messageDto)
+        );
     }
 
     @GetMapping("/{tipo}/{idRemetente}/{idDestinatario}")
