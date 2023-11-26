@@ -9,9 +9,12 @@ import java.util.Optional;
 
 public interface ChatRepository extends JpaRepository<Chat, Integer> {
 
-    @Query("SELECT c FROM Chat c WHERE c.tipo = :tipo AND (c.fkRemetente.id = :idR AND c.fkDestinatario.id = :idD) OR (c.fkDestinatario.id = :idR AND c.fkRemetente.id = :idD)")
-    Optional<Chat> findByArgs(String tipo, Integer idR, Integer idD);
+    @Query("SELECT c FROM Chat c WHERE (c.fkRemetente.id = :idR AND c.fkDestinatario.id = :idD) OR (c.fkDestinatario.id = :idR AND c.fkRemetente.id = :idD)")
+    Optional<Chat> findByArgs(Integer idR, Integer idD);
 
     @Query("SELECT c FROM Chat c WHERE c.fkDestinatario.id = :idUsuario OR c.fkRemetente.id = :idUsuario")
     List<Chat> findByUser(Integer idUsuario);
+
+    @Query("SELECT c.topico FROM Chat c WHERE c.fkDestinatario.id = :idUsuario OR c.fkRemetente.id = :idUsuario")
+    List<String> findTopicoByUser(Integer idUsuario);
 }

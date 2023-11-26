@@ -25,9 +25,9 @@ public class WebSocketController {
         return ResponseEntity.status(201).body(MessageMapper.toResponseDto(webSocketService.sendMessage(messageDto)));
     }
 
-    @GetMapping("/{tipo}/{idRemetente}/{idDestinatario}")
-    public ResponseEntity<List<MensagemResponseDto>> getMensagemByChat(@PathVariable String tipo, @PathVariable Integer idRemetente, @PathVariable Integer idDestinatario){
-        List<Mensagem> lista = webSocketService.getMensagemByChat(tipo, idRemetente, idDestinatario);
+    @GetMapping("/{idRemetente}/{idDestinatario}")
+    public ResponseEntity<List<MensagemResponseDto>> getMensagemByChat(@PathVariable Integer idRemetente, @PathVariable Integer idDestinatario){
+        List<Mensagem> lista = webSocketService.getMensagemByChat(idRemetente, idDestinatario);
 
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -36,7 +36,7 @@ public class WebSocketController {
     }
 
     @GetMapping("/{idUsuario}")
-    public ResponseEntity<ChatResponseDto> getChatsByUser(@PathVariable Integer idUsuario){
+    public ResponseEntity<List<ChatResponseDto>> getChatsByUser(@PathVariable Integer idUsuario){
         List<Chat> lista = webSocketService.getChatsByUser(idUsuario);
 
         if (lista.isEmpty()){
