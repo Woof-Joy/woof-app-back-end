@@ -31,20 +31,20 @@ public class ClienteController {
         List<Cliente> lista = serviceCliente.listaClientes();
 
         if (!lista.isEmpty()) {
-            return ResponseEntity.status(200).body(ClienteMapper.toDTO(lista));
+            return ResponseEntity.status(200).body(ClienteMapper.toPerfilDTO(lista));
         }
         return ResponseEntity.status(204).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientePerfilDTO> listaClientePorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(ClienteMapper.toDTO(serviceCliente.listaClientePorId(id)));
+        return ResponseEntity.ok(ClienteMapper.toPerfilDTO(serviceCliente.listaClientePorId(id)));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ClientePerfilDTO> attCliente(@Valid @RequestBody Cliente cliente, @PathVariable Integer id) {
         if (serviceCliente.idExiste(id)) {
-            return ResponseEntity.status(200).body(ClienteMapper.toDTO(serviceCliente.attCliente(cliente, id)));
+            return ResponseEntity.status(200).body(ClienteMapper.toPerfilDTO(serviceCliente.attCliente(cliente, id)));
         }
         return ResponseEntity.status(404).build();
     }

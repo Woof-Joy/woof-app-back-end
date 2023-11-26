@@ -1,6 +1,7 @@
 package org.woof.woofjoybackend.chat.websocket.dto.Mapper;
 
 import org.woof.woofjoybackend.chat.websocket.dto.ChatResponseDto;
+import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.entity.Chat;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class ChatMapper {
         List<ChatResponseDto> listaDto = new ArrayList<>();
 
         for (Chat c : listaChat) {
-            listaDto.add(ChatMapper.toResponseDto(c));
+            listaDto.add(toResponseDto(c));
         }
 
         return listaDto;
@@ -22,8 +23,8 @@ public class ChatMapper {
         ChatResponseDto dto = new ChatResponseDto();
 
         dto.setId(chat.getId());
-        dto.setIdUsuario1(chat.getFkRemetente().getId());
-        dto.setIdUsuario2(chat.getFkDestinatario().getId());
+        dto.setUsuario1(UsuarioMapper.toDtoChat(chat.getFkRemetente()));
+        dto.setUsuario2(UsuarioMapper.toDtoChat(chat.getFkDestinatario()));
         dto.setTopico(chat.getTopico());
 
         return dto;

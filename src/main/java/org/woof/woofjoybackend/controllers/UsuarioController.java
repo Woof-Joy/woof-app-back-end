@@ -2,11 +2,10 @@ package org.woof.woofjoybackend.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.dto.UsuarioDTO;
+import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.entity.Usuario;
-import org.woof.woofjoybackend.service.ServiceCliente;
-import org.woof.woofjoybackend.service.ServiceParceiro;
 import org.woof.woofjoybackend.service.ServiceUser;
 
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
@@ -20,15 +19,9 @@ import java.util.List;
     @RequestMapping("/users")
     public class UsuarioController {
         private ServiceUser service;
-        private ServiceCliente serviceCliente;
-        private ServiceParceiro serviceParceiro;
-        private PasswordEncoder passwordEncoder;
 
-        public UsuarioController(ServiceUser service, ServiceCliente serviceCliente, ServiceParceiro serviceParceiro, PasswordEncoder passwordEncoder) {
+        public UsuarioController(ServiceUser service) {
             this.service = service;
-            this.serviceCliente = serviceCliente;
-            this.serviceParceiro = serviceParceiro;
-            this.passwordEncoder = passwordEncoder;
         }
 
 //CRUD - USUARIO
@@ -66,11 +59,11 @@ import java.util.List;
         }
 
         @GetMapping
-        public ResponseEntity<List<Usuario>> getUsers() {
+        public ResponseEntity<List<UsuarioDTO>> getUsers() {
             List<Usuario> listaUsuarios = service.listaUsuarios();
 
             if (!listaUsuarios.isEmpty()) {
-                return ResponseEntity.status(200).body(listaUsuarios);
+                return ResponseEntity.status(200).body(UsuarioMapper.toDtoList(listaUsuarios));
             }
             return ResponseEntity.status(204).build();
         }

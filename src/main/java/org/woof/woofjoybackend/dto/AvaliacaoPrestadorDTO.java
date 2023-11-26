@@ -16,5 +16,5 @@ public class AvaliacaoPrestadorDTO {
 
     private String tipoServico;
 
-    private ClienteDTO cliente;
+    private ClienteAvaliacaoDTO cliente;
 }

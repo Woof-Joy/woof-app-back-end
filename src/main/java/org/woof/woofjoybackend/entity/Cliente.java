@@ -16,7 +16,7 @@ import java.util.List;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer idCliente;
+    private Integer idCliente;
 
     @OneToOne
     private Usuario usuario;
