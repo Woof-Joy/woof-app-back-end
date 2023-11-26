@@ -37,7 +37,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientePerfilDTO> listaClientePorId(@PathVariable Integer id) {
+    public ResponseEntity<ClientePerfilDTO> getClientePorId(@PathVariable Integer id) {
         return ResponseEntity.ok(ClienteMapper.toPerfilDTO(serviceCliente.listaClientePorId(id)));
     }
 
