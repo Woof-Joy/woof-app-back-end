@@ -21,7 +21,8 @@ public class ParceiroDTO {
     @Email
     private String email;
     @Past
-    private LocalDate dataEntrada;
+    private LocalDate dataNasc;
+    private EnderecoParceiroClienteDTO endereco;
     @Max(value = 5)
     @Min(value = 0)
     private Double estrelas;

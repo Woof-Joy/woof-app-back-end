@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Setter
@@ -16,7 +17,7 @@ public class Mensagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String mensagem;
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
     private Boolean visto;
     @ManyToOne
     private Chat fkChat;
@@ -25,14 +26,14 @@ public class Mensagem {
 
     public Mensagem(String mensagem, Chat fkChat, Usuario fkRemetente) {
         this.mensagem = mensagem;
-        this.dataHora = LocalDate.now();
+        this.dataHora = LocalDateTime.now();
         this.visto = false;
         this.fkChat = fkChat;
         this.fkRemetente = fkRemetente;
     }
 
     public Mensagem(){
-        this.dataHora = LocalDate.now();
+        this.dataHora = LocalDateTime.now();
         this.visto = false;
     }
 }
