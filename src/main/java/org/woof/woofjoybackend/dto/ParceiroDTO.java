@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class ParceiroDTO {
+    private Integer id;
     @NotBlank
     @Size(max = 50)
     private String nome;
