@@ -7,25 +7,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class Servico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @FutureOrPresent
-    private LocalDate inicioDoServico;
+    @PastOrPresent
+    private LocalDateTime inicioDoServico;
     @Future
-    private LocalDate fimDoServico;
+    private LocalDateTime fimDoServico;
 
     @NotNull
-    @Pattern(regexp = "^(aguardandoConfimacao|aguardandoInicio|emAndamento|concluido)$", message = "O tamanho deve ser 'aguardandoConfimacao', 'aguardandoInicio', 'emAndamento' ou 'concluido'")
+    @Pattern(regexp = "^(aguardandoConfirmacao|aguardandoInicio|emAndamento|concluido)$", message = "O tamanho deve ser 'aguardandoConfimacao', 'aguardandoInicio', 'emAndamento' ou 'concluido'")
     private String status;
 
     @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -40,4 +39,8 @@ public class Servico {
 
     @ManyToMany
     private List<Dog> cachorros;
+
+    public Servico() {
+        this.status = "aguardandoConfirmacao";
+    }
 }

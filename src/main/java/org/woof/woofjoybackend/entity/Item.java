@@ -37,4 +37,7 @@ public class Item {
     @JoinColumn(name = "fkDono")
     private Usuario dono;
 
+    @OneToOne
+    private DonoImagem donoImagem;
+
 }
