@@ -2,6 +2,7 @@ package org.woof.woofjoybackend.chat.websocket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.chat.websocket.dto.ChatResponseDto;
 import org.woof.woofjoybackend.chat.websocket.dto.Mapper.ChatMapper;
@@ -12,22 +13,25 @@ import org.woof.woofjoybackend.entity.Chat;
 import org.woof.woofjoybackend.entity.Mensagem;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/notification")
 public class WebSocketController {
     @Autowired
     private WebSocketService webSocketService;
-
+    @Async
     @PostMapping
-    public ResponseEntity<MensagemResponseDto> sendMessage(@RequestBody MessageDto messageDto) {
-
-        return ResponseEntity.status(201).body(MessageMapper.toResponseDto(webSocketService.sendMessage(messageDto)));
+    public CompletableFuture<ResponseEntity<MessageDto>> sendMessage(@RequestBody MessageDto messageDto) {
+        MessageMapper.toResponseDto(webSocketService.sendMessage(messageDto));
+        return CompletableFuture.completedFuture(
+                ResponseEntity.status(201).body(messageDto)
+        );
     }
 
-    @GetMapping("/{tipo}/{idRemetente}/{idDestinatario}")
-    public ResponseEntity<List<MensagemResponseDto>> getMensagemByChat(@PathVariable String tipo, @PathVariable Integer idRemetente, @PathVariable Integer idDestinatario){
-        List<Mensagem> lista = webSocketService.getMensagemByChat(tipo, idRemetente, idDestinatario);
+    @GetMapping("/{idRemetente}/{idDestinatario}")
+    public ResponseEntity<List<MensagemResponseDto>> getMensagemByChat(@PathVariable Integer idRemetente, @PathVariable Integer idDestinatario){
+        List<Mensagem> lista = webSocketService.getMensagemByChat(idRemetente, idDestinatario);
 
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -36,7 +40,7 @@ public class WebSocketController {
     }
 
     @GetMapping("/{idUsuario}")
-    public ResponseEntity<ChatResponseDto> getChatsByUser(@PathVariable Integer idUsuario){
+    public ResponseEntity<List<ChatResponseDto>> getChatsByUser(@PathVariable Integer idUsuario){
         List<Chat> lista = webSocketService.getChatsByUser(idUsuario);
 
         if (lista.isEmpty()){

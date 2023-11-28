@@ -8,6 +8,7 @@ import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiceCliente {
@@ -23,8 +24,8 @@ public class ServiceCliente {
         return clienteRepository.findAll();
     }
 
-    public Cliente listaClientePorId(Integer id) {
-        return clienteRepository.findById(id).get();
+    public Optional<Cliente> listaClientePorId(Integer id) {
+        return clienteRepository.findById(id);
     }
 
     public Cliente attCliente(Cliente cliente, Integer id) {

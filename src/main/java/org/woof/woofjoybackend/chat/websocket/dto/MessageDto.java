@@ -13,6 +13,4 @@ public class MessageDto {
     private String message;
     private Integer idRemetente;
     private Integer idDestinatario;
-    @Pattern(regexp = "^(doacao|servico)$", message = "O tipo deve ser 'doacao' ou 'servico'")
-    private String tipo;
 }

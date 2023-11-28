@@ -16,7 +16,6 @@ public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String tipo;
     private String topico;
     @ManyToOne
     private Usuario fkRemetente;
@@ -25,10 +24,9 @@ public class Chat {
     @OneToMany
     private List<Mensagem> mensagens;
 
-    public Chat(String tipo, Usuario remetente, Usuario destinatario){
-        this.tipo = tipo;
+    public Chat(Usuario remetente, Usuario destinatario){
         this.fkRemetente = remetente;
         this.fkDestinatario = destinatario;
-        this.topico = String.format("topic/%s/%d/%d", tipo, remetente.getId(), destinatario.getId());
+        this.topico = String.format("topic/%d/%d", remetente.getId(), destinatario.getId());
     }
 }

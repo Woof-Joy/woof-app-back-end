@@ -62,6 +62,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/notification/topicos/{idUsuario}"),
             new AntPathRequestMatcher("/notification/**"),
     };
+//    MUDO AQUI
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

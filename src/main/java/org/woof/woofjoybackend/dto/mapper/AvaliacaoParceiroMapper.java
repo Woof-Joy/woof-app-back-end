@@ -1,7 +1,7 @@
 package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.AvaliacaoPrestadorDTO;
-import org.woof.woofjoybackend.dto.ClienteDTO;
+import org.woof.woofjoybackend.dto.ClienteAvaliacaoDTO;
 import org.woof.woofjoybackend.entity.Avaliacao;
 import org.woof.woofjoybackend.entity.Cliente;
 
@@ -30,11 +30,11 @@ public class AvaliacaoParceiroMapper {
         return avaliacaoPrestadorDTO;
     }
 
-    public static ClienteDTO toDto(Cliente cliente){
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setNome(cliente.getUsuario().getNome());
-        clienteDTO.setImgUsuario(cliente.getUsuario().getImgUsuario());
+    public static ClienteAvaliacaoDTO toDto(Cliente cliente){
+        ClienteAvaliacaoDTO clienteAvaliacaoDTO = new ClienteAvaliacaoDTO();
+        clienteAvaliacaoDTO.setNome(cliente.getUsuario().getNome());
+        clienteAvaliacaoDTO.setImgUsuario(cliente.getUsuario().getImgUsuario());
 
-        return clienteDTO;
+        return clienteAvaliacaoDTO;
     }
 }
