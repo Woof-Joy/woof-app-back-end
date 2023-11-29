@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.dto.ClienteDTO;
+import org.woof.woofjoybackend.dto.ClienteDogDTO;
 import org.woof.woofjoybackend.dto.ClientePerfilDTO;
 import org.woof.woofjoybackend.dto.mapper.ClienteMapper;
 import org.woof.woofjoybackend.entity.Cliente;
@@ -11,6 +13,7 @@ import org.woof.woofjoybackend.service.ServiceCliente;
 import org.woof.woofjoybackend.service.ServiceUser;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
@@ -37,8 +40,12 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClientePerfilDTO> listaClientePorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(ClienteMapper.toPerfilDTO(serviceCliente.listaClientePorId(id)));
+    public ResponseEntity<ClienteDTO> getClientePorId(@PathVariable Integer id) {
+       Optional <Cliente> c = serviceCliente.listaClientePorId(id);
+       return  c.isEmpty()?
+               ResponseEntity.status(404).build():
+               ResponseEntity.status(200).body(ClienteMapper.toDTO(c.get()));
+
     }
 
     @PutMapping("/{id}")
