@@ -26,10 +26,7 @@ public class DogController {
     @Autowired
     private ServiceDog serviceDog;
 
-
-
-
-    @GetMapping("/dono/{id}")
+    @GetMapping("dono/{id}")
     public ResponseEntity<List<DogPerfilDTO>> listarPet(@PathVariable Integer id) {
         List<DogPerfilDTO> dogsCadastrados = DogMapper.toDTO(serviceDog.listarDogs(id));
         return dogsCadastrados == null ? ResponseEntity.noContent().build():ResponseEntity.ok().body(dogsCadastrados);
