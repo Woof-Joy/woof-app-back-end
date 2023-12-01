@@ -12,6 +12,7 @@ import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
 import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
+import org.woof.woofjoybackend.repository.DonoImagemRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
@@ -27,6 +28,7 @@ import static java.util.Objects.isNull;
 public class ServiceUser {
     private final UsuarioRepository usuarioRepository;
     private final ClienteRepository clienteRepository;
+    private final DonoImagemRepository donoImagemRepository;
     private final ParceiroRepository parceiroRepository;
     private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;

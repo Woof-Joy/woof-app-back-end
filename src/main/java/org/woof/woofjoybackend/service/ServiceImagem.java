@@ -1,16 +1,22 @@
 package org.woof.woofjoybackend.service;
 
-import org.apache.http.auth.Credentials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.DonoImagemRepository;
 import org.woof.woofjoybackend.repository.ImagemRepository;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
-
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.model.AssumeRoleRequest;
+import software.amazon.awssdk.services.sts.model.AssumeRoleResponse;
+import software.amazon.awssdk.services.sts.model.Credentials;
 
 import java.io.File;
 import java.net.URL;
@@ -21,7 +27,7 @@ import java.util.Random;
 public class ServiceImagem {
 
     private static final String BUCKET_NAME = "bucketwb";
-    private static final int URL_EXPIRATION_TIME_SECONDS = 3600; // Tempo de expiração do URL em segundos (1 hora)
+    private static final int URL_EXPIRATION_TIME_SECONDS = 360000; // Tempo de expiração do URL em segundos (1 hora)
     @Autowired
     private ImagemRepository imagemRepository;
 
@@ -54,24 +60,46 @@ public class ServiceImagem {
         return donoImagem;
     }
 
-    public Imagem uploadDownloadImage(File file, Imagem img, Integer idDono) {
-        S3Client s3Client = S3Client.builder().build();
-        Imagem imgCadastrada = postImagem(img, idDono);
-        if(imgCadastrada != null){
-            // Substitua "seu-caminho-no-s3/imagem.jpg" pelo caminho desejado no S3
-            String s3ObjectKey = "imagens/" + gerarPalavraAleatoria() + imgCadastrada.getId() + imgCadastrada.getTipo() +".jpg";
-            imgCadastrada.setPath(s3ObjectKey);
-            // Lógica para fazer upload da imagem para o S3
-            s3Client.putObject(PutObjectRequest.builder()
-                    .bucket(BUCKET_NAME)
-                    .key(s3ObjectKey)
-                    .build(), file.toPath());
-            imgCadastrada.setUrlImagem(generatePresignedUrl(s3ObjectKey).toString());
-            imagemRepository.save(imgCadastrada);
-            // Gerar URL assinado para a imagem
-            return imgCadastrada;
-        }
-        return null;
+
+    public Imagem uploadDownloadImage(File file, String tipo, Integer idDono) {
+        StsClient stsClient = StsClient.create();
+
+        String roleArn = "arn:aws:iam::760533273170:role/LabRole";
+
+        AssumeRoleResponse assumeRoleResponse = stsClient.assumeRole(AssumeRoleRequest.builder()
+                .roleArn(roleArn)
+                .build());
+        AwsCredentials temporaryCredentials = AwsBasicCredentials.create(
+                assumeRoleResponse.credentials().accessKeyId(),
+                assumeRoleResponse.credentials().secretAccessKey()
+        );
+
+        S3Client s3Client = S3Client.builder()
+                .credentialsProvider(() -> temporaryCredentials)
+                .build();
+
+        //tipo = tipo.toLowerCase().trim();
+        //if (tipo.equalsIgnoreCase("carrosel") || tipo.equalsIgnoreCase("perfil")){
+            Imagem img = new Imagem();
+            // img.setTipo(tipo);
+            //Imagem imgCadastrada = postImagem(img, idDono);
+            //if(imgCadastrada != null){
+                String s3ObjectKey = "imagens/" + gerarPalavraAleatoria() + ".jpg";
+                //imgCadastrada.setPath(s3ObjectKey);
+                // Lógica para fazer upload da imagem para o S3
+                s3Client.putObject(PutObjectRequest.builder()
+                        .bucket(BUCKET_NAME)
+                        .key(s3ObjectKey)
+                        .build(), file.toPath());
+                //imgCadastrada.setUrlImagem(generatePresignedUrl(s3ObjectKey).toString());
+                //imagemRepository.save(imgCadastrada);
+                // Gerar URL assinado para a imagem
+                //return imgCadastrada
+                return img;
+            //}
+        //}
+
+        //return null;
     }
 
     public Imagem atualizarURLImagem(Integer id, Integer idDono, Imagem imagem) {

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 public class ClientePerfilDTO {
-    Integer id;
+    Integer idCliente;
     @NotBlank
     @Size(max = 50)
     private String nome;

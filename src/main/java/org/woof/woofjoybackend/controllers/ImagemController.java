@@ -25,10 +25,13 @@ public class ImagemController {
 
 
     @PostMapping("/upload/{idDono}")
-    public ResponseEntity<ImagemDTO> uploadImage(@RequestParam("file") MultipartFile file, @PathVariable Integer idDono, @RequestBody Imagem imagem) {
+    public ResponseEntity<ImagemDTO> uploadImage(@RequestPart MultipartFile file, @PathVariable Integer idDono, @RequestParam  String tipo) {
         try {
+            if (file == null){
+                System.out.println("deu ruim");
+                return ResponseEntity.status(500).build();}
             File convertedFile = convertMultipartFileToFile(file);
-            Imagem imagemSalva = imageService.uploadDownloadImage(convertedFile, imagem, idDono);
+            Imagem imagemSalva = imageService.uploadDownloadImage(convertedFile,tipo, idDono);
             return ResponseEntity.ok(ImagemMapper.toDTO(imagemSalva));
         } catch (IOException e) {
             e.printStackTrace();
