@@ -19,4 +19,8 @@ public class ParceiroFichaServicoDTO {
     private List<ServicoDTO> servicos;
 
     private Integer qtdServico;
+
+    public Integer getQtdServico() {
+        return servicos.size();
+    }
 }

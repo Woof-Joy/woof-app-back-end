@@ -29,7 +29,10 @@ public class ServiceServico {
         }
 
         FichaServico ficha = serviceFichaServico.getByArgs(servico.getIdParceiro(), servico.getTipoServico()).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
-        return servicoRepository.save(ServicoMapper.toEntity(servico, dogs, ficha));
+        Servico servicoSalvo = servicoRepository.save(ServicoMapper.toEntity(servico, dogs, ficha));
+        ficha.getServicos().add(servicoSalvo);
+
+        return servicoSalvo;
     }
 
 
