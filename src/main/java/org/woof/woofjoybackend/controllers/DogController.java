@@ -45,8 +45,8 @@ public class DogController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DogPerfilDTO> atulizarPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
-        DogPerfilDTO dogAtualizado = DogMapper.toDTO(serviceDog.atulizarDog(dog, id));
+    public ResponseEntity<DogPerfilDTO> putPet(@PathVariable int id, @Valid @RequestBody Dog dog) {
+        DogPerfilDTO dogAtualizado = DogMapper.toDTO(serviceDog.patchDog(dog, id));
         return dogAtualizado == null ? ResponseEntity.notFound().build():ResponseEntity.ok().body(dogAtualizado);
     }
 

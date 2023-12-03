@@ -3,12 +3,13 @@ package org.woof.woofjoybackend.dto;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
-import org.woof.woofjoybackend.entity.Servico;
 
 import java.util.List;
 
 @Data
 public class ParceiroFichaServicoDTO {
+    private Integer id;
+
     @Pattern(regexp = "^(ambos|walker|sitter)$", message = "O tipo deve ser 'ambos', 'walker' ou 'sitter'")
     private String tipoServico;
 
@@ -16,4 +17,6 @@ public class ParceiroFichaServicoDTO {
     private Double valor;
 
     private List<ServicoDTO> servicos;
+
+    private Integer qtdServico;
 }

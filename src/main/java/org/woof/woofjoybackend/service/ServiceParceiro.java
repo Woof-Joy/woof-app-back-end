@@ -1,8 +1,9 @@
 package org.woof.woofjoybackend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.domain.iVerificaveis;
+import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ServiceParceiro implements iVerificaveis {
+public class ServiceParceiro {
 
     private final UsuarioRepository usuarioRepository;
     private final ParceiroRepository parceiroRepository;
@@ -24,8 +25,8 @@ public class ServiceParceiro implements iVerificaveis {
     }
 
 
-    public Parceiro getParceiroPorId(Integer id) {
-        return parceiroRepository.findById(id).get();
+    public Parceiro findById(Integer id) {
+        return parceiroRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
     public List<Parceiro> getParceirosByTipoServico(String tipo) {

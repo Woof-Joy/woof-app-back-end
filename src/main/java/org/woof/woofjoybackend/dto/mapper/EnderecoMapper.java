@@ -9,7 +9,7 @@ public class EnderecoMapper {
         if (entidadeCep == null) return null;
         UsuarioEnderecoFeedDTO enderecoDTO = new UsuarioEnderecoFeedDTO();
         enderecoDTO.setLocalidade(entidadeCep.getLocalidade());
-        enderecoDTO.setBairro(entidadeCep.getBairro());
+//        enderecoDTO.setBairro(entidadeCep.getBairro());
         return enderecoDTO;
     }
 

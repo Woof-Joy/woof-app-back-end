@@ -1,7 +1,9 @@
 package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.UsuarioChatDTO;
+import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
+import org.woof.woofjoybackend.entity.Endereco;
 import org.woof.woofjoybackend.entity.Usuario;
 
 import java.util.ArrayList;
@@ -36,17 +38,37 @@ public class UsuarioMapper {
         dto.setNomeCompleto(String.format("%s %s", usuario.getNome(), usuario.getSobrenome()));
         dto.setImgUsuario(usuario.getImgUsuario());
         dto.setCpf(usuario.getCpf());
-        dto.setCep(usuario.getCep());
-        dto.setNumero(usuario.getNumero());
         dto.setCliente(ClienteMapper.toDTO(usuario.getCliente().orElse(null)));
         dto.setParceiro(ParceiroMapper.toDTO(usuario.getParceiro().orElse(null)));
         dto.setEmail(usuario.getEmail());
         dto.setSenha(usuario.getSenha());
         dto.setDescricao(usuario.getDescricao());
         dto.setDataNasc(usuario.getDataNasc());
-        dto.setListaItens(usuario.getListaItens());
+        dto.setListaItens(ItemMapper.toDTO(usuario.getListaItens()));
+        dto.setRole(usuario.getRole());
+        dto.setEndereco(usuario.getEndereco());
 
         return dto;
+    }
+
+    public static Usuario toEntity(UsuarioCriacaoDTO dto){
+        Usuario u = new Usuario();
+        u.setNome(dto.getNome());
+        u.setSobrenome(dto.getSobrenome());
+        u.setCpf(dto.getCpf());
+        u.setEmail(dto.getEmail());
+        u.setSenha(dto.getSenha());
+        u.setDataNasc(dto.getDataNasc());
+
+        Endereco e = new Endereco();
+        e.setCep(dto.getCep());
+        e.setUf(dto.getEstado());
+        e.setLocalidade(dto.getCidade());
+        e.setLogradouro(dto.getRua());
+        e.setNumero(dto.getNumero());
+
+        u.setEndereco(e);
+        return u;
     }
 }
 

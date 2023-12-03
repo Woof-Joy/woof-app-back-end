@@ -9,7 +9,6 @@ import java.util.List;
 
 
 public interface DogRepository extends JpaRepository<Dog, Integer> {
-    @Query("SELECT d FROM Dog d WHERE d.fkDono.id = :fkDonoId")
-    List<Dog> findDogsByOwnerId(@Param("fkDonoId") Integer fkDonoId);
+    List<Dog> findAllByFkDonoUsuarioId(Integer fkDonoId);
 
 }

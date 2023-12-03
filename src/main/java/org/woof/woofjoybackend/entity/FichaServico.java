@@ -9,18 +9,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class FichaServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Pattern(regexp = "^(ambos|walker|sitter)$", message = "O tipo deve ser 'ambos', 'walker' ou 'sitter'")
+    @Pattern(regexp = "^(walker|sitter)$", message = "O tipo deve ser 'walker' ou 'sitter'")
     private String tipoServico;
     @Positive
     private Double valor;
@@ -30,4 +30,7 @@ public class FichaServico {
     @OneToMany(mappedBy = "fkFichaServico")
     private List<Servico> servicos;
 
+    public FichaServico() {
+        this.servicos = new ArrayList<>();
+    }
 }

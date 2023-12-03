@@ -2,11 +2,7 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.ItemDTO;
 import org.woof.woofjoybackend.dto.ItemFeedDTO;
-import org.woof.woofjoybackend.dto.ParceiroAvaliacaoFeedDTO;
-import org.woof.woofjoybackend.dto.UsuarioEnderecoFeedDTO;
-import org.woof.woofjoybackend.entity.Endereco;
 import org.woof.woofjoybackend.entity.Item;
-import org.woof.woofjoybackend.entity.Parceiro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +11,12 @@ public class ItemMapper {
     public static ItemDTO toDTO(Item entidadeItem){
         if (entidadeItem == null) return null;
         ItemDTO itemDTO = new ItemDTO();
-        itemDTO.setNomeDoador(entidadeItem.getDono().getNome() + " " + entidadeItem.getDono().getSobrenome());
+        itemDTO.setId(entidadeItem.getId());
         itemDTO.setTitulo(entidadeItem.getTitulo());
         itemDTO.setDescricao(entidadeItem.getDescricao());
         itemDTO.setCategoria(entidadeItem.getCategoria());
-        itemDTO.setEstado(entidadeItem.getEstado());
-        itemDTO.setEndereco(EnderecoMapper.toDTO(entidadeItem.getDono().getEndereco()));
+        itemDTO.setEndereco(entidadeItem.getDono().getEndereco());
+        itemDTO.setImagem(entidadeItem.getImgItemDoacao());
         return itemDTO;
     }
 

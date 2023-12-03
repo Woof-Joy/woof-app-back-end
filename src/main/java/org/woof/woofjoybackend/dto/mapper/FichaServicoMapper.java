@@ -1,9 +1,11 @@
 package org.woof.woofjoybackend.dto.mapper;
 
+import org.woof.woofjoybackend.dto.FichaServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.FichaServicoDTO;
 import org.woof.woofjoybackend.dto.ParceiroFichaServicoDTO;
 import org.woof.woofjoybackend.dto.ServicoDTO;
 import org.woof.woofjoybackend.entity.FichaServico;
+import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.entity.Servico;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,24 +29,32 @@ public class FichaServicoMapper {
 
     public static ParceiroFichaServicoDTO toDTOServico(FichaServico entidadeFichaServico){
         if (entidadeFichaServico == null) return null;
-        ParceiroFichaServicoDTO fichaServicoDTO = new ParceiroFichaServicoDTO();
-        fichaServicoDTO.setTipoServico(entidadeFichaServico.getTipoServico());
-        fichaServicoDTO.setValor(entidadeFichaServico.getValor());
-        List<ServicoDTO> servicosDTOS = new ArrayList<>();
-        for (Servico fichaServico:
-             entidadeFichaServico.getServicos()) {
-            servicosDTOS.add(ServicoMapper.toDTO(fichaServico));
-        }
-        return fichaServicoDTO;
+        ParceiroFichaServicoDTO parceiroFichaServicoDTO = new ParceiroFichaServicoDTO();
+        parceiroFichaServicoDTO.setId(entidadeFichaServico.getId());
+        parceiroFichaServicoDTO.setTipoServico(entidadeFichaServico.getTipoServico());
+        parceiroFichaServicoDTO.setValor(entidadeFichaServico.getValor());
+        parceiroFichaServicoDTO.setServicos(ServicoMapper.toDTO(entidadeFichaServico.getServicos()));
+        return parceiroFichaServicoDTO;
     }
 
 
     public static List<ParceiroFichaServicoDTO> toDTOServico(List<FichaServico> listaDeEntidadeFichaServico){
-        List<ParceiroFichaServicoDTO> listaDeFichaServicoDTO = new ArrayList<>();
+        List<ParceiroFichaServicoDTO> listaDeParceiroFichaServicoDTO = new ArrayList<>();
         for (FichaServico servico:
                 listaDeEntidadeFichaServico) {
-            listaDeFichaServicoDTO.add(FichaServicoMapper.toDTOServico(servico));
+            listaDeParceiroFichaServicoDTO.add(FichaServicoMapper.toDTOServico(servico));
         }
-        return listaDeFichaServicoDTO;
+        return listaDeParceiroFichaServicoDTO;
     }
+
+    public static FichaServico toEntity(FichaServicoCriacaoDTO dto, Parceiro parceiro){
+        FichaServico ficha = new FichaServico();
+
+        ficha.setTipoServico(dto.getTipoServico());
+        ficha.setValor(dto.getValor());
+        ficha.setParceiro(parceiro);
+
+        return ficha;
+    }
+
 }

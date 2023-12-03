@@ -4,21 +4,44 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
+import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
+import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.entity.FichaServico;
 import org.woof.woofjoybackend.entity.Servico;
 import org.woof.woofjoybackend.repository.ServicoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class ServiceServico {
     private final ServicoRepository servicoRepository;
+    private final ServiceDog dogService;
+    private final ServiceFichaServico serviceFichaServico;
 
-    public Servico post(Servico servico) {
-        if (servicoRepository.existsById(servico.getId())) {
-            throw new ResponseStatusException(HttpStatusCode.valueOf(409));
+
+    public Servico post(ServicoCriacaoDTO servico) {
+        List<Dog> dogs = new ArrayList<>();
+        for (Integer id : servico.getIdCachorros()) {
+            dogs.add(dogService.listarDog(id));
         }
-        return servicoRepository.save(servico);
+
+        FichaServico ficha = serviceFichaServico.getByArgs(servico.getIdParceiro(), servico.getTipoServico()).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        return servicoRepository.save(ServicoMapper.toEntity(servico, dogs, ficha));
+    }
+
+
+    public Servico patch(Integer id) {
+        Servico servicoOriginal = servicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+
+        if (servicoOriginal.getStatus().equalsIgnoreCase("aguardandoConfirmacao")) {
+            servicoOriginal.setStatus("aguardandoInicio");
+        } else if (servicoOriginal.getStatus().equalsIgnoreCase("aguardandoInicio")) {
+            servicoOriginal.setStatus("concluido");
+        }
+        return servicoRepository.save(servicoOriginal);
     }
 
     public Servico getById(Integer id) {

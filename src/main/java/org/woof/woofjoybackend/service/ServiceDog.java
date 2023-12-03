@@ -1,7 +1,9 @@
 package org.woof.woofjoybackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.entity.Cliente;
 import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.repository.ClienteRepository;
@@ -16,6 +18,7 @@ public class ServiceDog {
 
     private DogRepository dogRepository;
     private ClienteRepository clienteRepository;
+
     @Autowired
     public ServiceDog(DogRepository dogRepository, ClienteRepository clienteRepository) {
         this.dogRepository = dogRepository;
@@ -24,9 +27,9 @@ public class ServiceDog {
 
 
     //Criar
-    public Dog criarDog(Dog dog, Integer fkdono){
+    public Dog criarDog(Dog dog, Integer fkdono) {
         Cliente dono = gerarFkCliente(fkdono);
-        if (dono == null){
+        if (dono == null) {
             return null;
         }
         dog.setFkDono(dono);
@@ -34,11 +37,10 @@ public class ServiceDog {
         return dogCadastrado;
     }
 
-
     //Listar todos os dogs de determinado dono
-    public List<Dog> listarDogs(Integer id){
-        List<Dog> dogsCadastrados = dogRepository.findDogsByOwnerId(id);
-        if (dogRepository.count() > 0){
+    public List<Dog> listarDogs(Integer id) {
+        List<Dog> dogsCadastrados = dogRepository.findAllByFkDonoUsuarioId(id);
+        if (dogRepository.count() > 0) {
             return dogsCadastrados;
         }
         return new ArrayList<>();
@@ -46,28 +48,33 @@ public class ServiceDog {
 
 
     //Listar dog especifico
-    public Dog listarDog(int id){
-        Dog dogCadastrado = dogRepository.findById(id).get();
-        return dogCadastrado;
+    public Dog listarDog(int id) {
+        return dogRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
     //Atulizar
-    public Dog atulizarDog(Dog dog, int id){
-        System.out.println("Tentando atulizar....");
-        if (dogRepository.existsById(id)) {
-            dog.setId(id);
-            Dog dogAtualizado = dogRepository.save(dog);
-            System.out.println("Cachorro atulizado!");
-            return dogAtualizado;
-        }
-        System.out.println("O pet não foi atulizado, pois ele não existe.");
-        return null;
+    public Dog patchDog(Dog dog, int id) {
+
+        Dog dogBanco = dogRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        dogBanco.setNome(dog.getNome());
+        dogBanco.setDtNasc(dog.getDtNasc());
+        dogBanco.setRga(dog.getRga());
+        dogBanco.setPeso(dog.getPeso());
+        dogBanco.setRaca(dog.getRaca());
+        dogBanco.setPorte(dog.getPorte());
+        dogBanco.setConvenio(dog.getConvenio());
+        dogBanco.setCarteirinha(dog.getCarteirinha());
+        dogBanco.setGenero(dog.getGenero());
+        dogBanco.setAgressivo(dog.getAgressivo());
+        dogBanco.setDeficiencia(dog.getDeficiencia());
+
+        return dogRepository.save(dogBanco);
     }
 
 
     //Deltar
 
-    public boolean deletarDog(int id){
+    public boolean deletarDog(int id) {
         System.out.println("Tentando deletar...");
         if (dogRepository.existsById(id)) {
             dogRepository.deleteById(id);
@@ -78,9 +85,8 @@ public class ServiceDog {
         return false;
     }
 
-    public Cliente gerarFkCliente (Integer id){
-        Cliente cliente = clienteRepository.findById(id).get();
-        return cliente;
+    public Cliente gerarFkCliente(Integer id) {
+        return clienteRepository.findByUsuarioId(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
 }

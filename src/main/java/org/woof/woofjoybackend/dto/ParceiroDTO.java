@@ -13,16 +13,12 @@ public class ParceiroDTO {
     private String nome;
     @Size(max = 50)
     private String sobrenome;
-    @Size(min = 8, max = 8)
-    private String cep;
-    @Size(max = 10)
-    private String numero;
     @NotBlank
     @Email
     private String email;
     @Past
     private LocalDate dataNasc;
-    private EnderecoParceiroClienteDTO endereco;
+//    private EnderecoParceiroClienteDTO endereco;
     @Past
     private LocalDate dataEntrada;
     @Max(value = 5)

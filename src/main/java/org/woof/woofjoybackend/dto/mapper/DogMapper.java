@@ -16,14 +16,14 @@ public class DogMapper {
         dogPerfilDTO.setCarteirinha(entidadeDog.getCarteirinha());
         dogPerfilDTO.setConvenio(entidadeDog.getConvenio());
         dogPerfilDTO.setDeficiencia(entidadeDog.getDeficiencia());
-        dogPerfilDTO.setAgressivo(entidadeDog.getAgressivo());
+        dogPerfilDTO.setAgressividade(entidadeDog.getAgressivo());
         dogPerfilDTO.setGenero(entidadeDog.getGenero());
         dogPerfilDTO.setPeso(entidadeDog.getPeso());
         dogPerfilDTO.setPorte(entidadeDog.getPorte());
         dogPerfilDTO.setRga(entidadeDog.getRga());
         dogPerfilDTO.setRaca(entidadeDog.getRaca());
         dogPerfilDTO.setDtNasc(entidadeDog.getDtNasc());
-        dogPerfilDTO.setIdDono(entidadeDog.getFkDono().getIdCliente());
+        dogPerfilDTO.setIdDono(entidadeDog.getFkDono().getUsuario().getId());
         dogPerfilDTO.setObservacaoList(ObservacaoMapper.toDTO(entidadeDog.getObservacaoList()));
         return dogPerfilDTO;
     }

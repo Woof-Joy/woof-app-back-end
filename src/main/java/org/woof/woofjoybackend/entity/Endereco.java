@@ -1,14 +1,14 @@
 package org.woof.woofjoybackend.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.access.method.P;
 
 @Entity
 @AllArgsConstructor
@@ -17,13 +17,12 @@ import org.springframework.security.access.method.P;
 @Setter
 public class Endereco {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Size(min = 8, max = 8)
     private String cep;
-    private String    logradouro;
-    private String    complemento;
-    private String    bairro;
-    private String    localidade;
-    private String    uf;
-    @OneToOne
-    @JoinColumn(name = "fkParceiro")
-    private Usuario fkParceiro;
+    private String logradouro;
+    private String numero;
+    private String localidade;
+    private String uf;
 }

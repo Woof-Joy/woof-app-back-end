@@ -15,7 +15,6 @@ public class ClienteMapper {
         clientePerfilDTO.setIdCliente(entidadeCliente.getIdCliente());
         clientePerfilDTO.setNome(entidadeCliente.getUsuario().getNome());
         clientePerfilDTO.setSobrenome(entidadeCliente.getUsuario().getSobrenome());
-        clientePerfilDTO.setNumero(entidadeCliente.getUsuario().getNumero());
         clientePerfilDTO.setEmail(entidadeCliente.getUsuario().getEmail());
         clientePerfilDTO.setIdCliente(entidadeCliente.getUsuario().getId());
         clientePerfilDTO.setDogList(DogMapper.toDTOCliente(entidadeCliente.getDogList()));

@@ -1,8 +1,9 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.dto.mapper;
 
+import org.woof.woofjoybackend.entity.Usuario;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 
-public class UsuarioMapper {
+public class UsuarioMapperJWT {
 
     public static UsuarioTokenDto of(Usuario usuario, String token){
         UsuarioTokenDto usuarioTokenDto = new UsuarioTokenDto();

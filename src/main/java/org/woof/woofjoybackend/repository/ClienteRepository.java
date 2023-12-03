@@ -5,8 +5,10 @@ import org.springframework.stereotype.Repository;
 import org.woof.woofjoybackend.entity.Cliente;
 import org.woof.woofjoybackend.entity.Usuario;
 
+import java.util.Optional;
+
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
-    public Boolean existsByUsuario(Usuario usuario);
+    public Optional<Cliente> findByUsuarioId(Integer id);
 }

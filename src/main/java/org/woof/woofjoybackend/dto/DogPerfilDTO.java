@@ -24,7 +24,6 @@ public class DogPerfilDTO {
     @BooleanFlag
     private Boolean rga;
     @NotNull
-    @DecimalMax("30.0")
     private Double peso;
     @NotBlank
     @Size(max = 70)
@@ -40,7 +39,7 @@ public class DogPerfilDTO {
     private String genero;
     @Min(0)
     @Max(5)
-    private Integer agressivo;
+    private Integer agressividade;
     @BooleanFlag
     private Boolean deficiencia;
     private Integer idDono;

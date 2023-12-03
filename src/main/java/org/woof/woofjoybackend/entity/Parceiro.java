@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -63,7 +64,9 @@ public class Parceiro {
     private List<FichaServico> servicos;
 
     public Parceiro (Usuario usuario){
+        this.dataEntrada = LocalDate.now();
         this.usuario = usuario;
+        this.servicos = new ArrayList<>();
     }
 
 

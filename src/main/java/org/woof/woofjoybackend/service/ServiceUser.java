@@ -1,7 +1,7 @@
 package org.woof.woofjoybackend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
+import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
+import org.woof.woofjoybackend.dto.UsuarioDTO;
+import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
+import org.woof.woofjoybackend.dto.mapper.UsuarioMapperJWT;
 import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
@@ -19,8 +23,6 @@ import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 
 import java.util.List;
 import java.util.Optional;
-
-import static java.util.Objects.isNull;
 
 @Service
 @RequiredArgsConstructor
@@ -33,40 +35,47 @@ public class ServiceUser {
     private final AuthenticationProvider authenticationProvider;
 
 
-    public void postUsuario(Usuario usuario, int tipo) {
+    public UsuarioDTO postUsuario(UsuarioCriacaoDTO usuario, int tipo) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
 
         if (!usuarioExiste(usuario.getEmail())) {
-            usuarioRepository.save(usuario);
+            usuarioRepository.save(UsuarioMapper.toEntity(usuario));
         }
         String email = usuario.getEmail();
-        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
-        Usuario usuarioFk = usuarioEncontrado.get();
+        Usuario usuarioEncontrado = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+
 
         if (tipo == 0) {
-            Cliente cliente = new Cliente(usuarioFk);
-            usuario.setCliente(cliente);
+            Cliente cliente = new Cliente(usuarioEncontrado);
+            usuarioEncontrado.setCliente(cliente);
             clienteRepository.save(cliente);
-            return;
+        } else if (tipo == 1) {
+            Parceiro parceiro = new Parceiro(usuarioEncontrado);
+            usuarioEncontrado.setParceiro(parceiro);
+            parceiroRepository.save(parceiro);
         }
-        Parceiro parceiro = new Parceiro(usuarioFk);
-        usuario.setParceiro(parceiro);
-        parceiroRepository.save(parceiro);
+        return UsuarioMapper.toDto(usuarioRepository.save(usuarioEncontrado));
     }
 
-    public boolean putUsuario(Usuario usuario, int id) {
-        Optional<Usuario> usuarioOriginal = usuarioRepository.findById(id);
-        if (usuarioOriginal.isPresent()) {
-            usuario.setId(id);
+    public Usuario putUsuario(UsuarioCriacaoDTO usuario, int id) {
+        Usuario usuarioOriginal = usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        usuarioOriginal.setNome(usuario.getNome());
+        usuarioOriginal.setSobrenome(usuario.getSobrenome());
+        usuarioOriginal.setCpf(usuario.getCpf());
+        usuarioOriginal.getEndereco().setCep(usuario.getCep());
+        usuarioOriginal.setEmail(usuario.getEmail());
+        usuarioOriginal.setSenha(usuario.getSenha());
+        usuarioOriginal.setDataNasc(usuario.getDataNasc());
+        usuarioOriginal.getEndereco().setNumero(usuario.getNumero());
+        usuarioOriginal.getEndereco().setLogradouro(usuario.getRua());
+        usuarioOriginal.getEndereco().setLocalidade(usuario.getCidade());
+        usuarioOriginal.getEndereco().setUf(usuario.getEstado());
 
-            String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
-            usuario.setSenha(senhaCriptografada);
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
 
-            usuarioRepository.save(usuario);
-            return true;
-        }
-        return false;
+        return usuarioRepository.save(usuarioOriginal);
     }
 
     public boolean deleteUsuario(Integer id, String role) {
@@ -104,7 +113,7 @@ public class ServiceUser {
     }
 
     public Usuario listaUsuarioPorId(Integer id) {
-        return usuarioRepository.findById(id).get();
+        return usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
 
@@ -112,8 +121,7 @@ public class ServiceUser {
         return usuarioRepository.existsById(id);
     }
 
-    public boolean usuarioPodeSerCadastrado(Usuario usuario, int tipo) {
-        String email = usuario.getEmail();
+    public boolean usuarioPodeSerCadastrado(String email, int tipo) {
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
         if (usuarioEncontrado.isPresent()) {
@@ -165,7 +173,7 @@ public class ServiceUser {
 
         final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
 
-        return UsuarioMapper.of(usuarioAutenticado, token);
+        return UsuarioMapperJWT.of(usuarioAutenticado, token);
     }
 
 }

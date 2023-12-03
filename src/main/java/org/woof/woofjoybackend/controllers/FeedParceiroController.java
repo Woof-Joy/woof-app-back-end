@@ -9,7 +9,6 @@ import org.woof.woofjoybackend.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.service.ServiceParceiro;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,39 +19,31 @@ public class FeedParceiroController {
     private final ServiceParceiro serviceParceiro;
 
     @GetMapping()
-    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceirosByTipoServico(@RequestParam String tipo){
-        List<Parceiro> listaParceiros = serviceParceiro.getParceirosByTipoServico(tipo);
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceiros() {
+        return retornaListaAvaliacao(serviceParceiro.getParceiros());
+    }
 
-        if (!listaParceiros.isEmpty()){
-            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                    listaParceiros) {
-                listParceirosDTO.add(ParceiroMapper.toDTOAvaliacao(p));
-            }
-            return ResponseEntity.status(200).body(listParceirosDTO);
-        }
-        return ResponseEntity.noContent().build();
+    @GetMapping("/{tipo}")
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceirosByTipoServico(@PathVariable String tipo) {
+        return retornaListaAvaliacao(serviceParceiro.getParceirosByTipoServico(tipo));
     }
 
     @GetMapping("/{nome}")
-    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceirosByNome(@PathVariable String nome){
-        List<Parceiro> listaParceiros = serviceParceiro.getParceirosByNome(nome);
+    public ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> getParceirosByNome(@PathVariable String nome) {
+        return retornaListaAvaliacao(serviceParceiro.getParceirosByNome(nome));
+    }
 
-        if (!listaParceiros.isEmpty()){
-            List<ParceiroAvaliacaoFeedDTO> listParceirosDTO = new ArrayList<>();
-            for (Parceiro p:
-                    listaParceiros) {
-                listParceirosDTO.add(ParceiroMapper.toDTOAvaliacao(p));
-            }
-            return ResponseEntity.status(200).body(listParceirosDTO);
+    @GetMapping("/ordenacao")
+    ResponseEntity<List<ParceiroDTO>> ordenaFeed(@RequestParam String ordenacao, @RequestBody List<ParceiroDTO> feed) {
+        if (!feed.isEmpty()) {
+            return ResponseEntity.ok(serviceParceiro.ordenaFeed(ordenacao, feed));
         }
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/ordenacao")
-    ResponseEntity<List<ParceiroDTO>> ordenaFeed(@RequestParam String ordenacao, @RequestBody List<ParceiroDTO> feed){
-        if(!feed.isEmpty()){
-            return ResponseEntity.ok(serviceParceiro.ordenaFeed(ordenacao, feed));
+    private ResponseEntity<List<ParceiroAvaliacaoFeedDTO>> retornaListaAvaliacao(List<Parceiro> listaParceiros) {
+        if (!listaParceiros.isEmpty()) {
+            return ResponseEntity.status(200).body(ParceiroMapper.toDTOAvaliacao(listaParceiros));
         }
         return ResponseEntity.noContent().build();
     }
