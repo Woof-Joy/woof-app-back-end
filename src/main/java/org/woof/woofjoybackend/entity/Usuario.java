@@ -52,6 +52,8 @@ public class Usuario {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
 
+    @OneToOne
+    private DonoImagem donoImagem;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Endereco endereco;

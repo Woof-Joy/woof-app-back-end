@@ -1,8 +1,7 @@
 package org.woof.woofjoybackend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,13 @@ import lombok.Setter;
 @Setter
 public class Imagem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Size(min = 3)
     private String urlImagem;
+    private String path;
+    private String tipo;
     @ManyToOne
+    @JoinColumn(name = "dono")
     private DonoImagem dono;
 }

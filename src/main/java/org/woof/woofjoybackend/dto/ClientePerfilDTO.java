@@ -3,15 +3,15 @@ package org.woof.woofjoybackend.dto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
 public class ClientePerfilDTO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer idCliente;
     @NotBlank
     @Size(max = 50)
@@ -25,5 +25,8 @@ public class ClientePerfilDTO {
     @NotBlank
     @Email
     private String email;
+    @Past
+    private LocalDate dataNasc;
+    private EnderecoParceiroClienteDTO endereco;
     private List<ClienteDogDTO> dogList;
 }

@@ -61,6 +61,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/websocket/**"),
             new AntPathRequestMatcher("/notification/topicos/{idUsuario}"),
             new AntPathRequestMatcher("/notification/**"),
+            new AntPathRequestMatcher("/imagens/**")
     };
 //    MUDO AQUI
 

@@ -20,7 +20,9 @@ public class DonoImagem {
     @OneToOne
     private Item item;
     @OneToOne
-    private Parceiro parceiro;
-    @OneToMany
+    private Usuario usuario;
+    @OneToOne
+    private Dog dog;
+    @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
 }
