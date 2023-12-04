@@ -42,6 +42,8 @@ public class ServiceServico {
         if (servicoOriginal.getStatus().equalsIgnoreCase("aguardandoConfirmacao")) {
             servicoOriginal.setStatus("aguardandoInicio");
         } else if (servicoOriginal.getStatus().equalsIgnoreCase("aguardandoInicio")) {
+            servicoOriginal.setStatus("emAndamento");
+        } else if (servicoOriginal.getStatus().equalsIgnoreCase("emAndamento")) {
             servicoOriginal.setStatus("concluido");
         }
         return servicoRepository.save(servicoOriginal);

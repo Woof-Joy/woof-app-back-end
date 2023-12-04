@@ -69,7 +69,7 @@ public class DogController {
             ManipuladorDeArquivo.gravaArquivoCsv(listaObj, "lista-de-cachorros");
             File csvFile = new File("lista-de-cachorros.csv");
             FileInputStream fileInputStream = new FileInputStream(csvFile);
-            InputStreamResource resource =new InputStreamResource(fileInputStream);
+            InputStreamResource resource = new InputStreamResource(fileInputStream);
 
             return ResponseEntity.ok().header("content-disposition", "attachment; filename=\"lista-de-cachorros.csv\"").body( resource);
         }
@@ -91,12 +91,9 @@ public class DogController {
             FileInputStream fileInputStream = new FileInputStream(csvFile);
             InputStreamResource resource =new InputStreamResource(fileInputStream);
             return ResponseEntity.ok().header("content-disposition", "attachment; filename=\"lista-de-cachorros.csv\"").body(resource);
-
         }
         return ResponseEntity.noContent().build();
-
     }
-
 
     public ListaObj<Dog> ordenarPorAdressividade(ListaObj<Dog> vetor){
         for (int i = 0; i < vetor.getTamanho()  ; i++) {
@@ -146,5 +143,4 @@ public class DogController {
         }
         return null;
     }
-
 }
