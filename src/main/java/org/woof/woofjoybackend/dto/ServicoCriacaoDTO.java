@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
+import org.woof.woofjoybackend.domain.FilaObj;
 import org.woof.woofjoybackend.entity.Avaliacao;
 import org.woof.woofjoybackend.entity.Dog;
 import org.woof.woofjoybackend.entity.FichaServico;
@@ -27,10 +28,32 @@ public class ServicoCriacaoDTO {
     private Integer idParceiro;
     @Pattern(regexp = "^(dogSitter|dogWalker)$", message = "O tipo deve ser 'dogSitter' ou 'dogWalker'")
     private String tipoServico;
-    @NotNull
-    private List<Integer> idCachorros;
+
+    private FilaObj<Integer> idCachorro;
 
     public ServicoCriacaoDTO() {
         this.status = "aguardandoConfirmacao";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @NotNull
+    private List<Integer> idCachorros;
 }

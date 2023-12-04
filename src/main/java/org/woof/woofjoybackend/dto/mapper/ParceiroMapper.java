@@ -12,12 +12,13 @@ public class ParceiroMapper {
     public static ParceiroDTO toDTO(Parceiro entidadeParceiro){
         if (entidadeParceiro == null) return null;
         ParceiroDTO parceiroDTO = new ParceiroDTO();
+        parceiroDTO.setIdUsuario(entidadeParceiro.getUsuario().getId());
+        parceiroDTO.setId(entidadeParceiro.getIdParceiro());
         parceiroDTO.setNome(entidadeParceiro.getUsuario().getNome());
         parceiroDTO.setSobrenome(entidadeParceiro.getUsuario().getSobrenome());
         parceiroDTO.setEmail(entidadeParceiro.getUsuario().getEmail());
         parceiroDTO.setDataNasc(entidadeParceiro.getUsuario().getDataNasc());
         parceiroDTO.setEstrelas(entidadeParceiro.getEstrelas());
-//        parceiroDTO.setEndereco(EnderecoMapper.toDTOParceiroCleinte(entidadeParceiro.getUsuario().getEndereco()));
         parceiroDTO.setServicos(FichaServicoMapper.toDTO(entidadeParceiro.getServicos()));
         parceiroDTO.setDataEntrada(entidadeParceiro.getDataEntrada());
         Integer acumulador = 0;

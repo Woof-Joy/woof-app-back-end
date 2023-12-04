@@ -3,6 +3,7 @@ package org.woof.woofjoybackend.dto;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import org.woof.woofjoybackend.domain.PilhaObj;
 
 import java.util.List;
 
@@ -16,11 +17,20 @@ public class ParceiroFichaServicoDTO {
     @Positive
     private Double valor;
 
-    private List<ServicoDTO> servicos;
+    private PilhaObj<ServicoDTO> servico;
 
     private Integer qtdServico;
 
     public Integer getQtdServico() {
         return servicos.size();
     }
+
+
+
+
+
+
+
+    private List<ServicoDTO> servicos;
+
 }

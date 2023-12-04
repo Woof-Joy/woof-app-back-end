@@ -28,6 +28,6 @@ public class ParceiroDTO {
     @Positive
     private Integer qtdServicosPrestados;
     private List<FichaServicoDTO> servicos;
-
+    private Integer idUsuario;
 }
 
