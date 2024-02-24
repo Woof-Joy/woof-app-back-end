@@ -6,23 +6,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.woof.woofjoybackend.entity.response.Cep;
-import org.woof.woofjoybackend.service.gateway.ServiceCEP;
+import org.woof.woofjoybackend.domain.entity.response.CepResponse;
+import org.woof.woofjoybackend.resources.webclient.gatewayImpl.ClientCEPGatewayImpl;
 
 @RestController
 @RequestMapping("/cep")
 public class CEPController {
 
-    private ServiceCEP cepService;
+    private ClientCEPGatewayImpl cepService;
+
     @Autowired
-    CEPController(ServiceCEP cepService){
-         this.cepService = cepService;
+    CEPController(ClientCEPGatewayImpl cepService) {
+        this.cepService = cepService;
     }
 
     @GetMapping("/{cep}")
-    public ResponseEntity<Cep> buscar(@PathVariable String cep){
-        Cep end = cepService.buscaCEP(cep);
-        return ResponseEntity.status(200).body(end);
+    public ResponseEntity<CepResponse> buscar(@PathVariable String cep) {
+        CepResponse endereco = cepService.getAddressByCep(cep);
+        return endereco.getLogradouro().isBlank()?
+        ResponseEntity.status(404).build():
+        ResponseEntity.status(200).body(endereco);
     }
 
 }

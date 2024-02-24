@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity.response;
+package org.woof.woofjoybackend.domain.entity.response;
 
 
 import jakarta.persistence.Entity;
@@ -7,11 +7,10 @@ import lombok.*;
 
 @Getter
 @Setter
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Cep {
-        @Id
+public class CepResponse {
+
         private String cep;
         private String logradouro;
         private String complemento;
