@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.service;
+package org.woof.woofjoybackend.service.users;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
@@ -10,17 +10,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
+import org.woof.woofjoybackend.domain.entity.Cliente;
+import org.woof.woofjoybackend.domain.entity.Endereco;
+import org.woof.woofjoybackend.domain.entity.Parceiro;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapperJWT;
-import org.woof.woofjoybackend.entity.*;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.DonoImagemRepository;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
+import org.woof.woofjoybackend.service.client.ServiceCEP;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,24 +39,30 @@ public class ServiceUser {
     private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
     private final AuthenticationProvider authenticationProvider;
+    private final ServiceCEP serviceCep;
 
 
-    public UsuarioDTO postUsuario(UsuarioCriacaoDTO usuario, int tipo) {
+    public UsuarioDTO postUsuario(UsuarioCriacaoDTO usuario, String tipo) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
-
         if (!usuarioExiste(usuario.getEmail())) {
-            usuarioRepository.save(UsuarioMapper.toEntity(usuario));
+            String cep = usuario.getCep();
+            Endereco enderecoCompleto = serviceCep.registerAdressInUser(cep);
+            enderecoCompleto.setNumero(usuario.getNumero());
+            Usuario usuarioEntity = UsuarioMapper.toEntity(usuario);
+            usuarioEntity.setEndereco(enderecoCompleto);
+            Usuario usuario1 = usuarioEntity; //
+            usuarioRepository.save(usuarioEntity);
         }
         String email = usuario.getEmail();
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
 
 
-        if (tipo == 0) {
+        if (tipo.equalsIgnoreCase("C")) {
             Cliente cliente = new Cliente(usuarioEncontrado);
             usuarioEncontrado.setCliente(cliente);
             clienteRepository.save(cliente);
-        } else if (tipo == 1) {
+        } else if (tipo.equalsIgnoreCase("P")) {
             Parceiro parceiro = new Parceiro(usuarioEncontrado);
             usuarioEncontrado.setParceiro(parceiro);
             parceiroRepository.save(parceiro);
@@ -123,16 +133,16 @@ public class ServiceUser {
         return usuarioRepository.existsById(id);
     }
 
-    public boolean usuarioPodeSerCadastrado(String email, int tipo) {
+    public boolean usuarioPodeSerCadastrado(String email, String tipo) {
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         //VERIFICA SE O USUARIO NO BANCO TEM UM CLIENTE OU PARCEIRO CADASTRADO
         if (usuarioEncontrado.isPresent()) {
             Optional<Cliente> cliente = usuarioEncontrado.get().getCliente();
             Optional<Parceiro> parceiro = usuarioEncontrado.get().getParceiro();
-            if (tipo == 0 && cliente.isEmpty()) {
+            if (tipo.equalsIgnoreCase("C") && cliente.isEmpty()) {
                 return true;
             }
-            if (tipo == 1 && parceiro.isEmpty()) {
+            if (tipo.equalsIgnoreCase("P") && parceiro.isEmpty()) {
                 return true;
             }
         }
@@ -145,13 +155,6 @@ public class ServiceUser {
     public boolean usuarioExiste(String email) {
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
         if (usuarioEncontrado.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    public boolean cadastrado(Usuario usuario, int tipo) {
-        if (tipo == 0 && usuario.getCliente().isEmpty() || tipo == 1 && usuario.getParceiro().isEmpty()) {
             return false;
         }
         return true;
