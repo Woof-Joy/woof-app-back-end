@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
-import org.woof.woofjoybackend.entity.Dog;
-import org.woof.woofjoybackend.entity.FichaServico;
-import org.woof.woofjoybackend.entity.Servico;
+import org.woof.woofjoybackend.domain.entity.Dog;
+import org.woof.woofjoybackend.domain.entity.FichaServico;
+import org.woof.woofjoybackend.domain.entity.Servico;
 import org.woof.woofjoybackend.repository.ServicoRepository;
 
 import java.util.ArrayList;

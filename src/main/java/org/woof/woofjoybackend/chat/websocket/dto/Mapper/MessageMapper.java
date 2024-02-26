@@ -2,10 +2,9 @@ package org.woof.woofjoybackend.chat.websocket.dto.Mapper;
 
 import org.woof.woofjoybackend.chat.websocket.dto.MensagemResponseDto;
 import org.woof.woofjoybackend.chat.websocket.dto.MessageDto;
-import org.woof.woofjoybackend.entity.Avaliacao;
-import org.woof.woofjoybackend.entity.Chat;
-import org.woof.woofjoybackend.entity.Mensagem;
-import org.woof.woofjoybackend.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.Chat;
+import org.woof.woofjoybackend.domain.entity.Mensagem;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.entity.Avaliacao;
+import org.woof.woofjoybackend.domain.entity.Avaliacao;
 import org.woof.woofjoybackend.repository.AvaliacaoRepository;
 
 import java.util.List;

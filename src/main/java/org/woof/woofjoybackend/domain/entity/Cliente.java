@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,6 +19,8 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCliente;
 
+    private Integer idUser;
+
     @OneToOne
     private Usuario usuario;
 
@@ -27,6 +29,7 @@ public class Cliente {
 
     public Cliente(Usuario usuario) {
         this.usuario = usuario;
+        this.idUser = usuario.getId();// ajuste necessário para melhor intercambiação na aplicação front-end
         this.dogList = new ArrayList<>();
     }
 }

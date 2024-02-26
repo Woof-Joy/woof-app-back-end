@@ -3,10 +3,9 @@ package org.woof.woofjoybackend.dto.mapper;
 import org.woof.woofjoybackend.dto.FichaServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.FichaServicoDTO;
 import org.woof.woofjoybackend.dto.ParceiroFichaServicoDTO;
-import org.woof.woofjoybackend.dto.ServicoDTO;
-import org.woof.woofjoybackend.entity.FichaServico;
-import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.entity.Servico;
+import org.woof.woofjoybackend.domain.entity.FichaServico;
+import org.woof.woofjoybackend.domain.entity.Parceiro;
+
 import java.util.ArrayList;
 import java.util.List;
 

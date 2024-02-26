@@ -1,7 +1,7 @@
 package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.ObservacaoDTO;
-import org.woof.woofjoybackend.entity.Observacao;
+import org.woof.woofjoybackend.domain.entity.Observacao;
 
 import java.util.ArrayList;
 import java.util.List;

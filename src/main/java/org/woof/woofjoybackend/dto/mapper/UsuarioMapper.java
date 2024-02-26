@@ -3,8 +3,8 @@ package org.woof.woofjoybackend.dto.mapper;
 import org.woof.woofjoybackend.dto.UsuarioChatDTO;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
-import org.woof.woofjoybackend.entity.Endereco;
-import org.woof.woofjoybackend.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.Endereco;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -17,12 +17,23 @@
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.4</spring-cloud.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.0</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -123,12 +134,25 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>3.0.5</version>
         </dependency>
+        <!--WEB SOCKET-->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-websocket</artifactId>
+        </dependency>
+        <!--        //-->
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <!--        //-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version> <!-- Verifique a versão -->
         </dependency>
-
     </dependencies>
     <dependencyManagement>
         <dependencies>

@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ParceiroAvaliacaoFeedDTO;
 import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
-import org.woof.woofjoybackend.entity.Parceiro;
+import org.woof.woofjoybackend.domain.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
-import org.woof.woofjoybackend.service.ServiceParceiro;
+import org.woof.woofjoybackend.service.users.ServiceParceiro;
 
 import java.util.List;
 

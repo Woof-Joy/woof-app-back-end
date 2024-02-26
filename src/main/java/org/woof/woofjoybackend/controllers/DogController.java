@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.DogPerfilDTO;
 import org.woof.woofjoybackend.dto.mapper.DogMapper;
-import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.domain.entity.Dog;
 import org.woof.woofjoybackend.domain.ListaObj;
-import org.woof.woofjoybackend.entity.ManipuladorDeArquivo;
+import org.woof.woofjoybackend.domain.entity.ManipuladorDeArquivo;
 
 import org.woof.woofjoybackend.service.ServiceDog;
 

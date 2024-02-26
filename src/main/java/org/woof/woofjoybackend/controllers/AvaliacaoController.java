@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.woof.woofjoybackend.dto.AvaliacaoPrestadorDTO;
 import org.woof.woofjoybackend.dto.mapper.AvaliacaoParceiroMapper;
-import org.woof.woofjoybackend.entity.Avaliacao;
+import org.woof.woofjoybackend.domain.entity.Avaliacao;
 import org.woof.woofjoybackend.service.ServiceAvaliacao;
 
 import java.util.List;

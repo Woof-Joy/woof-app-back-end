@@ -1,7 +1,7 @@
 package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.ImagemDTO;
-import org.woof.woofjoybackend.entity.Imagem;
+import org.woof.woofjoybackend.domain.entity.Imagem;
 
 public class ImagemMapper {
     public static ImagemDTO toDTO(Imagem entidadeImagem){

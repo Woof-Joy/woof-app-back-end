@@ -6,10 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
-import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.service.ServiceParceiro;
-import org.woof.woofjoybackend.service.ServiceUser;
-import org.woof.woofjoybackend.service.gateway.ServiceCEP;
+import org.woof.woofjoybackend.domain.entity.Parceiro;
+import org.woof.woofjoybackend.service.users.ServiceParceiro;
+import org.woof.woofjoybackend.service.users.ServiceUser;
+import org.woof.woofjoybackend.service.client.ServiceCEP;
 import java.util.List;
 
 @RestController

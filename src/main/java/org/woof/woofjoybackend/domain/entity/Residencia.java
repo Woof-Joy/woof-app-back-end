@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

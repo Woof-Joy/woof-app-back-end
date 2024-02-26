@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.woof.woofjoybackend.dto.ImagemDTO;
 import org.woof.woofjoybackend.dto.mapper.ImagemMapper;
-import org.woof.woofjoybackend.entity.Imagem;
+import org.woof.woofjoybackend.domain.entity.Imagem;
 import org.woof.woofjoybackend.service.ServiceImagem;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
 
 @RestController

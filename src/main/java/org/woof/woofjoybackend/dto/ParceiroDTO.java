@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 public class ParceiroDTO {
     private Integer id;
+    private Integer idUser;
     @NotBlank
     @Size(max = 50)
     private String nome;

@@ -1,7 +1,7 @@
 package org.woof.woofjoybackend.service;
 
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.entity.Observacao;
+import org.woof.woofjoybackend.domain.entity.Observacao;
 import org.woof.woofjoybackend.repository.ObservacaoRepository;
 
 @Service

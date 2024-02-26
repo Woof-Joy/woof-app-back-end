@@ -14,3 +14,4 @@ public class MessageDto {
     private Integer idRemetente;
     private Integer idDestinatario;
 }
+

@@ -1,13 +1,13 @@
-package org.woof.woofjoybackend.service;
+package org.woof.woofjoybackend.service.users;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.woof.woofjoybackend.entity.Usuario;
-import org.woof.woofjoybackend.entity.Parceiro;
+import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
-import org.woof.woofjoybackend.entity.exception.BadRequestException;
+import org.woof.woofjoybackend.domain.entity.exception.BadRequestException;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 

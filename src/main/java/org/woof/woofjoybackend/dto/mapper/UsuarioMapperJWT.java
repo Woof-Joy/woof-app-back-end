@@ -1,6 +1,6 @@
 package org.woof.woofjoybackend.dto.mapper;
 
-import org.woof.woofjoybackend.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 
 public class UsuarioMapperJWT {

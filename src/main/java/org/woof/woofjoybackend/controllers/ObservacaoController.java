@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ObservacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.ObservacaoMapper;
-import org.woof.woofjoybackend.entity.Observacao;
+import org.woof.woofjoybackend.domain.entity.Observacao;
 import org.woof.woofjoybackend.service.ServiceObservacao;
 
 @RestController

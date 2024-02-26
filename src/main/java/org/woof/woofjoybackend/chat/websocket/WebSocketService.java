@@ -7,15 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.chat.websocket.dto.Mapper.MessageMapper;
 import org.woof.woofjoybackend.chat.websocket.dto.MessageDto;
-import org.woof.woofjoybackend.entity.Chat;
-import org.woof.woofjoybackend.entity.Mensagem;
-import org.woof.woofjoybackend.entity.Usuario;
-import org.woof.woofjoybackend.entity.exception.BadRequestException;
+import org.woof.woofjoybackend.domain.entity.Chat;
+import org.woof.woofjoybackend.domain.entity.Mensagem;
+import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.exception.BadRequestException;
 import org.woof.woofjoybackend.repository.ChatRepository;
 import org.woof.woofjoybackend.repository.MensagemRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

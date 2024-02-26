@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.woof.woofjoybackend.entity.Chat;
+import org.woof.woofjoybackend.domain.entity.Chat;
 
 import java.util.List;
 import java.util.Optional;

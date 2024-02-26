@@ -1,11 +1,7 @@
 package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.AvaliacaoDTO;
-import org.woof.woofjoybackend.dto.ParceiroDTO;
-import org.woof.woofjoybackend.dto.ServicoDTO;
-import org.woof.woofjoybackend.entity.Avaliacao;
-import org.woof.woofjoybackend.entity.Parceiro;
-import org.woof.woofjoybackend.entity.Servico;
+import org.woof.woofjoybackend.domain.entity.Avaliacao;
 
 import java.util.List;
 

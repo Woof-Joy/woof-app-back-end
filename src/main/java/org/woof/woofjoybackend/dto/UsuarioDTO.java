@@ -1,8 +1,7 @@
 package org.woof.woofjoybackend.dto;
 
 import lombok.Data;
-import org.woof.woofjoybackend.entity.Endereco;
-import org.woof.woofjoybackend.entity.Item;
+import org.woof.woofjoybackend.domain.entity.Endereco;
 
 import java.time.LocalDate;
 import java.util.List;

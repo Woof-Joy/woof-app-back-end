@@ -9,8 +9,8 @@ import org.woof.woofjoybackend.chat.websocket.dto.Mapper.ChatMapper;
 import org.woof.woofjoybackend.chat.websocket.dto.Mapper.MessageMapper;
 import org.woof.woofjoybackend.chat.websocket.dto.MensagemResponseDto;
 import org.woof.woofjoybackend.chat.websocket.dto.MessageDto;
-import org.woof.woofjoybackend.entity.Chat;
-import org.woof.woofjoybackend.entity.Mensagem;
+import org.woof.woofjoybackend.domain.entity.Chat;
+import org.woof.woofjoybackend.domain.entity.Mensagem;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

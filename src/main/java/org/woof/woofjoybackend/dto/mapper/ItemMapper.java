@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.ItemDTO;
 import org.woof.woofjoybackend.dto.ItemFeedDTO;
-import org.woof.woofjoybackend.entity.Item;
+import org.woof.woofjoybackend.domain.entity.Item;
 
 import java.util.ArrayList;
 import java.util.List;

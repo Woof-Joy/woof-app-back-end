@@ -7,5 +7,6 @@ import java.util.List;
 @Data
 public class ClienteDTO {
     private Integer idCliente;
+    private Integer idUser;
     private List<ClienteDogDTO> dogList;
 }

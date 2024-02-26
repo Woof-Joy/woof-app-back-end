@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.ClienteDogDTO;
 import org.woof.woofjoybackend.dto.DogPerfilDTO;
-import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.domain.entity.Dog;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,12 +13,13 @@ import java.util.List;
 @Data
 public class ClientePerfilDTO {
     Integer idCliente;
+    Integer idUser;
     @NotBlank
     @Size(max = 50)
     private String nome;
     @Size(max = 50)
     private String sobrenome;
-    @Size(min = 8, max = 8)
+    @Size(min = 8, max = 9)
     private String cep;
     @Size(max = 10)
     private String numero;

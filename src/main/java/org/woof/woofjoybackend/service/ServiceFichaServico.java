@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.dto.FichaServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.FichaServicoMapper;
-import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
-import org.woof.woofjoybackend.entity.FichaServico;
-import org.woof.woofjoybackend.entity.exception.BadRequestException;
+import org.woof.woofjoybackend.domain.entity.FichaServico;
+import org.woof.woofjoybackend.domain.entity.exception.BadRequestException;
 import org.woof.woofjoybackend.repository.FichaServicoRepository;
+import org.woof.woofjoybackend.service.users.ServiceParceiro;
 
 import java.util.List;
 import java.util.Optional;

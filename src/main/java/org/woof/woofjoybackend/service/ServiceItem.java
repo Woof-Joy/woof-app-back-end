@@ -4,8 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.woof.woofjoybackend.entity.Item;
+import org.woof.woofjoybackend.domain.entity.Item;
 import org.woof.woofjoybackend.repository.ItemRepository;
+import org.woof.woofjoybackend.service.users.ServiceUser;
 
 import java.util.List;
 

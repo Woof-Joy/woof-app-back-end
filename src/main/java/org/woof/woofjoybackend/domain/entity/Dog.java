@@ -1,9 +1,8 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import lombok.Setter;

@@ -1,9 +1,7 @@
 package org.woof.woofjoybackend.repository;
 
-import feign.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.domain.entity.Dog;
 
 import java.util.List;
 

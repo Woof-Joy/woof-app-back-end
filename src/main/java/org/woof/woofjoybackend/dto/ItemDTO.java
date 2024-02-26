@@ -1,7 +1,7 @@
 package org.woof.woofjoybackend.dto;
 
 import lombok.Data;
-import org.woof.woofjoybackend.entity.Endereco;
+import org.woof.woofjoybackend.domain.entity.Endereco;
 
 @Data
 public class ItemDTO {

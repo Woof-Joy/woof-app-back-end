@@ -1,11 +1,10 @@
 package org.woof.woofjoybackend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.woof.woofjoybackend.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioDetalhesDto;
 

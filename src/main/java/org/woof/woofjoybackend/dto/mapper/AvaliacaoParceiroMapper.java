@@ -2,8 +2,8 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.AvaliacaoPrestadorDTO;
 import org.woof.woofjoybackend.dto.ClienteAvaliacaoDTO;
-import org.woof.woofjoybackend.entity.Avaliacao;
-import org.woof.woofjoybackend.entity.Cliente;
+import org.woof.woofjoybackend.domain.entity.Avaliacao;
+import org.woof.woofjoybackend.domain.entity.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;

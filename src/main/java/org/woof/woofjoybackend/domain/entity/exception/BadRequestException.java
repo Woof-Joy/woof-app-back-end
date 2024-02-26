@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity.exception;
+package org.woof.woofjoybackend.domain.entity.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

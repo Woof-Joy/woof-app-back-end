@@ -5,10 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
-import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
-import org.woof.woofjoybackend.entity.Usuario;
-import org.woof.woofjoybackend.service.ServiceUser;
+import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.service.users.ServiceUser;
 
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
@@ -31,7 +30,7 @@ public class UsuarioController {
     @PostMapping("/{tipo}")
     public ResponseEntity<UsuarioDTO> postUsuario(
             @Valid @RequestBody UsuarioCriacaoDTO usuario,
-            @PathVariable int tipo) {
+            @PathVariable String tipo) {
         if (service.usuarioPodeSerCadastrado(usuario.getEmail(), tipo)) {
             return ResponseEntity.status(201).body(service.postUsuario(usuario, tipo));
         }

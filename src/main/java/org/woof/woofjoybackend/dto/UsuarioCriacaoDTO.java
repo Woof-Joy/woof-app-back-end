@@ -27,16 +27,12 @@ public class UsuarioCriacaoDTO {
     private String senha;
     @Past
     private LocalDate dataNasc;
-    @Size(min = 8, max = 8)
+    @Size(min = 8, max = 9)
     @NotBlank
     private String cep;
-    @NotBlank
     private String numero;
-    @NotBlank
     private String rua;
-    @NotBlank
     private String cidade;
-    @NotBlank
     private String Estado;
 
 }

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ItemDTO;
 import org.woof.woofjoybackend.dto.mapper.ItemMapper;
-import org.woof.woofjoybackend.entity.Item;
+import org.woof.woofjoybackend.domain.entity.Item;
 import org.woof.woofjoybackend.service.ServiceItem;
 
 import java.util.List;
@@ -32,6 +32,7 @@ public class ItemController {
     public ResponseEntity<ItemDTO> findById(@PathVariable Integer id) {
         return ResponseEntity.ok(ItemMapper.toDTO(service.listaItemPorId(id)));
     }
+
 
     @GetMapping
     public ResponseEntity<List<ItemDTO>> findAll(){

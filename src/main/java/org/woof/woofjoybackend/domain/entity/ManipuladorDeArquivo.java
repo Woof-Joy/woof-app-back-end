@@ -1,7 +1,6 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.domain.entity;
 
 import org.woof.woofjoybackend.domain.ListaObj;
-import org.woof.woofjoybackend.entity.Dog;
 
 import java.io.FileWriter;
 import java.io.IOException;

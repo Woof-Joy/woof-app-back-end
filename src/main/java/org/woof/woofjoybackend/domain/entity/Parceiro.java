@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -27,6 +27,8 @@ public class Parceiro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idParceiro;
+
+    private Integer idUser;
 
     @PastOrPresent
     private LocalDate dataEntrada;

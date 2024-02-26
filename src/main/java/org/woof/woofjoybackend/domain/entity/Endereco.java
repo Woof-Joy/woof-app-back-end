@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.entity;
+package org.woof.woofjoybackend.domain.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +19,7 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Size(min = 8, max = 8)
+    @Size(min = 8, max = 9)
     private String cep;
     private String logradouro;
     private String numero;

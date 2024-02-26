@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
-import org.woof.woofjoybackend.entity.Servico;
+import org.woof.woofjoybackend.domain.entity.Servico;
 import org.woof.woofjoybackend.service.ServiceServico;
 
 import java.util.List;

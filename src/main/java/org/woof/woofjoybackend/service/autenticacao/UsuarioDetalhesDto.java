@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.service.autenticacao;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.woof.woofjoybackend.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 
 import java.util.Collection;
 

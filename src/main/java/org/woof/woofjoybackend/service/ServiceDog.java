@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.woof.woofjoybackend.entity.Cliente;
-import org.woof.woofjoybackend.entity.Dog;
+import org.woof.woofjoybackend.domain.entity.Cliente;
+import org.woof.woofjoybackend.domain.entity.Dog;
 import org.woof.woofjoybackend.repository.ClienteRepository;
 import org.woof.woofjoybackend.repository.DogRepository;
 

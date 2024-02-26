@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.FichaServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.ParceiroFichaServicoDTO;
 import org.woof.woofjoybackend.dto.mapper.FichaServicoMapper;
-import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
-import org.woof.woofjoybackend.entity.FichaServico;
-import org.woof.woofjoybackend.entity.Servico;
+import org.woof.woofjoybackend.domain.entity.FichaServico;
 import org.woof.woofjoybackend.service.ServiceFichaServico;
 
 import java.util.List;

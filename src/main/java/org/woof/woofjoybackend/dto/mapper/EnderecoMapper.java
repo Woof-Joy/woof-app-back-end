@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.EnderecoParceiroClienteDTO;
 import org.woof.woofjoybackend.dto.UsuarioEnderecoFeedDTO;
-import org.woof.woofjoybackend.entity.Endereco;
+import org.woof.woofjoybackend.domain.entity.Endereco;
 
 public class EnderecoMapper {
     public static UsuarioEnderecoFeedDTO toDTO(Endereco entidadeCep){
