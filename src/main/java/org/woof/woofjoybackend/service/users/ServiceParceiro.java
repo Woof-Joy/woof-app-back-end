@@ -1,5 +1,4 @@
 package org.woof.woofjoybackend.service.users;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
@@ -46,50 +45,53 @@ public class ServiceParceiro {
     }
 
     public List<ParceiroDTO> ordenaFeed(String ordenacao, List<ParceiroDTO> lista) {
-        if ("Estrelas".equals(ordenacao)) {
-            for (int i = 0; i < lista.size() - 1; i++) {
-                int indiceMenor = i;
-                for (int j = i + 1; j < lista.size(); j++) {
-                    if (lista.get(j).getEstrelas() > lista.get(indiceMenor).getEstrelas()) {
-                        indiceMenor = j;
+        switch (ordenacao) {
+            case "Estrelas" -> {
+                for (int i = 0; i < lista.size() - 1; i++) {
+                    int indiceMenor = i;
+                    for (int j = i + 1; j < lista.size(); j++) {
+                        if (lista.get(j).getEstrelas() > lista.get(indiceMenor).getEstrelas()) {
+                            indiceMenor = j;
+                        }
+                    }
+                    if (indiceMenor != i) {
+                        ParceiroDTO dto = lista.get(i);
+                        lista.set(i, lista.get(indiceMenor));
+                        lista.set(indiceMenor, dto);
                     }
                 }
-                if (indiceMenor != i) {
-                    ParceiroDTO dto = lista.get(i);
-                    lista.set(i, lista.get(indiceMenor));
-                    lista.set(indiceMenor, dto);
-                }
             }
-        } else if ("Recente".equals(ordenacao)) {
-            for (int i = 0; i < lista.size() - 1; i++) {
-                int indiceMenor = i;
-                for (int j = i + 1; j < lista.size(); j++) {
-                    if (lista.get(j).getDataEntrada().isAfter(lista.get(indiceMenor).getDataEntrada())) {
-                        indiceMenor = j;
+            case "Recente" -> {
+                for (int i = 0; i < lista.size() - 1; i++) {
+                    int indiceMenor = i;
+                    for (int j = i + 1; j < lista.size(); j++) {
+                        if (lista.get(j).getDataEntrada().isAfter(lista.get(indiceMenor).getDataEntrada())) {
+                            indiceMenor = j;
+                        }
+                    }
+                    if (indiceMenor != i) {
+                        ParceiroDTO dto = lista.get(i);
+                        lista.set(i, lista.get(indiceMenor));
+                        lista.set(indiceMenor, dto);
                     }
                 }
-                if (indiceMenor != i) {
-                    ParceiroDTO dto = lista.get(i);
-                    lista.set(i, lista.get(indiceMenor));
-                    lista.set(indiceMenor, dto);
-                }
             }
-        } else if ("Antigo".equals(ordenacao)) {
-            for (int i = 0; i < lista.size() - 1; i++) {
-                int indiceMenor = i;
-                for (int j = i + 1; j < lista.size(); j++) {
-                    if (lista.get(j).getDataEntrada().isBefore(lista.get(indiceMenor).getDataEntrada())) {
-                        indiceMenor = j;
+            case "Antigo" -> {
+                for (int i = 0; i < lista.size() - 1; i++) {
+                    int indiceMenor = i;
+                    for (int j = i + 1; j < lista.size(); j++) {
+                        if (lista.get(j).getDataEntrada().isBefore(lista.get(indiceMenor).getDataEntrada())) {
+                            indiceMenor = j;
+                        }
+                    }
+                    if (indiceMenor != i) {
+                        ParceiroDTO dto = lista.get(i);
+                        lista.set(i, lista.get(indiceMenor));
+                        lista.set(indiceMenor, dto);
                     }
                 }
-                if (indiceMenor != i) {
-                    ParceiroDTO dto = lista.get(i);
-                    lista.set(i, lista.get(indiceMenor));
-                    lista.set(indiceMenor, dto);
-                }
             }
-        } else {
-            throw new BadRequestException("Estrelas, Recente, Antigo");
+            default -> throw new BadRequestException("Estrelas, Recente, Antigo");
         }
         return lista;
     }
