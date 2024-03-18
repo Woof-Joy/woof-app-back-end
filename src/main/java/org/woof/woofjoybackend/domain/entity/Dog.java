@@ -63,12 +63,12 @@ public class Dog {
     @BooleanFlag
     private Boolean deficiencia;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @JoinColumn(name = "fkDono")
     private Cliente fkDono;
 
-    @OneToMany(mappedBy = "cachorro", cascade = CascadeType.ALL, orphanRemoval = true )
+    @OneToMany(mappedBy = "cachorro", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Observacao> observacaoList;
 
     public Dog() {

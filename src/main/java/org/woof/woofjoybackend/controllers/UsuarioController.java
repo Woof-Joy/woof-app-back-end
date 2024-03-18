@@ -31,7 +31,9 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDTO> postUsuario(
             @Valid @RequestBody UsuarioCriacaoDTO usuario,
             @PathVariable String tipo) {
-        if (service.usuarioPodeSerCadastrado(usuario.getEmail(), tipo)) {
+        if (!tipo.equalsIgnoreCase("C") && !tipo.equalsIgnoreCase("P")) {
+            return ResponseEntity.status(400).build();
+        } else if (service.usuarioPodeSerCadastrado(usuario.getEmail(), tipo)) {
             return ResponseEntity.status(201).body(service.postUsuario(usuario, tipo));
         }
         return ResponseEntity.status(409).build();
@@ -46,6 +48,9 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario(@PathVariable Integer id, @RequestParam String role) {
+        if (!role.equalsIgnoreCase("C") && !role.equalsIgnoreCase("P") && !role.equalsIgnoreCase("A")) {
+            return ResponseEntity.status(400).build();
+        }
         if (service.deleteUsuario(id, role)) {
             return ResponseEntity.status(204).build();
         }

@@ -26,7 +26,7 @@ public class Servico {
     @ManyToOne
     @JoinColumn(name = "fkFichaServico")
     private FichaServico fkFichaServico;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Dog> cachorros;
 
     public Servico() {

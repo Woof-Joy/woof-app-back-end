@@ -1,6 +1,7 @@
 package org.woof.woofjoybackend.service.users;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.internal.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -72,6 +73,13 @@ public class ServiceUser {
 
     public Usuario putUsuario(UsuarioCriacaoDTO usuario, int id) {
         Usuario usuarioOriginal = usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        Optional<Usuario> usuarioValidaEmail = usuarioRepository.findByEmail(usuario.getEmail());
+
+//      Validando se este e-mail já está sendo usado por outro usuário
+        if (usuarioValidaEmail.isPresent() && usuarioValidaEmail.get().getId() != id) {
+            throw new ResponseStatusException(HttpStatusCode.valueOf(409));
+        }
+
         usuarioOriginal.setNome(usuario.getNome());
         usuarioOriginal.setSobrenome(usuario.getSobrenome());
         usuarioOriginal.setCpf(usuario.getCpf());
@@ -107,6 +115,9 @@ public class ServiceUser {
                             usuario.setCliente(null);
                         } else if (role.equalsIgnoreCase("P")) {
                             usuario.setParceiro(null);
+                        } else if (role.equalsIgnoreCase("A")) {
+                            usuarioRepository.deleteById(id);
+                            return true;
                         } else {
                             return false;
                         }
