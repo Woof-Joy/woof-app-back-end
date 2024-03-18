@@ -17,19 +17,11 @@ public class ParceiroFichaServicoDTO {
     @Positive
     private Double valor;
 
-    private PilhaObj<ServicoDTO> servico;
-
     private Integer qtdServico;
 
     public Integer getQtdServico() {
         return servicos.size();
     }
-
-
-
-
-
-
 
     private List<ServicoDTO> servicos;
 

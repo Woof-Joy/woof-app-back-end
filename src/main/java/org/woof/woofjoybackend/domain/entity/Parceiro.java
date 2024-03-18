@@ -28,8 +28,6 @@ public class Parceiro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idParceiro;
 
-    private Integer idUser;
-
     @PastOrPresent
     private LocalDate dataEntrada;
 

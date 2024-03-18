@@ -26,7 +26,7 @@ public class ServiceParceiro {
 
 
     public Parceiro findById(Integer id) {
-        return parceiroRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        return parceiroRepository.findByUsuarioId(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
     public List<Parceiro> getParceirosByTipoServico(String tipo) {
@@ -98,7 +98,13 @@ public class ServiceParceiro {
     }
 
     public Parceiro putParceiro(Parceiro parceiro, Integer id) {
-        parceiro.setIdParceiro(id);
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        parceiro.setUsuario(usuario);
+        parceiro.setIdParceiro(usuario.getParceiro().get().getIdParceiro());
+        parceiro.setEstrelas(usuario.getParceiro().get().getEstrelas());
+        parceiro.setDataEntrada(usuario.getParceiro().get().getDataEntrada());
+        parceiro.setServicos(usuario.getParceiro().get().getServicos());
+
         return parceiroRepository.save(parceiro);
     }
 
@@ -107,7 +113,6 @@ public class ServiceParceiro {
     }
 
     public boolean idExiste(Integer id) {
-        Usuario usuario = usuarioRepository.findById(id).get();
-        return parceiroRepository.existsByUsuario(usuario);
+        return parceiroRepository.findByUsuarioId(id).isPresent();
     }
 }

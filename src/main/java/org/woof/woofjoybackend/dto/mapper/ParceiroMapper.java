@@ -13,8 +13,6 @@ public class ParceiroMapper {
         if (entidadeParceiro == null) return null;
         ParceiroDTO parceiroDTO = new ParceiroDTO();
         parceiroDTO.setIdUsuario(entidadeParceiro.getUsuario().getId());
-        parceiroDTO.setIdUser(entidadeParceiro.getUsuario().getId());
-        parceiroDTO.setId(entidadeParceiro.getIdParceiro());
         parceiroDTO.setNome(entidadeParceiro.getUsuario().getNome());
         parceiroDTO.setSobrenome(entidadeParceiro.getUsuario().getSobrenome());
         parceiroDTO.setEmail(entidadeParceiro.getUsuario().getEmail());
@@ -43,7 +41,6 @@ public class ParceiroMapper {
     public static ParceiroAvaliacaoFeedDTO toDTOAvaliacao(Parceiro entidadeParceiro) {
         if (entidadeParceiro == null) return null;
         ParceiroAvaliacaoFeedDTO parceiroDTO = new ParceiroAvaliacaoFeedDTO();
-        parceiroDTO.setId(entidadeParceiro.getIdParceiro());
         parceiroDTO.setNome(entidadeParceiro.getUsuario().getNome());
         parceiroDTO.setSobrenome(entidadeParceiro.getUsuario().getSobrenome());
         parceiroDTO.setServicos(FichaServicoMapper.toDTOServico(entidadeParceiro.getServicos()));
