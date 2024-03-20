@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.configuration.security.info;
+package org.woof.woofjoybackend.configuration.info;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
