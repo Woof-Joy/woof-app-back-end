@@ -1,5 +1,4 @@
 package org.woof.woofjoybackend.service.users;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
