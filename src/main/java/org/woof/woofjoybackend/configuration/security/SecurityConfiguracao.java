@@ -48,6 +48,7 @@ public class SecurityConfiguracao {
             new AntPathRequestMatcher("/info/java"),
             new AntPathRequestMatcher("/dogs/**"),
             new AntPathRequestMatcher("/cep/**"),
+            new AntPathRequestMatcher("/connection"),
             new AntPathRequestMatcher("/swagger-resources"),
             new AntPathRequestMatcher("/swagger-ui/**"),
             new AntPathRequestMatcher("/swagger-resources/**"),
