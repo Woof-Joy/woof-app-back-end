@@ -15,6 +15,12 @@ public class StorageController {
 
     private final StorageService service;
 
+    @GetMapping("/connection")
+    public ResponseEntity<Boolean> connectionHealthCheck() {
+        Boolean estado = service.connectionHealthCheck();
+        return ResponseEntity.status(200).body(estado);
+    }
+
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam(value = "file") MultipartFile file) {
         return new ResponseEntity<>(service.uploadFile

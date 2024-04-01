@@ -58,4 +58,11 @@ public class StorageService {
         }
         return convertedFile;
     }
+
+    public Boolean connectionHealthCheck(){
+        if (s3Client == null){
+            return false;
+        }
+        return true;
+    }
 }
