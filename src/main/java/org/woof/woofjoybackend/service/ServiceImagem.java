@@ -32,17 +32,6 @@ public class ServiceImagem {
     @Autowired
     private DonoImagemRepository donoImagemRepository;
 
-
-    public String gerarPalavraAleatoria() {
-        String caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        Random random = new Random();
-        StringBuilder palavraAleatoria = new StringBuilder();
-        for (int i = 0; i < 15; i++) {
-            int indiceAleatorio = random.nextInt(caracteres.length());
-            palavraAleatoria.append(caracteres.charAt(indiceAleatorio));
-        }
-        return palavraAleatoria.toString();
-    }
     public Imagem postImagem(Imagem imagem, Integer idDono) {
         DonoImagem dono = gerarDono(idDono);
         if (dono == null){
@@ -58,61 +47,19 @@ public class ServiceImagem {
         return donoImagem;
     }
 
+//    public Imagem atualizarURLImagem(Integer id, Integer idDono, Imagem imagem) {
+//       Imagem img = imagemRepository.findById(id).get();
+//       if (img != null){
+//           URL nova_url = generatePresignedUrl(imagem.getPath());
+//           img.setId(id);
+//           img.setUrlImagem(nova_url.toString());
+//           img.setDono(gerarDono(idDono));
+//           return imagemRepository.save(img);
+//       }
+//        return null;
+//    }
 
-    public Imagem uploadDownloadImage(File file, String tipo, Integer idDono) {
-//        StsClient stsClient = StsClient.create();
-//
-//        String roleArn = "arn:aws:iam::760533273170:role/LabRole";
-//
-//        AssumeRoleResponse assumeRoleResponse = stsClient.assumeRole(AssumeRoleRequest.builder()
-//                .roleArn(roleArn)
-//                .build());
-//        AwsCredentials temporaryCredentials = AwsBasicCredentials.create(
-//                assumeRoleResponse.credentials().accessKeyId(),
-//                assumeRoleResponse.credentials().secretAccessKey()
-//        );
-
-//        S3Client s3Client = S3Client.builder()
-//                .credentialsProvider(() -> temporaryCredentials)
-//                .build();
-
-//        //tipo = tipo.toLowerCase().trim();
-//        //if (tipo.equalsIgnoreCase("carrosel") || tipo.equalsIgnoreCase("perfil")){
-//            Imagem img = new Imagem();
-//            // img.setTipo(tipo);
-//            //Imagem imgCadastrada = postImagem(img, idDono);
-//            //if(imgCadastrada != null){
-//                String s3ObjectKey = "imagens/" + gerarPalavraAleatoria() + ".jpg";
-//                //imgCadastrada.setPath(s3ObjectKey);
-//                // Lógica para fazer upload da imagem para o S3
-//                s3Client.putObject(PutObjectRequest.builder()
-//                        .bucket(BUCKET_NAME)
-//                        .key(s3ObjectKey)
-//                        .build(), file.toPath());
-//                //imgCadastrada.setUrlImagem(generatePresignedUrl(s3ObjectKey).toString());
-//                //imagemRepository.save(imgCadastrada);
-//                // Gerar URL assinado para a imagem
-//                //return imgCadastrada
-//                return img;
-            //}
-        //}
-
-        return null;
-    }
-
-    public Imagem atualizarURLImagem(Integer id, Integer idDono, Imagem imagem) {
-       Imagem img = imagemRepository.findById(id).get();
-       if (img != null){
-           URL nova_url = generatePresignedUrl(imagem.getPath());
-           img.setId(id);
-           img.setUrlImagem(nova_url.toString());
-           img.setDono(gerarDono(idDono));
-           return imagemRepository.save(img);
-       }
-        return null;
-    }
-
-    private URL generatePresignedUrl(String objectKey) {
+//    private URL generatePresignedUrl(String objectKey) {
 //        S3Presigner presigner = S3Presigner.builder().build();
 //
 //        // Substitua "REGION" pelo nome da região do seu bucket
@@ -127,8 +74,8 @@ public class ServiceImagem {
 //
 //        // Fechar o presigner após o uso
 //        presigner.close();
-
+//
 //        return presignedUrl;
-        return null;
-    }
+//        return null;
+//    }
 }
