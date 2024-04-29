@@ -29,5 +29,4 @@ public class ClientePerfilDTO {
     @Past
     private LocalDate dataNasc;
     private EnderecoParceiroClienteDTO endereco;
-    private List<ClienteDogDTO> dogList;
 }

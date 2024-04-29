@@ -8,5 +8,4 @@ import java.util.List;
 public class ClienteDTO {
     private Integer idCliente;
     private Integer idUser;
-    private List<ClienteDogDTO> dogList;
 }

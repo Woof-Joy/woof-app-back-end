@@ -24,4 +24,5 @@ public class Avaliacao {
     @OneToOne
     @JoinColumn(name = "fkServico")
     private Servico fkServico;
+
 }

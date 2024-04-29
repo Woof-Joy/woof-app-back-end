@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
-import org.woof.woofjoybackend.domain.entity.Dog;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
 import org.woof.woofjoybackend.domain.entity.Servico;
 import org.woof.woofjoybackend.repository.ServicoRepository;
@@ -18,18 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServiceServico {
     private final ServicoRepository servicoRepository;
-    private final ServiceDog dogService;
     private final ServiceFichaServico serviceFichaServico;
 
 
     public Servico post(ServicoCriacaoDTO servico) {
-        List<Dog> dogs = new ArrayList<>();
-        for (Integer id : servico.getIdCachorros()) {
-            dogs.add(dogService.listarDog(id));
-        }
-
         FichaServico ficha = serviceFichaServico.getByArgs(servico.getIdParceiro(), servico.getTipoServico()).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
-        Servico servicoSalvo = servicoRepository.save(ServicoMapper.toEntity(servico, dogs, ficha));
+        Servico servicoSalvo = servicoRepository.save(ServicoMapper.toEntity(servico, ficha));
         ficha.getServicos().add(servicoSalvo);
 
         return servicoSalvo;

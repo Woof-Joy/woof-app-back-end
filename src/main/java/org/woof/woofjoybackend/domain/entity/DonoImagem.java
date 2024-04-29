@@ -21,8 +21,6 @@ public class DonoImagem {
     private Item item;
     @OneToOne
     private Usuario usuario;
-    @OneToOne
-    private Dog dog;
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
 }

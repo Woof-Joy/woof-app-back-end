@@ -2,7 +2,7 @@ package org.woof.woofjoybackend.dto.mapper;
 
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.ServicoDTO;
-import org.woof.woofjoybackend.domain.entity.Dog;
+//import org.woof.woofjoybackend.domain.entity.Dog;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
 import org.woof.woofjoybackend.domain.entity.Servico;
 
@@ -26,14 +26,13 @@ public class ServicoMapper {
         return listaDeFichaServicoDTO;
     }
 
-    public static Servico toEntity (ServicoCriacaoDTO servicoCriacaoDTO, List<Dog> cachorros, FichaServico ficha){
+    public static Servico toEntity (ServicoCriacaoDTO servicoCriacaoDTO, FichaServico ficha){
         Servico s = new Servico();
 
         s.setInicioDoServico(servicoCriacaoDTO.getInicioDoServico());
         s.setFimDoServico(servicoCriacaoDTO.getFimDoServico());
         s.setStatus(servicoCriacaoDTO.getStatus());
         s.setFkFichaServico(ficha);
-        s.setCachorros(cachorros);
 
         return s;
     }
@@ -42,9 +41,6 @@ public class ServicoMapper {
         ServicoCriacaoDTO dto = new ServicoCriacaoDTO();
 
         List<Integer> idCachorros = new ArrayList<>();
-        for (Dog d : servico.getCachorros()){
-            idCachorros.add(d.getId());
-        }
 
         dto.setId(servico.getId());
         dto.setTipoServico(servico.getFkFichaServico().getTipoServico());

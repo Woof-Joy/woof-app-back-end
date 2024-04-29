@@ -24,12 +24,11 @@ public class Cliente {
     @OneToOne
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "fkDono", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Dog> dogList;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Servico> servicos;
 
     public Cliente(Usuario usuario) {
         this.usuario = usuario;
         this.idUser = usuario.getId();// ajuste necessário para melhor intercambiação na aplicação front-end
-        this.dogList = new ArrayList<>();
     }
 }
