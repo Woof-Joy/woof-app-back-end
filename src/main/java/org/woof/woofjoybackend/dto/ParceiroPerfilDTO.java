@@ -1,5 +1,7 @@
 package org.woof.woofjoybackend.dto;
 
+import jakarta.validation.constraints.DecimalMin;
+import jdk.jfr.BooleanFlag;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -10,4 +12,11 @@ public class ParceiroPerfilDTO {
     private String nome;
     private LocalDate dataEntrada;
     private List<FichaServicoParceiroDTO> fichas;
+    private Integer maxDogs;
+    private Boolean aceitaDogEspecial;
+    private Boolean aceitaDogIdoso;
+    private Boolean aceitaDogBravo;
+    private Boolean aceitaDogGrande;
+    private Boolean aceitaDogCio;
+    private String imgParceiro;
 }

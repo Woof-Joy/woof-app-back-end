@@ -27,8 +27,11 @@ public class FichaServico {
     private Parceiro parceiro;
     @OneToMany(mappedBy = "fkFichaServico")
     private List<Servico> servicos;
+    @OneToOne(mappedBy = "fkFichaServico", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Residencia residencia;
 
     public FichaServico() {
         this.servicos = new ArrayList<>();
+        this.residencia = new Residencia();
     }
 }

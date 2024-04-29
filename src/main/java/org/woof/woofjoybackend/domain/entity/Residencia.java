@@ -1,14 +1,12 @@
 package org.woof.woofjoybackend.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @AllArgsConstructor
@@ -21,13 +19,21 @@ public class Residencia {
     private Integer idResidencia;
     private String tipoResidencia;
     @BooleanFlag
+    @Value(value = "false")
     private Boolean areaExterna;
     @BooleanFlag
+    @Value(value = "false")
     private Boolean temAnimais;
     @BooleanFlag
+    @Value(value = "false")
     private Boolean temCriancas;
     @BooleanFlag
+    @Value(value = "false")
     private Boolean rotaFuga;
     @BooleanFlag
+    @Value(value = "false")
     private Boolean dogSofaCama;
+    @OneToOne
+    @JoinColumn(name = "fichaServico_id")
+    private FichaServico fkFichaServico;
 }

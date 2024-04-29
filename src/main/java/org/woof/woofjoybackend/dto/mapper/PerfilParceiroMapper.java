@@ -15,9 +15,15 @@ import java.util.List;
 public interface PerfilParceiroMapper {
     @Mapping(target = "nome", expression = "java(parceiro.getUsuario().getNome()+\" \"+parceiro.getUsuario().getSobrenome())")
     @Mapping(target = "fichas", expression = "java(fichaServicosToFichaServicoParceiroDTOs(parceiro.getServicos()))")
+    @Mapping(target = "imgParceiro", expression = "java(parceiro.getUsuario().getImgUsuario())")
     ParceiroPerfilDTO parceiroToParceiroPerfilDTO(Parceiro parceiro);
 
     @Mapping(target = "servicos", expression = "java(servicosToServicoAvaliacaoDTOs(ficha.getServicos()))")
+//    @Mapping(target = "areaExterna", expression = "java(ficha.getResidencia().getAreaExterna())")
+//    @Mapping(target = "temAnimais", expression = "java(ficha.getResidencia().getTemAnimais())")
+//    @Mapping(target = "temCriancas", expression = "java(ficha.getResidencia().getTemCriancas())")
+//    @Mapping(target = "rotaFuga", expression = "java(ficha.getResidencia().getRotaFuga())")
+//    @Mapping(target = "dogSofaCama", expression = "java(ficha.getResidencia().getDogSofaCama())")
     FichaServicoParceiroDTO fichaServicoToFichaServicoParceiroDTO(FichaServico ficha);
 
     @Mapping(target = "fotoParceiro", expression = "java(servico.getFkFichaServico().getParceiro().getUsuario().getImgUsuario())")
