@@ -33,7 +33,7 @@ public class Parceiro {
     @PastOrPresent
     private LocalDate dataEntrada;
 
-    @Pattern(regexp = "^(ambos|dogWalker|dogSitter)$", message = "O tipo de serviõ deve ser 'Ambos', 'dogWalker' ou 'dogSitter'")
+    @Pattern(regexp = "^(ambos|dogWalker|dogSitter)$", message = "O tipo de serviço deve ser 'Ambos', 'dogWalker' ou 'dogSitter'")
     private String tipoServico;
 
     @Max(value = 5)
