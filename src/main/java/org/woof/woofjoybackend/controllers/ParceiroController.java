@@ -6,7 +6,6 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
-import org.woof.woofjoybackend.dto.ParceiroFichaServicoDTO;
 import org.woof.woofjoybackend.dto.ParceiroPerfilDTO;
 import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
 import org.woof.woofjoybackend.domain.entity.Parceiro;
