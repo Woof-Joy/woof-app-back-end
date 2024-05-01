@@ -18,7 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/parceiros")
 @RequiredArgsConstructor
-public class ParceiroController {
+public class
+ParceiroController {
     private final ServiceParceiro serviceParceiro;
     public static final PerfilParceiroMapper INSTANCE = Mappers.getMapper(PerfilParceiroMapper.class);
 

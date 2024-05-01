@@ -14,14 +14,10 @@ public class ParceiroAvaliacaoFeedDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotBlank
-    @Size(max = 50)
     private String nome;
-    @Size(max = 50)
     private String sobrenome;
     private Double avaliacao;
     private UsuarioEnderecoFeedDTO endereco;
-    @Size(max = 500)
     private String descricao;
     private List<ParceiroFichaServicoDTO> servicos;
 }
