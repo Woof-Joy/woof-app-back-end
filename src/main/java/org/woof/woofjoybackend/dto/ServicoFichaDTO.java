@@ -2,9 +2,11 @@ package org.woof.woofjoybackend.dto;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class ServicoFichaDTO {
-    private String dataHoraFim;
-    private String dataHoraInicio;
+    private LocalDateTime dataHoraFim;
+    private LocalDateTime dataHoraInicio;
     private String cliente;
 }

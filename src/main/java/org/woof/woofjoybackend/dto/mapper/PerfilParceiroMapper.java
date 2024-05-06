@@ -5,9 +5,7 @@ import org.mapstruct.Mapping;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
 import org.woof.woofjoybackend.domain.entity.Parceiro;
 import org.woof.woofjoybackend.domain.entity.Servico;
-import org.woof.woofjoybackend.dto.FichaServicoParceiroDTO;
-import org.woof.woofjoybackend.dto.ParceiroPerfilDTO;
-import org.woof.woofjoybackend.dto.ServicoAvaliacaoDTO;
+import org.woof.woofjoybackend.dto.*;
 
 import java.util.List;
 
@@ -34,4 +32,11 @@ public interface PerfilParceiroMapper {
 
     List<FichaServicoParceiroDTO> fichaServicosToFichaServicoParceiroDTOs(List<FichaServico> fichas);
     List<ServicoAvaliacaoDTO> servicosToServicoAvaliacaoDTOs(List<Servico> servicos);
+
+    @Mapping(expression = "java(parceiro.getUsuario().getNome() + parceiro.getUsuario().getSobrenome() )", target = "nome")
+    @Mapping(target = "cidade", expression = "java(parceiro.getUsuario().getEndereco().getLocalidade())")
+    @Mapping(target = "uf", expression = "java(parceiro.getUsuario().getEndereco().getUf())")
+    //todoing
+    @Mapping(target = "qtdServicosPrestados", expression = "java(2)")
+    ParceiroSP2DTO parceiroToParceiroDTO(Parceiro parceiro);
 }

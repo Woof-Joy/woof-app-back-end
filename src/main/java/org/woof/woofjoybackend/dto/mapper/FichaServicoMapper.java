@@ -32,7 +32,7 @@ public class FichaServicoMapper {
         parceiroFichaServicoDTO.setId(entidadeFichaServico.getId());
         parceiroFichaServicoDTO.setTipoServico(entidadeFichaServico.getTipoServico());
         parceiroFichaServicoDTO.setValor(entidadeFichaServico.getValor());
-        parceiroFichaServicoDTO.setServicos(ServicoMapper.toDTO(entidadeFichaServico.getServicos()));
+//        parceiroFichaServicoDTO.setServicos(ServicoMapper.toDTO(entidadeFichaServico.getServicos()));
         return parceiroFichaServicoDTO;
     }
 

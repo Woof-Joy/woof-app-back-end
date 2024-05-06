@@ -14,7 +14,7 @@ public class ParceiroMapper {
         ParceiroDTO parceiroDTO = new ParceiroDTO();
         parceiroDTO.setIdUsuario(entidadeParceiro.getUsuario().getId());
         parceiroDTO.setIdUser(entidadeParceiro.getUsuario().getId());
-        parceiroDTO.setId(entidadeParceiro.getIdParceiro());
+        parceiroDTO.setIdParceiro(entidadeParceiro.getIdParceiro());
         parceiroDTO.setNome(entidadeParceiro.getUsuario().getNome());
         parceiroDTO.setSobrenome(entidadeParceiro.getUsuario().getSobrenome());
         parceiroDTO.setEmail(entidadeParceiro.getUsuario().getEmail());
@@ -51,10 +51,10 @@ public class ParceiroMapper {
         List<AvaliacaoDTO> avaliacoesDTO = new ArrayList<>();
         for (ParceiroFichaServicoDTO s :
                 parceiroDTO.getServicos()) {
-            for (ServicoDTO servicoDTO :
-                    s.getServicos()) {
-                avaliacoesDTO.add(servicoDTO.getAvaliacao());
-            }
+//            for (ServicoDTO servicoDTO :
+//                    s.getServicos()) {
+//                avaliacoesDTO.add(servicoDTO.getAvaliacao());
+//            }
         }
         parceiroDTO.setAvaliacao(AvaliacaoMapper.toDouble(avaliacoesDTO));
         //Fezer a tratativa do endereco
