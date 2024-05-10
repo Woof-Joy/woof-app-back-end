@@ -27,7 +27,6 @@ public class ServiceServico {
         FichaServico ficha = serviceFichaServico.getByArgs(servico.getIdParceiro(), servico.getTipoServico()).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
         Cliente cliente = serviceUser.findByClientId(servico.getIdCliente()).getCliente().orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
         Servico servicoSalvo = servicoRepository.save(ServicoMapper.toEntity(servico, ficha, cliente));
-
         return servicoSalvo;
     }
 
