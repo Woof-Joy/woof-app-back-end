@@ -7,9 +7,16 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.util.IOUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.domain.entity.DonoImagem;
+import org.woof.woofjoybackend.domain.entity.Imagem;
+import org.woof.woofjoybackend.repository.DonoImagemRepository;
+import org.woof.woofjoybackend.repository.ImagemRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,15 +29,39 @@ public class StorageService {
 
     @Value("${application.bucket.name}")
     private String bucketName;
+    @Value("${application.bucket.url}")
+    private String bucketUrl;
     private final AmazonS3 s3Client;
 
-    public String uploadFile(MultipartFile file) {
+    @Autowired
+    private ImagemRepository imagemRepository;
+    @Autowired
+    private DonoImagemRepository donoImagemRepository;
+
+    public String uploadProfileImg(MultipartFile file, Integer idDono) {
         File fileObj = convertMultiPartFileToFile(file);
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String fileName = "perfil_" + idDono;
+
+        Imagem img = new Imagem();
+        DonoImagem dono = donoImagemRepository.findById(idDono).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        img.setDono(dono);
+        img.setUrlImagem(bucketUrl+fileName);
+        img.setTipo("perfil");
+        imagemRepository.save(img);
+
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
         fileObj.delete();
         return "File uploaded : " + fileName;
     }
+
+    public String uploadImg(MultipartFile file, Integer idDono) {
+        File fileObj = convertMultiPartFileToFile(file);
+        String fileName = "img_" + idDono + "_"+1;
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
+        fileObj.delete();
+        return "File uploaded : " + fileName;
+    }
+
 
     public byte[] downloadFile(String fileName) {
         S3Object s3Object = s3Client.getObject(bucketName, fileName);

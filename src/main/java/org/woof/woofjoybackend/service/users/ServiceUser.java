@@ -51,7 +51,7 @@ public class ServiceUser {
             enderecoCompleto.setNumero(usuario.getNumero());
             Usuario usuarioEntity = UsuarioMapper.toEntity(usuario);
             usuarioEntity.setEndereco(enderecoCompleto);
-            Usuario usuario1 = usuarioEntity; //
+            Usuario usuario1 = usuarioEntity;
             usuarioRepository.save(usuarioEntity);
         }
         String email = usuario.getEmail();
