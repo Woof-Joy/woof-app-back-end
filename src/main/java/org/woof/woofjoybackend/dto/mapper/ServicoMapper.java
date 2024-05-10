@@ -52,6 +52,7 @@ public class ServicoMapper {
         dto.setInicioDoServico(servico.getInicioDoServico());
         dto.setFimDoServico(servico.getFimDoServico());
         dto.setIdParceiro(servico.getFkFichaServico().getParceiro().getUsuario().getId());
+        dto.setIdCliente(servico.getCliente().getIdCliente());
 
         return dto;
     }
