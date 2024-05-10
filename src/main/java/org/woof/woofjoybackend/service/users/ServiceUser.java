@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
-import org.woof.woofjoybackend.domain.entity.Cliente;
-import org.woof.woofjoybackend.domain.entity.Endereco;
-import org.woof.woofjoybackend.domain.entity.Parceiro;
-import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
@@ -181,4 +178,7 @@ public class ServiceUser {
         return UsuarioMapperJWT.of(usuarioAutenticado, token);
     }
 
+    public Usuario findByClientId(Integer idCliente){
+        return usuarioRepository.findByCliente_IdCliente(idCliente).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
 }

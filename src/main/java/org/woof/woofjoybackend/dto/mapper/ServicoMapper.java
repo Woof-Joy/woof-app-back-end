@@ -1,5 +1,7 @@
 package org.woof.woofjoybackend.dto.mapper;
 
+import org.woof.woofjoybackend.domain.entity.Cliente;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.ServicoDTO;
 //import org.woof.woofjoybackend.domain.entity.Dog;
@@ -26,12 +28,13 @@ public class ServicoMapper {
         return listaDeFichaServicoDTO;
     }
 
-    public static Servico toEntity (ServicoCriacaoDTO servicoCriacaoDTO, FichaServico ficha){
+    public static Servico toEntity (ServicoCriacaoDTO servicoCriacaoDTO, FichaServico ficha, Cliente cliente){
         Servico s = new Servico();
 
         s.setInicioDoServico(servicoCriacaoDTO.getInicioDoServico());
         s.setFimDoServico(servicoCriacaoDTO.getFimDoServico());
         s.setStatus(servicoCriacaoDTO.getStatus());
+        s.setCliente(cliente);
         s.setFkFichaServico(ficha);
 
         return s;
