@@ -41,16 +41,19 @@ public class ServiceUser {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         if (!usuarioExiste(usuario.getEmail())) {
+            //CRIANDO UM NOVO USUÁRIO
             String cep = usuario.getCep();
             Endereco enderecoCompleto = serviceCep.registerAdressInUser(cep);
             enderecoCompleto.setNumero(usuario.getNumero());
             Usuario usuarioEntity = UsuarioMapper.toEntity(usuario);
             usuarioEntity.setEndereco(enderecoCompleto);
+            usuarioRepository.save(usuarioEntity);
+
+            //LÓGICA DE DONO DE IMAGENS E IMAGEM DE PERFIL DEFAULT
             DonoImagem donoImagem = new DonoImagem(usuarioEntity);
             donoImagemRepository.save(donoImagem);
             Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/usuario.png", "perfil", donoImagem);
             imagemRepository.save(imagem);
-            usuarioRepository.save(usuarioEntity);
         }
         String email = usuario.getEmail();
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
