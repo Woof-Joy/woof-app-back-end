@@ -27,8 +27,10 @@ public class DonoImagem {
 
     public DonoImagem(Usuario usuario) {
         this.usuario = usuario;
+        this.imagens = new ArrayList<>();
     }
     public DonoImagem(Item item) {
         this.item = item;
+        this.imagens = new ArrayList<>();
     }
 }
