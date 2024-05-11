@@ -47,11 +47,9 @@ public class ServiceUser {
             Usuario usuarioEntity = UsuarioMapper.toEntity(usuario);
             usuarioEntity.setEndereco(enderecoCompleto);
             DonoImagem donoImagem = new DonoImagem(usuarioEntity);
+            donoImagemRepository.save(donoImagem);
             Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/usuario.png", "perfil", donoImagem);
             imagemRepository.save(imagem);
-            donoImagem.getImagens().add(imagem);
-            donoImagemRepository.save(donoImagem);
-            usuarioEntity.setDonoImagem(donoImagem);
             usuarioRepository.save(usuarioEntity);
         }
         String email = usuario.getEmail();
