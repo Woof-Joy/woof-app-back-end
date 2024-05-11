@@ -18,9 +18,14 @@ public class Imagem {
     private Integer id;
     @Size(min = 3)
     private String urlImagem;
-    private String path;
     private String tipo;
     @ManyToOne
     @JoinColumn(name = "dono")
     private DonoImagem dono;
+
+    public Imagem(String urlImagem, String tipo, DonoImagem dono) {
+        this.urlImagem = urlImagem;
+        this.tipo = tipo;
+        this.dono = dono;
+    }
 }

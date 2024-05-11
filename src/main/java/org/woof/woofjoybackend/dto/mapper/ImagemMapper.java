@@ -9,7 +9,6 @@ public class ImagemMapper {
         ImagemDTO imagemDTO = new ImagemDTO();
         imagemDTO.setId(entidadeImagem.getId());
         imagemDTO.setTipo(entidadeImagem.getTipo());
-        imagemDTO.setPath(entidadeImagem.getPath());
         imagemDTO.setUrlImagem(entidadeImagem.getUrlImagem());
         return imagemDTO;
     }

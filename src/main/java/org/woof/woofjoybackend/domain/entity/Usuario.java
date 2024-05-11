@@ -35,11 +35,11 @@ public class Usuario {
     @NotBlank
     private String senha;
 
-    @Past
-    private LocalDate dataNasc;
-
     private String imgUsuario;
 
+    @Past
+    private LocalDate dataNasc;
+    
     @Size(max = 500)
     private String descricao;
 
