@@ -41,6 +41,7 @@ public class StorageService {
     public String uploadProfileImg(MultipartFile file, Integer idDono) {
         File fileObj = convertMultiPartFileToFile(file);
         String fileName = "perfil_" + idDono;
+        deleteFile(fileName);
 
         Imagem img = new Imagem();
         DonoImagem dono = donoImagemRepository.findById(idDono).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
@@ -48,7 +49,6 @@ public class StorageService {
         img.setUrlImagem(bucketUrl+fileName);
         img.setTipo("perfil");
         imagemRepository.save(img);
-
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
         fileObj.delete();
         return "File uploaded : " + fileName;

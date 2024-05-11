@@ -35,6 +35,8 @@ public class Usuario {
     @NotBlank
     private String senha;
 
+    private String imgUsuario;
+
     @Past
     private LocalDate dataNasc;
     
