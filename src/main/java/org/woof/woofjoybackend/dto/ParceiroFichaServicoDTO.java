@@ -1,7 +1,5 @@
 package org.woof.woofjoybackend.dto;
 
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.util.List;

@@ -9,4 +9,6 @@ public class ServicoFichaDTO {
     private LocalDateTime dataHoraFim;
     private LocalDateTime dataHoraInicio;
     private String cliente;
+    private Integer id;
+    private String status;
 }
