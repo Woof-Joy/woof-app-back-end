@@ -128,6 +128,9 @@ public class ServiceUser {
         return usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
+    public Usuario getByEmail(String email){
+        return usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
 
     public boolean existsById(Integer id) {
         return usuarioRepository.existsById(id);

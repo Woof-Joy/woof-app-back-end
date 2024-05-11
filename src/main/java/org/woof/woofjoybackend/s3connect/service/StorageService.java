@@ -9,18 +9,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
 import org.woof.woofjoybackend.domain.entity.DonoImagem;
 import org.woof.woofjoybackend.domain.entity.Imagem;
+import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.repository.DonoImagemRepository;
 import org.woof.woofjoybackend.repository.ImagemRepository;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,9 +48,9 @@ public class StorageService {
         File fileObj = convertMultiPartFileToFile(file);
         String fileName = "perfil_" + idDono;
 
-        Optional<Imagem> imagemExistenteOptional = imagemRepository.findByDono_IdAndTipo(idDono, "perfil");
-        if (imagemExistenteOptional.isPresent()) {
-            Imagem imagemExistente = imagemExistenteOptional.get();
+        List<Imagem> imagemExistenteOptional = imagemRepository.findByDono_IdAndTipo(idDono, "perfil");
+        if (!imagemExistenteOptional.isEmpty()) {
+            Imagem imagemExistente = imagemExistenteOptional.get(0);
             String urlImagemExistente = imagemExistente.getUrlImagem();
 
             String existingFileName = urlImagemExistente.substring(urlImagemExistente.lastIndexOf("/") + 1);
@@ -57,7 +62,7 @@ public class StorageService {
         Imagem img = new Imagem();
         DonoImagem dono = donoImagemRepository.findById(idDono).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
         img.setDono(dono);
-        img.setUrlImagem(bucketUrl+fileName);
+        img.setUrlImagem(bucketUrl + fileName);
         img.setTipo("perfil");
         imagemRepository.save(img);
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
@@ -67,28 +72,49 @@ public class StorageService {
 
     public String uploadImg(MultipartFile file, Integer idDono) {
         File fileObj = convertMultiPartFileToFile(file);
-        String fileName = "img_" + idDono + "_"+1;
+
+        List<Imagem> imagemExistenteList = imagemRepository.findByDono_IdAndTipo(idDono, "img");
+        String fileName = "img_" + idDono + "_" + (imagemExistenteList.size() + 1);
+
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
+
         fileObj.delete();
-        return "File uploaded : " + fileName;
+
+        Imagem img = new Imagem();
+        DonoImagem dono = donoImagemRepository.findById(idDono).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        img.setDono(dono);
+        img.setUrlImagem(bucketUrl + fileName);
+        img.setTipo("img");
+        imagemRepository.save(img);
+
+        return "Imagem salva: " + fileName;
     }
 
 
-    public String getImgUrl(String fileName) {
-        S3Object s3Object = s3Client.getObject(bucketName, fileName);
-        S3ObjectInputStream inputStream = s3Object.getObjectContent();
-        try {
-            byte[] content = IOUtils.toByteArray(inputStream);
-            return content;
-        } catch (IOException e) {
-            e.printStackTrace();
+    public List<String> getImgUrl(Integer idDono, String tipo) {
+        List<Imagem> imagens = imagemRepository.findByDono_IdAndTipo(idDono, tipo);
+        List<String> urls = new ArrayList<>();
+        for (Imagem i : imagens) {
+            urls.add(i.getUrlImagem());
         }
-        return null;
+        return urls;
     }
 
-    public String deleteFile(String fileName) {
-        s3Client.deleteObject(bucketName, fileName);
-        return fileName + " removed ...";
+    public String deleteFile(String fileName, Integer idDono) {
+        Optional<Imagem> imagemOptional = imagemRepository.findByUrlImagem(bucketUrl + fileName);
+        if (imagemOptional.isPresent()) {
+            Imagem imagem = imagemOptional.get();
+            if (imagem.getDono().getId() == idDono) {
+                imagemRepository.delete(imagem);
+                s3Client.deleteObject(bucketName, fileName);
+            } else {
+                return "Não autorizado: Você não tem permissão para deletar essa imagem";
+            }
+        } else {
+            return "Imagem não encontrada no banco de dados";
+        }
+
+        return fileName + " removida do S3 e do banco";
     }
 
     private File convertMultiPartFileToFile(MultipartFile file) {
@@ -101,8 +127,8 @@ public class StorageService {
         return convertedFile;
     }
 
-    public Boolean connectionHealthCheck(){
-        if (s3Client == null){
+    public Boolean connectionHealthCheck() {
+        if (s3Client == null) {
             return false;
         }
         return true;
