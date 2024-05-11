@@ -27,16 +27,17 @@ public class StorageController {
                 (file, idDono), HttpStatus.OK);
     }
 
-    @GetMapping("/download/{fileName}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
-        byte[] data = service.downloadFile(fileName);
-        ByteArrayResource resource = new ByteArrayResource(data);
-        return ResponseEntity
-                .ok()
-                .contentLength(data.length)
-                .header("Content-type", "application/octet-stream")
-                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
-                .body(resource);
+    @GetMapping("/url/{idDono}/{tipo}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String idDono, @PathVariable String tipo) {
+//        byte[] data = service.getImgUrl(fileName);
+//        ByteArrayResource resource = new ByteArrayResource(data);
+//        return ResponseEntity
+//                .ok()
+//                .contentLength(data.length)
+//                .header("Content-type", "application/octet-stream")
+//                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+//                .body(resource);
+        return
     }
 
     @DeleteMapping("/delete/{fileName}")

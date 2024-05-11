@@ -21,6 +21,7 @@ import org.woof.woofjoybackend.repository.ImagemRepository;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -41,7 +42,17 @@ public class StorageService {
     public String uploadProfileImg(MultipartFile file, Integer idDono) {
         File fileObj = convertMultiPartFileToFile(file);
         String fileName = "perfil_" + idDono;
-        deleteFile(fileName);
+
+        Optional<Imagem> imagemExistenteOptional = imagemRepository.findByDono_IdAndTipo(idDono, "perfil");
+        if (imagemExistenteOptional.isPresent()) {
+            Imagem imagemExistente = imagemExistenteOptional.get();
+            String urlImagemExistente = imagemExistente.getUrlImagem();
+
+            String existingFileName = urlImagemExistente.substring(urlImagemExistente.lastIndexOf("/") + 1);
+            s3Client.deleteObject(bucketName, existingFileName);
+
+            imagemRepository.delete(imagemExistente);
+        }
 
         Imagem img = new Imagem();
         DonoImagem dono = donoImagemRepository.findById(idDono).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
@@ -63,7 +74,7 @@ public class StorageService {
     }
 
 
-    public byte[] downloadFile(String fileName) {
+    public String getImgUrl(String fileName) {
         S3Object s3Object = s3Client.getObject(bucketName, fileName);
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
         try {
