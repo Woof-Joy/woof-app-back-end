@@ -13,7 +13,7 @@ import java.util.List;
 public interface ServicoFichaMapper {
     @Mapping(source = "inicioDoServico", target = "dataHoraInicio")
     @Mapping(source = "fimDoServico", target = "dataHoraFim")
-    @Mapping(expression = "java(servico.getCliente().getUsuario().getNome()+\"\"+servico.getCliente().getUsuario().getSobrenome())", target = "cliente")
+    @Mapping(expression = "java(servico.getCliente().getUsuario().getNome()+\" \"+servico.getCliente().getUsuario().getSobrenome())", target = "cliente")
     ServicoFichaDTO servicoToServicoFichaDTO(Servico servico);
 
     List<ServicoFichaDTO> servicosToServicoFichaDTOs(List<Servico> servicos);
