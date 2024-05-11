@@ -15,10 +15,7 @@ import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapperJWT;
-import org.woof.woofjoybackend.repository.ClienteRepository;
-import org.woof.woofjoybackend.repository.DonoImagemRepository;
-import org.woof.woofjoybackend.repository.ParceiroRepository;
-import org.woof.woofjoybackend.repository.UsuarioRepository;
+import org.woof.woofjoybackend.repository.*;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 import org.woof.woofjoybackend.service.client.ServiceCEP;
@@ -32,6 +29,7 @@ public class ServiceUser {
     private final UsuarioRepository usuarioRepository;
     private final ClienteRepository clienteRepository;
     private final DonoImagemRepository donoImagemRepository;
+    private final ImagemRepository imagemRepository;
     private final ParceiroRepository parceiroRepository;
     private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
@@ -50,7 +48,9 @@ public class ServiceUser {
             usuarioEntity.setEndereco(enderecoCompleto);
             DonoImagem donoImagem = new DonoImagem(usuarioEntity);
             Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/usuario.png", "perfil", donoImagem);
+            imagemRepository.save(imagem);
             donoImagem.getImagens().add(imagem);
+            donoImagemRepository.save(donoImagem);
             usuarioEntity.setDonoImagem(donoImagem);
             usuarioRepository.save(usuarioEntity);
         }
