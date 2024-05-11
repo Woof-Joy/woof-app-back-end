@@ -12,4 +12,6 @@ public class ItemDTO {
     private String descricao;
     private String imagem;
     private Integer idDonoItem;
+    private String nomeDonoItem;
+    private String sobreNomeDonoItem;
 }
