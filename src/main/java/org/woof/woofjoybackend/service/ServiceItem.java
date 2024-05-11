@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.domain.entity.DonoImagem;
+import org.woof.woofjoybackend.domain.entity.Imagem;
 import org.woof.woofjoybackend.domain.entity.Item;
 import org.woof.woofjoybackend.repository.ItemRepository;
 import org.woof.woofjoybackend.service.users.ServiceUser;
@@ -18,6 +20,10 @@ public class ServiceItem {
 
     public Item postItem(Item it, Integer idUsuario) {
         it.setDono(usuarioService.listaUsuarioPorId(idUsuario));
+        DonoImagem dono = new DonoImagem(it);
+        Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/item.png", "perfil", dono);
+        dono.getImagens().add(imagem);
+        it.setDonoImagem(dono);
         return itemRepository.save(it);
     }
 

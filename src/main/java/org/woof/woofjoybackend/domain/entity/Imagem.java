@@ -22,4 +22,10 @@ public class Imagem {
     @ManyToOne
     @JoinColumn(name = "dono")
     private DonoImagem dono;
+
+    public Imagem(String urlImagem, String tipo, DonoImagem dono) {
+        this.urlImagem = urlImagem;
+        this.tipo = tipo;
+        this.dono = dono;
+    }
 }

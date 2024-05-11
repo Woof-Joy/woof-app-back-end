@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
-import org.woof.woofjoybackend.domain.entity.Cliente;
-import org.woof.woofjoybackend.domain.entity.Endereco;
-import org.woof.woofjoybackend.domain.entity.Parceiro;
-import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
@@ -51,7 +48,10 @@ public class ServiceUser {
             enderecoCompleto.setNumero(usuario.getNumero());
             Usuario usuarioEntity = UsuarioMapper.toEntity(usuario);
             usuarioEntity.setEndereco(enderecoCompleto);
-            Usuario usuario1 = usuarioEntity;
+            DonoImagem donoImagem = new DonoImagem(usuarioEntity);
+            Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/usuario.png", "perfil", donoImagem);
+            donoImagem.getImagens().add(imagem);
+            usuarioEntity.setDonoImagem(donoImagem);
             usuarioRepository.save(usuarioEntity);
         }
         String email = usuario.getEmail();

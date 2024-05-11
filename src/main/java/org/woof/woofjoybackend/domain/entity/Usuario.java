@@ -37,9 +37,7 @@ public class Usuario {
 
     @Past
     private LocalDate dataNasc;
-
-    private String imgUsuario;
-
+    
     @Size(max = 500)
     private String descricao;
 
