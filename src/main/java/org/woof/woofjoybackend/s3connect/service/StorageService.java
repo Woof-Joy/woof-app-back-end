@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
@@ -46,7 +47,9 @@ public class StorageService {
 
     public String uploadProfileImg(MultipartFile file, Integer idDono) {
         File fileObj = convertMultiPartFileToFile(file);
-        String fileName = "perfil_" + idDono;
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+        fileName = "perfil_" + idDono + fileExtension;
 
         List<Imagem> imagemExistenteOptional = imagemRepository.findByDono_IdAndTipo(idDono, "perfil");
         if (!imagemExistenteOptional.isEmpty()) {
