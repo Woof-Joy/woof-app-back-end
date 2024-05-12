@@ -52,7 +52,7 @@ public class Usuario {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
 
-    @OneToOne
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private DonoImagem donoImagem;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
