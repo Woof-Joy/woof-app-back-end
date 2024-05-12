@@ -77,7 +77,9 @@ public class StorageService {
         File fileObj = convertMultiPartFileToFile(file);
 
         List<Imagem> imagemExistenteList = imagemRepository.findByDono_IdAndTipo(idDono, "img");
-        String fileName = "img_" + idDono + "_" + (imagemExistenteList.size() + 1);
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileExtension = fileName.substring(fileName.lastIndexOf("."));
+        fileName = "img_" + idDono + "_" + (imagemExistenteList.size() + 1) + fileExtension;
 
         s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
 

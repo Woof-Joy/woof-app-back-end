@@ -28,16 +28,24 @@ public class StorageController {
         return ResponseEntity.status(200).body(estado);
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadProfileImg(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String bearerToken) {
+    @PostMapping("/upload/{tipo}")
+    public ResponseEntity<String> uploadProfileImg(@PathVariable String tipo, @RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String bearerToken) {
         String emailDono = jwtTokenManager.getUsernameFromToken(bearerToken.substring(7));
         Usuario dono = serviceUser.getByEmail(emailDono);
-        return new ResponseEntity<>(service.uploadProfileImg(file, dono.getDonoImagem().getId()), HttpStatus.OK);
+
+        if (tipo.equalsIgnoreCase("perfil")) {
+            return new ResponseEntity<>(service.uploadProfileImg(file, dono.getDonoImagem().getId()), HttpStatus.OK);
+        } else if (tipo.equalsIgnoreCase("img")){
+            return new ResponseEntity<>(service.uploadImg(file, dono.getDonoImagem().getId()), HttpStatus.OK);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
-    @GetMapping("/url/{idDono}/{tipo}")
-    public ResponseEntity<List<String>> getImgUrl(@PathVariable Integer idDono, @PathVariable String tipo) {
-        return ResponseEntity.ok().body(service.getImgUrl(idDono, tipo));
+    @GetMapping("/url/{tipo}")
+    public ResponseEntity<List<String>> getImgUrl(@PathVariable String tipo, @RequestHeader("Authorization") String bearerToken) {
+        String emailDono = jwtTokenManager.getUsernameFromToken(bearerToken.substring(7));
+        Usuario dono = serviceUser.getByEmail(emailDono);
+        return ResponseEntity.ok().body(service.getImgUrl(dono.getDonoImagem().getId(), tipo));
     }
 
     @DeleteMapping("/delete/{fileName}")
