@@ -32,7 +32,7 @@ public class StorageController {
     public ResponseEntity<String> uploadProfileImg(@RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String bearerToken) {
         String emailDono = jwtTokenManager.getUsernameFromToken(bearerToken.substring(7));
         Usuario dono = serviceUser.getByEmail(emailDono);
-        return new ResponseEntity<>(service.uploadProfileImg(file, dono.getId()), HttpStatus.OK);
+        return new ResponseEntity<>(service.uploadProfileImg(file, dono.getDonoImagem().getId()), HttpStatus.OK);
     }
 
     @GetMapping("/url/{idDono}/{tipo}")
