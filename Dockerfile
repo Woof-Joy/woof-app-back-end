@@ -2,7 +2,7 @@ FROM amazoncorretto:17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-RUN mvn clean package
+RUN yum install -y maven && mvn clean package
 
 # produção
 FROM openjdk:17-jdk-slim AS production-stage
