@@ -8,4 +8,5 @@ RUN mvn clean package -DskipTest
 FROM openjdk:17-jdk-slim AS production-stage
 WORKDIR /app
 COPY --from=build-stage /app/target/seu-arquivo.jar .
+EXPOSE 8080
 CMD ["java", "-jar", "woof-app-back-end.jar"]
