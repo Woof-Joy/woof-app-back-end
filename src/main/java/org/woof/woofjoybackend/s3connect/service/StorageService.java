@@ -109,12 +109,8 @@ public class StorageService {
         Optional<Imagem> imagemOptional = imagemRepository.findByUrlImagem(bucketUrl + fileName);
         if (imagemOptional.isPresent()) {
             Imagem imagem = imagemOptional.get();
-            if (imagem.getDono().getId() == idDono) {
-                imagemRepository.delete(imagem);
-                s3Client.deleteObject(bucketName, fileName);
-            } else {
-                return "Não autorizado: Você não tem permissão para deletar essa imagem";
-            }
+            imagemRepository.delete(imagem);
+            s3Client.deleteObject(bucketName, fileName);
         } else {
             return "Imagem não encontrada no banco de dados";
         }

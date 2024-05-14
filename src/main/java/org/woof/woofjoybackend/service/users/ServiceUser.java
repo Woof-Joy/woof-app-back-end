@@ -35,6 +35,7 @@ public class ServiceUser {
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
     private final AuthenticationProvider authenticationProvider;
     private final ServiceCEP serviceCep;
+    private final GerenciadorTokenJwt jwtTokenManager;
 
 
     public UsuarioDTO postUsuario(UsuarioCriacaoDTO usuario, String tipo) {
@@ -129,7 +130,7 @@ public class ServiceUser {
         return usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
-    public Usuario getByEmail(String email){
+    public Usuario getByEmail(String email) {
         return usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
@@ -185,4 +186,8 @@ public class ServiceUser {
         return UsuarioMapperJWT.of(usuarioAutenticado, token);
     }
 
+    public DonoImagem getDonoByToken(String token) {
+        String emailDono = jwtTokenManager.getUsernameFromToken(token.substring(7));
+        return getByEmail(emailDono).getDonoImagem();
+    }
 }
