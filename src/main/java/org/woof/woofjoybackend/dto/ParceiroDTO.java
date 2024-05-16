@@ -32,4 +32,5 @@ public class ParceiroDTO {
     private Integer idUsuario;
     private String cidade;
     private String uf;
+    private String descricao;
 }

@@ -22,6 +22,7 @@ public class ParceiroMapper {
         parceiroDTO.setEstrelas(entidadeParceiro.getEstrelas());
         parceiroDTO.setServicos(FichaServicoMapper.toDTO(entidadeParceiro.getServicos()));
         parceiroDTO.setDataEntrada(entidadeParceiro.getDataEntrada());
+        parceiroDTO.setDescricao(entidadeParceiro.getUsuario().getDescricao());
         Integer acumulador = 0;
         for (FichaServico fS :
                 entidadeParceiro.getServicos()) {
