@@ -7,11 +7,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
-import lombok.AllArgsConstructor;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,11 +30,12 @@ public class Parceiro {
     @PastOrPresent
     private LocalDate dataEntrada;
 
-    @Pattern(regexp = "^(ambos|dogWalker|dogSitter)$", message = "O tipo de serviõ deve ser 'Ambos', 'dogWalker' ou 'dogSitter'")
+    @Pattern(regexp = "^(ambos|dogWalker|dogSitter)$", message = "O tipo de serviço deve ser 'Ambos', 'dogWalker' ou 'dogSitter'")
     private String tipoServico;
 
     @Max(value = 5)
     @Min(value = 0)
+    @Column(columnDefinition = "DOUBLE DEFAULT 0.0")
     private Double estrelas;
 
     @DecimalMin(value = "1")

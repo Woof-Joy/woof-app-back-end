@@ -3,12 +3,14 @@ package org.woof.woofjoybackend.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.FichaServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.ParceiroFichaServicoDTO;
 import org.woof.woofjoybackend.dto.mapper.FichaServicoMapper;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
+import org.woof.woofjoybackend.dto.mapper.ServicoFichaMapper;
 import org.woof.woofjoybackend.service.ServiceFichaServico;
 
 import java.util.List;
@@ -19,6 +21,8 @@ import java.util.List;
 public class FichaServicoController {
 
     private final ServiceFichaServico service;
+    public static final ServicoFichaMapper INSTANCE = Mappers.getMapper(ServicoFichaMapper.class);
+
 
     @PostMapping()
     ResponseEntity<ParceiroFichaServicoDTO> postFicha(@Valid @RequestBody FichaServicoCriacaoDTO ficha) {
@@ -31,6 +35,6 @@ public class FichaServicoController {
         if (lista.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(FichaServicoMapper.toDTOServico(lista));
+        return ResponseEntity.ok(INSTANCE.fichaServicosToParceiroFichaServicoDTOs(lista));
     }
 }

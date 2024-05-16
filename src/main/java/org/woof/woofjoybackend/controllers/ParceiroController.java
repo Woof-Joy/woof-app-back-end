@@ -2,11 +2,14 @@ package org.woof.woofjoybackend.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
+import org.woof.woofjoybackend.dto.ParceiroPerfilDTO;
 import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
 import org.woof.woofjoybackend.domain.entity.Parceiro;
+import org.woof.woofjoybackend.dto.mapper.PerfilParceiroMapper;
 import org.woof.woofjoybackend.service.users.ServiceParceiro;
 import org.woof.woofjoybackend.service.users.ServiceUser;
 import org.woof.woofjoybackend.service.client.ServiceCEP;
@@ -15,8 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/parceiros")
 @RequiredArgsConstructor
-public class ParceiroController {
+public class
+ParceiroController {
     private final ServiceParceiro serviceParceiro;
+    public static final PerfilParceiroMapper INSTANCE = Mappers.getMapper(PerfilParceiroMapper.class);
 
     private final ServiceUser serviceUser;
 
@@ -34,8 +39,8 @@ public class ParceiroController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ParceiroDTO> listaParceiroPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok(ParceiroMapper.toDTO(serviceParceiro.findById(id)));
+    public ResponseEntity<ParceiroPerfilDTO> listaParceiroPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok((INSTANCE.parceiroToParceiroPerfilDTO(serviceParceiro.findById(id))));
     }
     @PutMapping("/{id}")
     public ResponseEntity<ParceiroDTO> attParceiro(@Valid @RequestBody Parceiro parceiro, @PathVariable Integer id) {

@@ -190,4 +190,7 @@ public class ServiceUser {
         String emailDono = jwtTokenManager.getUsernameFromToken(token.substring(7));
         return getByEmail(emailDono).getDonoImagem();
     }
+    public Usuario findByClientId(Integer idCliente){
+        return usuarioRepository.findByCliente_IdCliente(idCliente).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
 }

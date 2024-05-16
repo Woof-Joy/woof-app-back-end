@@ -12,12 +12,9 @@ public class ClienteMapper {
     public static ClientePerfilDTO toPerfilDTO(Cliente entidadeCliente){
         if (entidadeCliente == null) return null;
         ClientePerfilDTO clientePerfilDTO = new ClientePerfilDTO();
-//        clientePerfilDTO.setIdCliente(entidadeCliente.getIdCliente());
         clientePerfilDTO.setNome(entidadeCliente.getUsuario().getNome());
         clientePerfilDTO.setSobrenome(entidadeCliente.getUsuario().getSobrenome());
         clientePerfilDTO.setEmail(entidadeCliente.getUsuario().getEmail());
-//        clientePerfilDTO.setIdCliente(entidadeCliente.getUsuario().getId());
-        clientePerfilDTO.setDogList(DogMapper.toDTOCliente(entidadeCliente.getDogList()));
         clientePerfilDTO.setIdUser(entidadeCliente.getIdUser());
         return clientePerfilDTO;
     }
@@ -37,7 +34,6 @@ public class ClienteMapper {
         ClienteDTO dto = new ClienteDTO();
         dto.setIdCliente(entidadeCliente.getIdCliente());
         dto.setIdUser(entidadeCliente.getIdUser());
-        dto.setDogList(DogMapper.toDTOCliente(entidadeCliente.getDogList()));
         return dto;
     }
 }

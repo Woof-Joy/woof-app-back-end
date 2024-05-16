@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.woof.woofjoybackend.domain.entity.Cliente;
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
-import org.woof.woofjoybackend.domain.entity.Dog;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
 import org.woof.woofjoybackend.domain.entity.Servico;
 import org.woof.woofjoybackend.repository.ServicoRepository;
+import org.woof.woofjoybackend.service.users.ServiceUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +19,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServiceServico {
     private final ServicoRepository servicoRepository;
-    private final ServiceDog dogService;
     private final ServiceFichaServico serviceFichaServico;
+    private final ServiceUser serviceUser;
 
 
     public Servico post(ServicoCriacaoDTO servico) {
-        List<Dog> dogs = new ArrayList<>();
-        for (Integer id : servico.getIdCachorros()) {
-            dogs.add(dogService.listarDog(id));
-        }
-
         FichaServico ficha = serviceFichaServico.getByArgs(servico.getIdParceiro(), servico.getTipoServico()).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
-        Servico servicoSalvo = servicoRepository.save(ServicoMapper.toEntity(servico, dogs, ficha));
-        ficha.getServicos().add(servicoSalvo);
-
+        Cliente cliente = serviceUser.findByClientId(servico.getIdCliente()).getCliente().orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        Servico servicoSalvo = servicoRepository.save(ServicoMapper.toEntity(servico, ficha, cliente));
         return servicoSalvo;
     }
 

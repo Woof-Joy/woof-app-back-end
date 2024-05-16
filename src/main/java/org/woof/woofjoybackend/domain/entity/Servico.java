@@ -26,8 +26,9 @@ public class Servico {
     @ManyToOne
     @JoinColumn(name = "fkFichaServico")
     private FichaServico fkFichaServico;
-    @ManyToMany
-    private List<Dog> cachorros;
+    @ManyToOne
+    @JoinColumn(name = "fkCliente")
+    Cliente cliente;
 
     public Servico() {
         this.status = "aguardandoConfirmacao";

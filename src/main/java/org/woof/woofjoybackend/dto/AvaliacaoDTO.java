@@ -12,10 +12,8 @@ public class AvaliacaoDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Positive
     @DecimalMax(value = "5.0")
     private Integer nota;
-
     private String comentario;
 }
