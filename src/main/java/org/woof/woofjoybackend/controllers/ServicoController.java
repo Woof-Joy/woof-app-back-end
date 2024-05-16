@@ -13,7 +13,7 @@ import org.woof.woofjoybackend.service.ServiceServico;
 import java.util.List;
 
 @RestController
-@RequestMapping("/servicos")
+@RequestMapping("/api/servicos")
 @RequiredArgsConstructor
 public class ServicoController {
     private final ServiceServico serviceServico;

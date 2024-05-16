@@ -16,7 +16,7 @@ import org.woof.woofjoybackend.service.ServiceFichaServico;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ficha")
+@RequestMapping("/api/ficha")
 @RequiredArgsConstructor
 public class FichaServicoController {
 

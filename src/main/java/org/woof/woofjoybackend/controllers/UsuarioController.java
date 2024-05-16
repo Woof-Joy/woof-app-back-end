@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UsuarioController {
     private ServiceUser service;
 

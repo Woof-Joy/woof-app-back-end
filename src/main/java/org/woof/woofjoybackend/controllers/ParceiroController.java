@@ -16,7 +16,7 @@ import org.woof.woofjoybackend.service.client.ServiceCEP;
 import java.util.List;
 
 @RestController
-@RequestMapping("/parceiros")
+@RequestMapping("/api/parceiros")
 @RequiredArgsConstructor
 public class
 ParceiroController {

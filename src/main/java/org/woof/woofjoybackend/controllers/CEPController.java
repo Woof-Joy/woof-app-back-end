@@ -10,7 +10,7 @@ import org.woof.woofjoybackend.domain.entity.response.CepResponse;
 import org.woof.woofjoybackend.resources.webclient.gatewayImpl.ClientCEPGatewayImpl;
 
 @RestController
-@RequestMapping("/cep")
+@RequestMapping("/api/cep")
 public class CEPController {
 
     private ClientCEPGatewayImpl cepService;

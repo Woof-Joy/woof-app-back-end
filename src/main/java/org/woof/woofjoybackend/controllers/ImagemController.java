@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/imagens")
+@RequestMapping("/api/imagens")
 public class ImagemController {
 
     private final ServiceImagem imageService;
