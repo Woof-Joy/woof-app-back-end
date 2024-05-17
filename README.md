@@ -1,6 +1,14 @@
 # WoofJoy
 
 ---
+### As configurações do banco de dados podem ser alteradas a partir da env `spring.profiles.active`
+
+#### Comando em tempo de execução 
+> java -jar -Dspring.profiles.active=rds woof-joy-back-end-0.0.1-SNAPSHOT.jar
+
+#### Ou diretamente no arquivo de configuração `application.properties`
+
+
 ## Como iniciar banco Mysql com Docker Compose
 
 1. ### `Baixe DOCKER DESKTOP`
