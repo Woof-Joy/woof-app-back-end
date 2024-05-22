@@ -13,6 +13,7 @@ import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
 import org.woof.woofjoybackend.domain.entity.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
+import org.woof.woofjoybackend.dto.UsuarioMobileDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapperJWT;
 import org.woof.woofjoybackend.repository.*;
@@ -184,6 +185,26 @@ public class ServiceUser {
         final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
 
         return UsuarioMapperJWT.of(usuarioAutenticado, token);
+    }
+
+    public UsuarioMobileDTO autenticarMobile(UsuarioLoginDto usuarioLoginDto) {
+
+        final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
+                usuarioLoginDto.getEmail(), usuarioLoginDto.getSenha());
+
+        final Authentication authentication = this.authenticationProvider.authenticate(credentials, usuarioLoginDto.getRole());
+
+        Usuario usuarioAutenticado =
+                usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
+                        .orElseThrow(
+                                () -> new ResponseStatusException(404, "Email do usuário não cadastrado", null)
+                        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
+
+        return UsuarioMapper.toDtoMobile(usuarioAutenticado, token);
     }
 
     public DonoImagem getDonoByToken(String token) {
