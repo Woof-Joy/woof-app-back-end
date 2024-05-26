@@ -119,7 +119,9 @@ public class StorageService {
     }
 
     private File convertMultiPartFileToFile(MultipartFile file) {
-        File convertedFile = new File(file.getOriginalFilename());
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        File convertedFile = new File(System.getProperty("java.io.tmpdir"), filename);
+
         try (FileOutputStream fos = new FileOutputStream(convertedFile)) {
             fos.write(file.getBytes());
         } catch (IOException e) {
