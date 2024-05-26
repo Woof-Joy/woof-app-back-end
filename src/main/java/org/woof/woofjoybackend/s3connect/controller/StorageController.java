@@ -30,7 +30,7 @@ public class StorageController {
     public ResponseEntity<String> uploadProfileImg(@PathVariable String tipo, @RequestParam(value = "file") MultipartFile file, @RequestHeader("Authorization") String bearerToken) {
         DonoImagem dono = serviceUser.getDonoByToken(bearerToken);
         if (dono == null) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
         if (tipo.equalsIgnoreCase("perfil")) {
             return new ResponseEntity<>(service.uploadProfileImg(file, dono.getId()), HttpStatus.OK);
