@@ -12,7 +12,7 @@ import org.woof.woofjoybackend.service.users.ServiceUser;
 import java.util.List;
 
 @RestController
-@RequestMapping("/img")
+@RequestMapping("/api/img")
 @RequiredArgsConstructor
 public class StorageController {
 
