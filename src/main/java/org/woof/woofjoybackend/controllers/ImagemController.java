@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/imagens")
+@RequestMapping("/api/imagens")
 public class ImagemController {
 
     private final ServiceImagem imageService;
@@ -23,26 +23,26 @@ public class ImagemController {
     }
 
 
-    @PostMapping("/upload/{idDono}")
-    public ResponseEntity<ImagemDTO> uploadImage(@RequestPart MultipartFile file, @PathVariable Integer idDono, @RequestParam  String tipo) {
-        try {
-            if (file == null){
-                System.out.println("deu ruim");
-                return ResponseEntity.status(500).build();}
-            File convertedFile = convertMultipartFileToFile(file);
-            Imagem imagemSalva = imageService.uploadDownloadImage(convertedFile,tipo, idDono);
-            return ResponseEntity.ok(ImagemMapper.toDTO(imagemSalva));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).build();
-        }
-    }
+//    @PostMapping("/upload/{idDono}")
+//    public ResponseEntity<ImagemDTO> uploadImage(@RequestPart MultipartFile file, @PathVariable Integer idDono, @RequestParam  String tipo) {
+//        try {
+//            if (file == null){
+//                System.out.println("deu ruim");
+//                return ResponseEntity.status(500).build();}
+//            File convertedFile = convertMultipartFileToFile(file);
+//            Imagem imagemSalva = imageService.uploadDownloadImage(convertedFile,tipo, idDono);
+//            return ResponseEntity.ok(ImagemMapper.toDTO(imagemSalva));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return ResponseEntity.status(500).build();
+//        }
+//    }
 
-    @PutMapping("/atualizar-url-imagem/{id}/{idDono}")
-    public ResponseEntity<ImagemDTO> attUrlImagem(@PathVariable Integer id, @PathVariable Integer idDono, @RequestBody Imagem imagem) {
-        Imagem img = imageService.atualizarURLImagem(id, idDono, imagem);
-        return img != null  ? ResponseEntity.ok(ImagemMapper.toDTO(img)):ResponseEntity.badRequest().build();
-    }
+//    @PutMapping("/atualizar-url-imagem/{id}/{idDono}")
+//    public ResponseEntity<ImagemDTO> attUrlImagem(@PathVariable Integer id, @PathVariable Integer idDono, @RequestBody Imagem imagem) {
+//        Imagem img = imageService.atualizarURLImagem(id, idDono, imagem);
+//        return img != null  ? ResponseEntity.ok(ImagemMapper.toDTO(img)):ResponseEntity.badRequest().build();
+//    }
 
     private File convertMultipartFileToFile(MultipartFile file) throws IOException {
         File convertedFile = new File(Objects.requireNonNull(file.getOriginalFilename()));

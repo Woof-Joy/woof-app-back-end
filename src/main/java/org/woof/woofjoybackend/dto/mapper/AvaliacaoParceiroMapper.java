@@ -25,7 +25,7 @@ public class AvaliacaoParceiroMapper {
         avaliacaoPrestadorDTO.setNota(avaliacao.getNota());
         avaliacaoPrestadorDTO.setComentario(avaliacao.getComentario());
         avaliacaoPrestadorDTO.setTipoServico(avaliacao.getFkServico().getFkFichaServico().getTipoServico());
-        avaliacaoPrestadorDTO.setCliente(toDto(avaliacao.getFkServico().getCachorros().get(0).getFkDono()));
+        avaliacaoPrestadorDTO.setCliente(toDto(avaliacao.getFkServico().getCliente()));
 
         return avaliacaoPrestadorDTO;
     }

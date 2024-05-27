@@ -10,18 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.configuration.security.AuthenticationProvider;
 import org.woof.woofjoybackend.configuration.security.jwt.GerenciadorTokenJwt;
-import org.woof.woofjoybackend.domain.entity.Cliente;
-import org.woof.woofjoybackend.domain.entity.Endereco;
-import org.woof.woofjoybackend.domain.entity.Parceiro;
-import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.domain.entity.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
+import org.woof.woofjoybackend.dto.UsuarioMobileDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapperJWT;
-import org.woof.woofjoybackend.repository.ClienteRepository;
-import org.woof.woofjoybackend.repository.DonoImagemRepository;
-import org.woof.woofjoybackend.repository.ParceiroRepository;
-import org.woof.woofjoybackend.repository.UsuarioRepository;
+import org.woof.woofjoybackend.repository.*;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioLoginDto;
 import org.woof.woofjoybackend.service.autenticacao.UsuarioTokenDto;
 import org.woof.woofjoybackend.service.client.ServiceCEP;
@@ -35,24 +30,32 @@ public class ServiceUser {
     private final UsuarioRepository usuarioRepository;
     private final ClienteRepository clienteRepository;
     private final DonoImagemRepository donoImagemRepository;
+    private final ImagemRepository imagemRepository;
     private final ParceiroRepository parceiroRepository;
     private final PasswordEncoder passwordEncoder;
     private final GerenciadorTokenJwt gerenciadorTokenJwt;
     private final AuthenticationProvider authenticationProvider;
     private final ServiceCEP serviceCep;
+    private final GerenciadorTokenJwt jwtTokenManager;
 
 
     public UsuarioDTO postUsuario(UsuarioCriacaoDTO usuario, String tipo) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         if (!usuarioExiste(usuario.getEmail())) {
+            //CRIANDO UM NOVO USUÁRIO
             String cep = usuario.getCep();
             Endereco enderecoCompleto = serviceCep.registerAdressInUser(cep);
             enderecoCompleto.setNumero(usuario.getNumero());
             Usuario usuarioEntity = UsuarioMapper.toEntity(usuario);
             usuarioEntity.setEndereco(enderecoCompleto);
-            Usuario usuario1 = usuarioEntity; //
             usuarioRepository.save(usuarioEntity);
+
+            //LÓGICA DE DONO DE IMAGENS E IMAGEM DE PERFIL DEFAULT
+            DonoImagem donoImagem = new DonoImagem(usuarioEntity);
+            donoImagemRepository.save(donoImagem);
+            Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/usuario.png", "perfil", donoImagem);
+            imagemRepository.save(imagem);
         }
         String email = usuario.getEmail();
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
@@ -128,6 +131,9 @@ public class ServiceUser {
         return usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
+    public Usuario getByEmail(String email) {
+        return usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
 
     public boolean existsById(Integer id) {
         return usuarioRepository.existsById(id);
@@ -181,4 +187,31 @@ public class ServiceUser {
         return UsuarioMapperJWT.of(usuarioAutenticado, token);
     }
 
+    public UsuarioMobileDTO autenticarMobile(UsuarioLoginDto usuarioLoginDto) {
+
+        final UsernamePasswordAuthenticationToken credentials = new UsernamePasswordAuthenticationToken(
+                usuarioLoginDto.getEmail(), usuarioLoginDto.getSenha());
+
+        final Authentication authentication = this.authenticationProvider.authenticate(credentials, usuarioLoginDto.getRole());
+
+        Usuario usuarioAutenticado =
+                usuarioRepository.findByEmail(usuarioLoginDto.getEmail())
+                        .orElseThrow(
+                                () -> new ResponseStatusException(404, "Email do usuário não cadastrado", null)
+                        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        final String token = gerenciadorTokenJwt.generateToken(authentication, usuarioLoginDto.getRole());
+
+        return UsuarioMapper.toDtoMobile(usuarioAutenticado, token);
+    }
+
+    public DonoImagem getDonoByToken(String token) {
+        String emailDono = jwtTokenManager.getUsernameFromToken(token.substring(7));
+        return getByEmail(emailDono).getDonoImagem();
+    }
+    public Usuario findByClientId(Integer idCliente){
+        return usuarioRepository.findByCliente_IdCliente(idCliente).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
 }

@@ -28,4 +28,6 @@ public class Chat {
         this.fkDestinatario = destinatario;
         this.topico = String.format("topic/%d/%d", remetente.getId(), destinatario.getId());
     }
+
+
 }

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,15 @@ public class DonoImagem {
     private Item item;
     @OneToOne
     private Usuario usuario;
-    @OneToOne
-    private Dog dog;
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Imagem> imagens;
+
+    public DonoImagem(Usuario usuario) {
+        this.usuario = usuario;
+        this.imagens = new ArrayList<>();
+    }
+    public DonoImagem(Item item) {
+        this.item = item;
+        this.imagens = new ArrayList<>();
+    }
 }

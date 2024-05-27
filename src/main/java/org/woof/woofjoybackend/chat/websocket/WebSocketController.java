@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("/notification")
+@RequestMapping("/api/notification")
 public class WebSocketController {
     @Autowired
     private WebSocketService webSocketService;

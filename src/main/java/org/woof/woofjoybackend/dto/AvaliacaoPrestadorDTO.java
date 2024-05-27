@@ -11,10 +11,7 @@ public class AvaliacaoPrestadorDTO {
     @Max(value = 5)
     @Min(value = 0)
     private Integer nota;
-
     private String comentario;
-
     private String tipoServico;
-
     private ClienteAvaliacaoDTO cliente;
 }

@@ -23,9 +23,7 @@ public class ServicoCriacaoDTO {
     private Integer idParceiro;
     @Pattern(regexp = "^(dogSitter|dogWalker)$", message = "O tipo deve ser 'dogSitter' ou 'dogWalker'")
     private String tipoServico;
-
-    private FilaObj<Integer> idCachorro;
-
+    private Integer idCliente;
     public ServicoCriacaoDTO() {
         this.status = "aguardandoConfirmacao";
     }

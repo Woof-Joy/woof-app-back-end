@@ -12,7 +12,7 @@ import org.woof.woofjoybackend.service.ServiceItem;
 import java.util.List;
 
 @RestController
-@RequestMapping("/itens")
+@RequestMapping("/api/itens")
 @RequiredArgsConstructor
 public class ItemController {
 

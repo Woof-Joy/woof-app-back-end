@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/feed-parceiro")
+@RequestMapping("/api/feed-parceiro")
 public class FeedParceiroController {
 
     private final ServiceParceiro serviceParceiro;

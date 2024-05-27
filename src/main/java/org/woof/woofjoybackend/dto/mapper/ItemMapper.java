@@ -17,6 +17,9 @@ public class ItemMapper {
         itemDTO.setCategoria(entidadeItem.getCategoria());
         itemDTO.setEndereco(entidadeItem.getDono().getEndereco());
         itemDTO.setImagem(entidadeItem.getImgItemDoacao());
+        itemDTO.setIdDonoItem(entidadeItem.getDono().getId());
+        itemDTO.setNomeDonoItem(entidadeItem.getDono().getNome());
+        itemDTO.setSobreNomeDonoItem(entidadeItem.getDono().getSobrenome());
         return itemDTO;
     }
 

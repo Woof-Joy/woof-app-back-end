@@ -35,11 +35,11 @@ public class Usuario {
     @NotBlank
     private String senha;
 
-    @Past
-    private LocalDate dataNasc;
-
     private String imgUsuario;
 
+    @Past
+    private LocalDate dataNasc;
+    
     @Size(max = 500)
     private String descricao;
 
@@ -52,7 +52,7 @@ public class Usuario {
     @OneToMany(mappedBy = "dono", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> listaItens;
 
-    @OneToOne
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private DonoImagem donoImagem;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)

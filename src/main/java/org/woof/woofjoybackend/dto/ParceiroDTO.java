@@ -1,3 +1,4 @@
+
 package org.woof.woofjoybackend.dto;
 
 import jakarta.validation.constraints.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Data
 public class ParceiroDTO {
-    private Integer id;
+    private Integer idParceiro;
     private Integer idUser;
     @NotBlank
     @Size(max = 50)
@@ -20,7 +21,6 @@ public class ParceiroDTO {
     private String email;
     @Past
     private LocalDate dataNasc;
-//    private EnderecoParceiroClienteDTO endereco;
     @Past
     private LocalDate dataEntrada;
     @Max(value = 5)
@@ -30,5 +30,7 @@ public class ParceiroDTO {
     private Integer qtdServicosPrestados;
     private List<FichaServicoDTO> servicos;
     private Integer idUsuario;
+    private String cidade;
+    private String uf;
+    private String descricao;
 }
-

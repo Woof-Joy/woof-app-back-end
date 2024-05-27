@@ -5,6 +5,7 @@ import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.domain.entity.Endereco;
 import org.woof.woofjoybackend.domain.entity.Usuario;
+import org.woof.woofjoybackend.dto.UsuarioMobileDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,27 @@ public class UsuarioMapper {
         dto.setListaItens(ItemMapper.toDTO(usuario.getListaItens()));
         dto.setRole(usuario.getRole());
         dto.setEndereco(usuario.getEndereco());
+
+        return dto;
+    }
+
+    public static UsuarioMobileDTO toDtoMobile(Usuario usuario, String token) {
+        UsuarioMobileDTO dto = new UsuarioMobileDTO();
+
+        dto.setUserId(usuario.getId());
+        dto.setNomeCompleto(String.format("%s %s", usuario.getNome(), usuario.getSobrenome()));
+        dto.setImgUsuario(usuario.getImgUsuario());
+        dto.setCpf(usuario.getCpf());
+        dto.setCliente(ClienteMapper.toDTO(usuario.getCliente().orElse(null)));
+        dto.setParceiro(ParceiroMapper.toDTO(usuario.getParceiro().orElse(null)));
+        dto.setEmail(usuario.getEmail());
+        dto.setSenha(usuario.getSenha());
+        dto.setDescricao(usuario.getDescricao());
+        dto.setDataNasc(usuario.getDataNasc());
+        dto.setListaItens(ItemMapper.toDTO(usuario.getListaItens()));
+        dto.setRole(usuario.getRole());
+        dto.setEndereco(usuario.getEndereco());
+        dto.setToken(token);
 
         return dto;
     }

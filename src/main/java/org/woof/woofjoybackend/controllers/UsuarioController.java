@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
+import org.woof.woofjoybackend.dto.UsuarioMobileDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.service.users.ServiceUser;
@@ -17,7 +18,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UsuarioController {
     private ServiceUser service;
 
@@ -71,6 +72,12 @@ public class UsuarioController {
     public ResponseEntity<UsuarioTokenDto> login(@RequestBody UsuarioLoginDto usuarioLoginDto) {
         UsuarioTokenDto usuarioToken = this.service.autenticar(usuarioLoginDto);
         return ResponseEntity.status(200).body(usuarioToken);
+    }
+
+    @PostMapping("/login-mobile")
+    public ResponseEntity<UsuarioMobileDTO> loginMobile(@RequestBody UsuarioLoginDto usuarioLoginDto) {
+        UsuarioMobileDTO usuario = this.service.autenticarMobile(usuarioLoginDto);
+        return ResponseEntity.status(200).body(usuario);
     }
 
 }
