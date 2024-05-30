@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.s3connect.controller;
+package org.woof.woofjoybackend.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.woof.woofjoybackend.domain.entity.DonoImagem;
-import org.woof.woofjoybackend.s3connect.service.StorageService;
+import org.woof.woofjoybackend.service.StorageService;
 import org.woof.woofjoybackend.service.users.ServiceUser;
 
 import java.util.List;

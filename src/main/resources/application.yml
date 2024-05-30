@@ -14,6 +14,12 @@ application:
     name: woofjoy-s3
     url: https://woofjoy-s3.s3.amazonaws.com/
 
+paypal:
+  client:
+    id: Aa9pgs56xlqwjBXIz_JzLJU7FkOsBj87uER3Ib_1cyx05wPRGBOH59TxJvLkAPFsSutU8JEgJo7fu751
+    secret: EJnwaoRs5uTVbQ2B_CtJ7vl6dWy6oKzRrDRsPm1Zp-9HUvpfIbqAuLYjZPb8ldSF0K2l0w5Caq5EZj6k
+  mode: sandbox
+
 spring:
   servlet:
     multipart:

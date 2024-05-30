@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.s3connect.service;
+package org.woof.woofjoybackend.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;

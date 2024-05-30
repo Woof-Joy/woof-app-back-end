@@ -1,4 +1,4 @@
-package org.woof.woofjoybackend.s3connect.config;
+package org.woof.woofjoybackend.configuration.imgStorage;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
