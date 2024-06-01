@@ -18,7 +18,7 @@ public class FichaServico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Pattern(regexp = "^(dogSitter|dogWalker)$", message = "O tipo deve ser 'walker' ou 'sitter'")
+    @Pattern(regexp = "^(Dog Sitter|Dog Walker)$", message = "O tipo deve ser 'Dog Walker' ou 'Dog Sitter'")
     private String tipoServico;
     @Positive
     private Double valor;
