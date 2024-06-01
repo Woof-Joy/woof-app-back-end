@@ -31,6 +31,6 @@ public class Servico {
     Cliente cliente;
 
     public Servico() {
-        this.status = "aguardandoConfirmacao";
+        this.status = "Aguardando Confirmacao";
     }
 }

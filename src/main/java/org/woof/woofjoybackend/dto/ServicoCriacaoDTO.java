@@ -18,14 +18,14 @@ public class ServicoCriacaoDTO {
     @Future
     private LocalDateTime fimDoServico;
     @NotNull
-    @Pattern(regexp = "^(aguardandoConfirmacao|aguardandoInicio|emAndamento|concluido)$", message = "O tamanho deve ser 'aguardandoConfimacao', 'aguardandoInicio', 'emAndamento' ou 'concluido'")
+    @Pattern(regexp = "^(Aguardando Confirmação|Em andamento|Concluído)$", message = "O tamanho deve ser 'Aguardando Confirmação', 'Em andamento' ' ou 'Concluído'")
     private String status;
     private Integer idParceiro;
-    @Pattern(regexp = "^(dogSitter|dogWalker)$", message = "O tipo deve ser 'dogSitter' ou 'dogWalker'")
+    @Pattern(regexp = "^(Dog Sitter|Dog Walker)$", message = "O tipo deve ser 'Dog Sitter' ou 'Dog Walker'")
     private String tipoServico;
     private Integer idCliente;
     public ServicoCriacaoDTO() {
-        this.status = "aguardandoConfirmacao";
+        this.status = "Aguardando Confirmação";
     }
 
 

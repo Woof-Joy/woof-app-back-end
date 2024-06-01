@@ -34,12 +34,10 @@ public class ServiceServico {
     public Servico patch(Integer id) {
         Servico servicoOriginal = servicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
 
-        if (servicoOriginal.getStatus().equalsIgnoreCase("aguardandoConfirmacao")) {
-            servicoOriginal.setStatus("aguardandoInicio");
-        } else if (servicoOriginal.getStatus().equalsIgnoreCase("aguardandoInicio")) {
-            servicoOriginal.setStatus("emAndamento");
-        } else if (servicoOriginal.getStatus().equalsIgnoreCase("emAndamento")) {
-            servicoOriginal.setStatus("concluido");
+        if (servicoOriginal.getStatus().equalsIgnoreCase("Aguardando Confirmação")) {
+            servicoOriginal.setStatus("Em andamento");
+        } else  {
+            servicoOriginal.setStatus("Concluído");
         }
         return servicoRepository.save(servicoOriginal);
     }
