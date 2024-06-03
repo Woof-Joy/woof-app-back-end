@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.woof.woofjoybackend.domain.entity.Cliente;
+import org.woof.woofjoybackend.dto.RelatorioDTO;
 import org.woof.woofjoybackend.dto.ServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.ServicoMapper;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
@@ -12,7 +13,6 @@ import org.woof.woofjoybackend.domain.entity.Servico;
 import org.woof.woofjoybackend.repository.ServicoRepository;
 import org.woof.woofjoybackend.service.users.ServiceUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +30,19 @@ public class ServiceServico {
         return servicoSalvo;
     }
 
+    public RelatorioDTO putRelatorio(String mensagem, Integer idServico){
+        if (!servicoRepository.existsById(idServico)) {
+            throw new ResponseStatusException(HttpStatusCode.valueOf(404), mensagem = "Servico não encontrado");
+        }
+        Servico servicoFinalizado = servicoRepository.getById(idServico);
+        servicoFinalizado.setRelatorio(mensagem);
+        RelatorioDTO relatorio = new RelatorioDTO();
+        relatorio.setRelatorioTxt(servicoFinalizado.getRelatorio());
+        servicoRepository.save(servicoFinalizado);
+
+        return relatorio;
+    }
+
 
     public Servico patch(Integer id) {
         Servico servicoOriginal = servicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
@@ -44,6 +57,12 @@ public class ServiceServico {
 
     public Servico getById(Integer id) {
         return servicoRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
+
+    public List<Servico> getByIdCliente(Integer id) {
+        Cliente c = new Cliente();
+        c.setIdCliente(id);
+        return servicoRepository.findByCliente(c);
     }
 
     public List<Servico> getAll() {

@@ -1,9 +1,6 @@
 package org.woof.woofjoybackend.dto;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.woof.woofjoybackend.domain.FilaObj;
 
@@ -13,7 +10,7 @@ import java.util.List;
 @Data
 public class ServicoCriacaoDTO {
     private Integer id;
-    @PastOrPresent
+    @FutureOrPresent
     private LocalDateTime inicioDoServico;
     @Future
     private LocalDateTime fimDoServico;
@@ -23,30 +20,9 @@ public class ServicoCriacaoDTO {
     private Integer idParceiro;
     @Pattern(regexp = "^(Dog Sitter|Dog Walker)$", message = "O tipo deve ser 'Dog Sitter' ou 'Dog Walker'")
     private String tipoServico;
+    private String relatoório = "";
     private Integer idCliente;
     public ServicoCriacaoDTO() {
         this.status = "Aguardando Confirmação";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @NotNull
-    private List<Integer> idCachorros;
 }

@@ -43,16 +43,14 @@ public class ServicoMapper {
     public static ServicoCriacaoDTO toCriacaoDTO(Servico servico){
         ServicoCriacaoDTO dto = new ServicoCriacaoDTO();
 
-        List<Integer> idCachorros = new ArrayList<>();
-
         dto.setId(servico.getId());
         dto.setTipoServico(servico.getFkFichaServico().getTipoServico());
         dto.setStatus(servico.getStatus());
-        dto.setIdCachorros(idCachorros);
         dto.setInicioDoServico(servico.getInicioDoServico());
         dto.setFimDoServico(servico.getFimDoServico());
         dto.setIdParceiro(servico.getFkFichaServico().getParceiro().getUsuario().getId());
         dto.setIdCliente(servico.getCliente().getIdCliente());
+        dto.setRelatoório(servico.getRelatorio());
         return dto;
     }
 

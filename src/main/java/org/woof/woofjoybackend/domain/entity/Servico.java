@@ -19,8 +19,7 @@ public class Servico {
     private LocalDateTime inicioDoServico;
     private LocalDateTime fimDoServico;
     private String status;
-    @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Relatorio relatorio;
+    private String relatorio;
     @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private Avaliacao avaliacao;
     @ManyToOne

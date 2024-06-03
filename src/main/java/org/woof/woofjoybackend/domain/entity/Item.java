@@ -36,6 +36,6 @@ public class Item {
     private Usuario dono;
 
     @OneToOne
-    private DonoImagem donoImagem;
+    private DonoImagem donoImagem = null;
 
 }
