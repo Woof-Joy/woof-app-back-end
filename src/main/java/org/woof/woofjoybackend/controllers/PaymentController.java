@@ -3,12 +3,14 @@ package org.woof.woofjoybackend.controllers;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.woof.woofjoybackend.domain.entity.Parceiro;
 import org.woof.woofjoybackend.domain.pagamento.PaymentRequest;
+import org.woof.woofjoybackend.service.users.ServiceParceiro;
+import org.woof.woofjoybackend.service.users.ServiceUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +18,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/payment")
+@RequestMapping("/api/payment")
+@RequiredArgsConstructor
 public class PaymentController {
+
+    private final ServiceUser serviceUser;
+    private final ServiceParceiro serviceParceiro;
 
     @Value("${paypal.client.id}")
     private String clientId;
@@ -29,7 +35,14 @@ public class PaymentController {
     private String mode;
 
     @PostMapping()
-    public Map<String, String> createPayment(@RequestBody PaymentRequest paymentRequest) {
+    public ResponseEntity<Map<String, String>> createPayment(@RequestBody PaymentRequest paymentRequest, @RequestHeader("Authorization") String bearerToken) {
+        //PEGANDO O USUARIO LOGADO
+            Parceiro parceiro = serviceUser.getParceiroByToken(bearerToken);
+            if (parceiro == null) {
+                return ResponseEntity.notFound().build();
+            }
+            Integer idParceiro = parceiro.getUsuario().getId();
+
         Map<String, String> responseData = new HashMap<>();
 
         APIContext apiContext = new APIContext(clientId, clientSecret, mode);
@@ -54,8 +67,8 @@ public class PaymentController {
         payment.setTransactions(transactions);
 
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("https://www.google.com/");
-        redirectUrls.setReturnUrl("https://www.youtube.com/");
+        redirectUrls.setCancelUrl("http://localhost:8080/api/payment/cancel");
+        redirectUrls.setReturnUrl("http://localhost:8080/api/payment/success/" + idParceiro);
         payment.setRedirectUrls(redirectUrls);
 
         try {
@@ -71,6 +84,33 @@ public class PaymentController {
             throw new RuntimeException("Erro ao criar pagamento");
         }
 
-        return responseData;
+        return ResponseEntity.ok().body(responseData);
+    }
+
+    @GetMapping("/success/{idParceiro}")
+    public ResponseEntity<String> success(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, @PathVariable Integer idParceiro) {
+        try {
+            APIContext apiContext = new APIContext(clientId, clientSecret, mode);
+            Payment payment = Payment.get(apiContext, paymentId);
+
+            PaymentExecution paymentExecution = new PaymentExecution();
+            paymentExecution.setPayerId(payerId);
+            Payment executedPayment = payment.execute(apiContext, paymentExecution);
+
+            if ("approved".equals(executedPayment.getState())) {
+                serviceParceiro.premiumParceiro(idParceiro);
+                return ResponseEntity.ok("Pagamento concluído com sucesso! Já pode fechar essa página");
+            } else {
+                return ResponseEntity.status(400).body("Pagamento não foi aprovado");
+            }
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(400).body("Erro ao concluir o pagamento");
+        }
+    }
+
+    @GetMapping("/cancel")
+    public ResponseEntity<String> cancel() {
+        return ResponseEntity.status(400).body("Pagamento foi cancelado");
     }
 }

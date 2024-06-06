@@ -6,6 +6,7 @@ import org.woof.woofjoybackend.domain.entity.Parceiro;
 import org.woof.woofjoybackend.domain.entity.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -13,4 +14,5 @@ public interface ParceiroRepository extends JpaRepository<Parceiro, Integer>{
     Boolean existsByUsuario(Usuario usuario);
     List<Parceiro> findByTipoServicoIgnoreCase(String tipo);
     List<Parceiro> findByUsuarioNomeContainsIgnoreCase(String nome);
+    Optional<Parceiro> findByUsuarioId(Integer idUsuario);
 }

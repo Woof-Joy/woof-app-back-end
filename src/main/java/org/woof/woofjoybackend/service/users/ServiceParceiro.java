@@ -28,6 +28,10 @@ public class ServiceParceiro {
         return parceiroRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 
+    public Parceiro findByIdUsuario(Integer id) {
+        return parceiroRepository.findByUsuarioId(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
+
     public List<Parceiro> getParceirosByTipoServico(String tipo) {
         if (tipo.equalsIgnoreCase("Ambos") ||
                 tipo.equalsIgnoreCase("dogWalker") ||
@@ -108,5 +112,11 @@ public class ServiceParceiro {
     public boolean idExiste(Integer id) {
         Usuario usuario = usuarioRepository.findById(id).get();
         return parceiroRepository.existsByUsuario(usuario);
+    }
+
+    public Parceiro premiumParceiro(Integer id) {
+        Parceiro parceiro = findByIdUsuario(id);
+        parceiro.setPremium(true);
+        return parceiroRepository.save(parceiro);
     }
 }

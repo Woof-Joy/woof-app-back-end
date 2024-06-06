@@ -211,6 +211,11 @@ public class ServiceUser {
         String emailDono = jwtTokenManager.getUsernameFromToken(token.substring(7));
         return getByEmail(emailDono).getDonoImagem();
     }
+
+    public Parceiro getParceiroByToken(String token) {
+        String emailParceiro = jwtTokenManager.getUsernameFromToken(token.substring(7));
+        return getByEmail(emailParceiro).getParceiro().orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+    }
     public Usuario findByClientId(Integer idCliente){
         return usuarioRepository.findByCliente_IdCliente(idCliente).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }

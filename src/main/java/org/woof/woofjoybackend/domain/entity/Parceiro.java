@@ -56,6 +56,9 @@ public class Parceiro {
     @BooleanFlag
     private Boolean aceitaDogCio;
 
+    @BooleanFlag
+    private Boolean premium;
+
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -67,6 +70,12 @@ public class Parceiro {
         this.dataEntrada = LocalDate.now();
         this.usuario = usuario;
         this.servicos = new ArrayList<>();
+        this.aceitaDogEspecial = false;
+        this.aceitaDogIdoso = false;
+        this.aceitaDogBravo = false;
+        this.aceitaDogGrande = false;
+        this.aceitaDogCio = false;
+        this.premium = false;
     }
 
 

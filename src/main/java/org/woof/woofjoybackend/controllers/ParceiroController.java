@@ -13,6 +13,7 @@ import org.woof.woofjoybackend.dto.mapper.PerfilParceiroMapper;
 import org.woof.woofjoybackend.service.users.ServiceParceiro;
 import org.woof.woofjoybackend.service.users.ServiceUser;
 import org.woof.woofjoybackend.service.client.ServiceCEP;
+
 import java.util.List;
 
 @RestController
@@ -42,6 +43,8 @@ ParceiroController {
     public ResponseEntity<ParceiroPerfilDTO> listaParceiroPorId(@PathVariable Integer id) {
         return ResponseEntity.ok((INSTANCE.parceiroToParceiroPerfilDTO(serviceParceiro.findById(id))));
     }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<ParceiroDTO> attParceiro(@Valid @RequestBody Parceiro parceiro, @PathVariable Integer id) {
         if (serviceParceiro.idExiste(id)) {
@@ -49,6 +52,7 @@ ParceiroController {
         }
         return ResponseEntity.status(404).build();
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteParceiro(@PathVariable Integer id) {
         if (serviceParceiro.idExiste(id)) {
