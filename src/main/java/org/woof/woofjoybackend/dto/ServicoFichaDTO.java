@@ -11,4 +11,5 @@ public class ServicoFichaDTO {
     private String cliente;
     private Integer id;
     private String status;
+    private String relatorio;
 }

@@ -12,6 +12,8 @@ public class AvaliacaoPrestadorDTO {
     @Min(value = 0)
     private Integer nota;
     private String comentario;
-    private String tipoServico;
-    private ClienteAvaliacaoDTO cliente;
+    private Integer idCliente;
+    private String nomeCliente;
+    private Integer Idparceiro;
+    private Integer IdServico;
 }

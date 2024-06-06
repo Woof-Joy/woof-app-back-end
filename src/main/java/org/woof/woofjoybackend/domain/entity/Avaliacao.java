@@ -21,8 +21,9 @@ public class Avaliacao {
     @DecimalMax(value = "5.0")
     private Integer nota;
     private String comentario;
-    @OneToOne
-    @JoinColumn(name = "fkServico")
-    private Servico fkServico;
+    private Integer idCliente;
+    private String nomeCliente;
+    private Integer idParceiro;
+    private Integer idServico;
 
 }

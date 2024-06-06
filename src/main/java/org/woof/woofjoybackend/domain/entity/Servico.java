@@ -20,8 +20,6 @@ public class Servico {
     private LocalDateTime fimDoServico;
     private String status;
     private String relatorio;
-    @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Avaliacao avaliacao;
     @ManyToOne
     @JoinColumn(name = "fkFichaServico")
     private FichaServico fkFichaServico;

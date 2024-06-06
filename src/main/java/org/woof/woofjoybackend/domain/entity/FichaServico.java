@@ -27,6 +27,7 @@ public class FichaServico {
     private Parceiro parceiro;
     @OneToMany(mappedBy = "fkFichaServico")
     private List<Servico> servicos;
+    private String relatorio;
     @OneToOne(mappedBy = "fkFichaServico", cascade = CascadeType.ALL, orphanRemoval = true)
     private Residencia residencia;
 
