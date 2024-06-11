@@ -44,6 +44,7 @@ public class SecurityConfiguracao {
 
     private static final AntPathRequestMatcher[] URLS_PERMITIDAS = {
             new AntPathRequestMatcher("/api/**"),
+            new AntPathRequestMatcher("/api/servicos"),
             new AntPathRequestMatcher("/users/{tipo}"),
             new AntPathRequestMatcher("/users/login"),
             new AntPathRequestMatcher("/info/java"),

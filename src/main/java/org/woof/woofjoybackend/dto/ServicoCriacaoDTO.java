@@ -1,52 +1,28 @@
 package org.woof.woofjoybackend.dto;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 import lombok.Data;
-import org.woof.woofjoybackend.domain.FilaObj;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class ServicoCriacaoDTO {
     private Integer id;
-    @PastOrPresent
+    @FutureOrPresent
     private LocalDateTime inicioDoServico;
     @Future
     private LocalDateTime fimDoServico;
     @NotNull
-    @Pattern(regexp = "^(aguardandoConfirmacao|aguardandoInicio|emAndamento|concluido)$", message = "O tamanho deve ser 'aguardandoConfimacao', 'aguardandoInicio', 'emAndamento' ou 'concluido'")
+    @Pattern(regexp = "^(Aguardando Confirmação|Em andamento|Concluído)$", message = "O tamanho deve ser 'Aguardando Confirmação', 'Em andamento' ' ou 'Concluído'")
     private String status;
     private Integer idParceiro;
-    @Pattern(regexp = "^(dogSitter|dogWalker)$", message = "O tipo deve ser 'dogSitter' ou 'dogWalker'")
+    private String nomeParceiro;
+    @Pattern(regexp = "^(Dog Sitter|Dog Walker)$", message = "O tipo deve ser 'Dog Sitter' ou 'Dog Walker'")
     private String tipoServico;
+    @Size(max = 1000, message = "O relatório deve ter no máximo 2000 caracteres.")
+    private String relatorio = "";
     private Integer idCliente;
     public ServicoCriacaoDTO() {
-        this.status = "aguardandoConfirmacao";
+        this.status = "Aguardando Confirmação";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @NotNull
-    private List<Integer> idCachorros;
 }

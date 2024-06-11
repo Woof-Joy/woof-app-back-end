@@ -1,5 +1,4 @@
- Etapa de build 
-FROM amazoncorretto:17 AS build 
+FROM amazoncorretto:17 AS build
 WORKDIR /app 
 COPY pom.xml . 
 COPY src ./src 

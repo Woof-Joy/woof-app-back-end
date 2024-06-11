@@ -23,7 +23,7 @@ public class ServiceItem {
         DonoImagem dono = new DonoImagem(it);
         Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/item.png", "perfil", dono);
         dono.getImagens().add(imagem);
-        it.setDonoImagem(dono);
+//        it.setDonoImagem(dono);
         return itemRepository.save(it);
     }
 

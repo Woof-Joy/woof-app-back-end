@@ -27,8 +27,6 @@ public interface PerfilParceiroMapper {
 
     @Mapping(target = "fotoParceiro", expression = "java(servico.getFkFichaServico().getParceiro().getUsuario().getImgUsuario())")
     @Mapping(target = "nomeParceiro", expression = "java(servico.getFkFichaServico().getParceiro().getUsuario().getNome()+\" \"+servico.getFkFichaServico().getParceiro().getUsuario().getSobrenome())")
-    @Mapping(target = "nota", expression = "java(servico.getAvaliacao().getNota())")
-    @Mapping(target = "comentario", expression = "java(servico.getAvaliacao().getComentario())")
     ServicoAvaliacaoDTO servicoToServicoAvaliacaoDTO(Servico servico);
 
     List<FichaServicoParceiroDTO> fichaServicosToFichaServicoParceiroDTOs(List<FichaServico> fichas);

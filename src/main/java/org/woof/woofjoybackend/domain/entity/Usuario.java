@@ -71,6 +71,15 @@ public class Usuario {
         return this.parceiro != null ? Optional.of(this.parceiro) : Optional.empty();
     }
 
+    public String getImgUsuario() {
+        for (Imagem i : donoImagem.getImagens()){
+            if (i.getTipo().equals("perfil")){
+                return i.getUrlImagem();
+            }
+        }
+        return "https://woofjoy-s3.s3.amazonaws.com/usuario_sem_perfil.png";
+    }
+
     public String getRole(){
         if (getParceiro().isPresent()) {
             if (getCliente().isPresent()) {
