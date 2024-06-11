@@ -19,10 +19,7 @@ public class Servico {
     private LocalDateTime inicioDoServico;
     private LocalDateTime fimDoServico;
     private String status;
-    @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Relatorio relatorio;
-    @OneToOne(mappedBy = "fkServico", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Avaliacao avaliacao;
+    private String relatorio;
     @ManyToOne
     @JoinColumn(name = "fkFichaServico")
     private FichaServico fkFichaServico;
@@ -31,6 +28,6 @@ public class Servico {
     Cliente cliente;
 
     public Servico() {
-        this.status = "aguardandoConfirmacao";
+        this.status = "Aguardando Confirmacao";
     }
 }
