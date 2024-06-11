@@ -99,15 +99,49 @@ public class PaymentController {
 
             if ("approved".equals(executedPayment.getState())) {
                 serviceParceiro.premiumParceiro(idParceiro);
-                return ResponseEntity.ok("Pagamento concluído com sucesso! Já pode fechar essa página");
+
+                String successHtml = "<html>" +
+                        "<head>" +
+                        "<title>Pagamento Concluído</title>" +
+                        "</head>" +
+                        "<body>" +
+                        "<h1>Pagamento concluído com sucesso!</h1>" +
+                        "<p>Já pode fechar essa página.</p>" +
+                        "</body>" +
+                        "</html>";
+
+                return ResponseEntity.ok().body(successHtml);
             } else {
-                return ResponseEntity.status(400).body("Pagamento não foi aprovado");
+                String failureHtml = "<html>" +
+                        "<head>" +
+                        "<title>Pagamento Não Aprovado</title>" +
+                        "</head>" +
+                        "<body>" +
+                        "<h1>Pagamento não foi aprovado</h1>" +
+                        "<p>Por favor, tente novamente.</p>" +
+                        "<a href=\"http://localhost:3000/feed-parceiro-edit\">Voltar para a edição do parceiro</a>" +
+                        "</body>" +
+                        "</html>";
+
+                return ResponseEntity.status(400).body(failureHtml);
             }
         } catch (PayPalRESTException e) {
             e.printStackTrace();
-            return ResponseEntity.status(400).body("Erro ao concluir o pagamento");
+            String errorHtml = "<html>" +
+                    "<head>" +
+                    "<title>Erro no Pagamento</title>" +
+                    "</head>" +
+                    "<body>" +
+                    "<h1>Erro ao concluir o pagamento</h1>" +
+                    "<p>Por favor, tente novamente mais tarde.</p>" +
+                    "<a href=\"http://localhost:3000/feed-parceiro-edit\">Voltar para a edição do parceiro</a>" +
+                    "</body>" +
+                    "</html>";
+
+            return ResponseEntity.status(400).body(errorHtml);
         }
     }
+
 
     @GetMapping("/cancel")
     public ResponseEntity<String> cancel() {
