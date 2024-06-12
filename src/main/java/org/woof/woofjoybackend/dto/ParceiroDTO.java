@@ -33,4 +33,5 @@ public class ParceiroDTO {
     private String cidade;
     private String uf;
     private String descricao;
+    private String imgUsuario;
 }

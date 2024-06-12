@@ -25,6 +25,7 @@ public class ParceiroMapper {
         parceiroDTO.setDescricao(entidadeParceiro.getUsuario().getDescricao());
         parceiroDTO.setCidade(entidadeParceiro.getUsuario().getEndereco().getLocalidade());
         parceiroDTO.setUf(entidadeParceiro.getUsuario().getEndereco().getUf());
+        parceiroDTO.setImgUsuario(entidadeParceiro.getUsuario().getImgUsuario());
 
         Integer acumulador = 0;
         for (FichaServico fS :

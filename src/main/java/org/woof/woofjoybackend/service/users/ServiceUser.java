@@ -54,8 +54,7 @@ public class ServiceUser {
             //LÓGICA DE DONO DE IMAGENS E IMAGEM DE PERFIL DEFAULT
             DonoImagem donoImagem = new DonoImagem(usuarioEntity);
             donoImagemRepository.save(donoImagem);
-            Imagem imagem = new Imagem("https://woofjoy-img.s3.amazonaws.com/usuario.png", "perfil", donoImagem);
-            imagemRepository.save(imagem);
+
         }
         String email = usuario.getEmail();
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
