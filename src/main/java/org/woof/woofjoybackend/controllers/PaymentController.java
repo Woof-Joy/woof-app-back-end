@@ -67,8 +67,8 @@ public class PaymentController {
         payment.setTransactions(transactions);
 
         RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl("http://localhost:8080/api/payment/cancel");
-        redirectUrls.setReturnUrl("http://localhost:8080/api/payment/success/" + idParceiro);
+        redirectUrls.setCancelUrl("https://woofjoy.sytes.net/api/payment/cancel");
+        redirectUrls.setReturnUrl("https://woofjoy.sytes.net/api/payment/success/" + idParceiro);
         payment.setRedirectUrls(redirectUrls);
 
         try {
