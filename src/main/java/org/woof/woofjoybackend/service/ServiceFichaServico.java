@@ -27,7 +27,7 @@ public class ServiceFichaServico {
 
     public FichaServico postFicha(FichaServicoCriacaoDTO ficha) {
         if (getByArgs(ficha.getIdParceiro(), ficha.getTipoServico()).isEmpty()) {
-            return fichaServicoRepository.save(FichaServicoMapper.toEntity(ficha, serviceParceiro.findById(ficha.getIdParceiro())));
+            return fichaServicoRepository.save(FichaServicoMapper.toEntity(ficha, serviceParceiro.findByIdUsuario(ficha.getIdParceiro())));
         }
         throw new BadRequestException("Essa ficha de servico já existe!");
     }
