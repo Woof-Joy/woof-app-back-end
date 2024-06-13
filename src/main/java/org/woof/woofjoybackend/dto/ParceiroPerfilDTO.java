@@ -21,4 +21,5 @@ public class ParceiroPerfilDTO {
     private Boolean premium;
     private String imgParceiro;
     private String descricao;
+    private Integer idParceiro;
 }

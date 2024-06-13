@@ -23,11 +23,6 @@ public class ServiceParceiro {
         return parceiroRepository.findAll();
     }
 
-
-    public Parceiro findById(Integer id) {
-        return parceiroRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
-    }
-
     public Parceiro findByIdUsuario(Integer id) {
         return parceiroRepository.findByUsuarioId(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
