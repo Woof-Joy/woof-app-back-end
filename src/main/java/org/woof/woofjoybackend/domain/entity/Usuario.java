@@ -77,7 +77,7 @@ public class Usuario {
                 return i.getUrlImagem();
             }
         }
-        return "https://woofjoy-s3.s3.amazonaws.com/usuario_sem_perfil.png";
+        return "https://s3-woofjoy.s3.amazonaws.com/usuario_sem_perfil.png";
     }
 
     public String getRole(){
