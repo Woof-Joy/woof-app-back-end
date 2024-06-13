@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.dto.UsuarioMobileDTO;
+import org.woof.woofjoybackend.dto.UsuarioPUTCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.service.users.ServiceUser;
@@ -40,7 +41,7 @@ public class UsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioDTO> putUsuario(
-            @Valid @RequestBody UsuarioCriacaoDTO usuario,
+            @Valid @RequestBody UsuarioPUTCriacaoDTO usuario,
             @PathVariable int id) {
         return ResponseEntity.status(200).body(UsuarioMapper.toDto(service.putUsuario(usuario, id)));
     }

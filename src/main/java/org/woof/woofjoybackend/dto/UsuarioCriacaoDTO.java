@@ -13,22 +13,19 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 @Data
 public class UsuarioCriacaoDTO {
-    @NotBlank
+
     @Size(max = 50)
     private String nome;
     @Size(max = 50)
     private String sobrenome;
     @CPF
     private String cpf;
-    @NotBlank
     @Email
     private String email;
-    @NotBlank
     private String senha;
     @Past
     private LocalDate dataNasc;
     @Size(min = 8, max = 9)
-    @NotBlank
     private String cep;
     private String numero;
     private String rua;

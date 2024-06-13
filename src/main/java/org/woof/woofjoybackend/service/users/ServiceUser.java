@@ -14,6 +14,7 @@ import org.woof.woofjoybackend.domain.entity.*;
 import org.woof.woofjoybackend.dto.UsuarioCriacaoDTO;
 import org.woof.woofjoybackend.dto.UsuarioDTO;
 import org.woof.woofjoybackend.dto.UsuarioMobileDTO;
+import org.woof.woofjoybackend.dto.UsuarioPUTCriacaoDTO;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapper;
 import org.woof.woofjoybackend.dto.mapper.UsuarioMapperJWT;
 import org.woof.woofjoybackend.repository.*;
@@ -73,22 +74,11 @@ public class ServiceUser {
         return UsuarioMapper.toDto(usuarioRepository.save(usuarioEncontrado));
     }
 
-    public Usuario putUsuario(UsuarioCriacaoDTO usuario, int id) {
+    public Usuario putUsuario(UsuarioPUTCriacaoDTO usuario, int id) {
         Usuario usuarioOriginal = usuarioRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
         usuarioOriginal.setNome(usuario.getNome());
         usuarioOriginal.setSobrenome(usuario.getSobrenome());
-        usuarioOriginal.setCpf(usuario.getCpf());
-        usuarioOriginal.getEndereco().setCep(usuario.getCep());
         usuarioOriginal.setEmail(usuario.getEmail());
-        usuarioOriginal.setSenha(usuario.getSenha());
-        usuarioOriginal.setDataNasc(usuario.getDataNasc());
-        usuarioOriginal.getEndereco().setNumero(usuario.getNumero());
-        usuarioOriginal.getEndereco().setLogradouro(usuario.getRua());
-        usuarioOriginal.getEndereco().setLocalidade(usuario.getCidade());
-        usuarioOriginal.getEndereco().setUf(usuario.getEstado());
-
-        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaCriptografada);
 
         return usuarioRepository.save(usuarioOriginal);
     }

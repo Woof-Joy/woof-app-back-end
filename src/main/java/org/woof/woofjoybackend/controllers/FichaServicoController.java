@@ -37,4 +37,9 @@ public class FichaServicoController {
         }
         return ResponseEntity.ok(INSTANCE.fichaServicosToParceiroFichaServicoDTOs(lista));
     }
+
+    @PutMapping("parceiro/{idParceiro}")
+    ResponseEntity<ParceiroFichaServicoDTO> putFicha(@Valid @RequestBody FichaServicoCriacaoDTO ficha) {
+        return ResponseEntity.created(null).body(FichaServicoMapper.toDTOServico(service.postFicha(ficha)));
+    }
 }

@@ -11,12 +11,10 @@ import java.util.List;
 public class ParceiroDTO {
     private Integer idParceiro;
     private Integer idUser;
-    @NotBlank
     @Size(max = 50)
     private String nome;
     @Size(max = 50)
     private String sobrenome;
-    @NotBlank
     @Email
     private String email;
     @Past
