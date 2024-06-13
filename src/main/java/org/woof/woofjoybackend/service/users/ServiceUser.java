@@ -39,10 +39,11 @@ public class ServiceUser {
     private final GerenciadorTokenJwt jwtTokenManager;
 
 
-    public UsuarioDTO postUsuario(UsuarioCriacaoDTO usuario, String tipo) {
+    public Usuario postUsuario(UsuarioCriacaoDTO usuario, String tipo) {
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
-        if (!usuarioExiste(usuario.getEmail())) {
+        String email = usuario.getEmail();
+        if (!usuarioExiste(email)) {
             //CRIANDO UM NOVO USUÁRIO
             String cep = usuario.getCep();
             Endereco enderecoCompleto = serviceCep.registerAdressInUser(cep);
@@ -54,9 +55,11 @@ public class ServiceUser {
             //LÓGICA DE DONO DE IMAGENS E IMAGEM DE PERFIL DEFAULT
             DonoImagem donoImagem = new DonoImagem(usuarioEntity);
             donoImagemRepository.save(donoImagem);
+            usuarioEntity.setDonoImagem(donoImagem);
+
+            usuarioRepository.save(usuarioEntity);
 
         }
-        String email = usuario.getEmail();
         Usuario usuarioEncontrado = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
 
 
@@ -69,7 +72,7 @@ public class ServiceUser {
             usuarioEncontrado.setParceiro(parceiro);
             parceiroRepository.save(parceiro);
         }
-        return UsuarioMapper.toDto(usuarioRepository.save(usuarioEncontrado));
+        return usuarioRepository.save(usuarioEncontrado);
     }
 
     public Usuario putUsuario(UsuarioCriacaoDTO usuario, int id) {

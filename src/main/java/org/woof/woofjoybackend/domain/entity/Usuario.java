@@ -72,7 +72,7 @@ public class Usuario {
     }
 
     public String getImgUsuario() {
-        for (Imagem i : this.getDonoImagem().getImagens()){
+        for (Imagem i : donoImagem.getImagens()){
             if (i.getTipo().equals("perfil")){
                 return i.getUrlImagem();
             }

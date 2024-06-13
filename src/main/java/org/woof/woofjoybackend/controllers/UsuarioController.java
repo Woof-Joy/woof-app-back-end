@@ -33,7 +33,7 @@ public class UsuarioController {
             @Valid @RequestBody UsuarioCriacaoDTO usuario,
             @PathVariable String tipo) {
         if (service.usuarioPodeSerCadastrado(usuario.getEmail(), tipo)) {
-            return ResponseEntity.status(201).body(service.postUsuario(usuario, tipo));
+            return ResponseEntity.status(201).body(UsuarioMapper.toDto(service.postUsuario(usuario, tipo)));
         }
         return ResponseEntity.status(409).build();
     }
