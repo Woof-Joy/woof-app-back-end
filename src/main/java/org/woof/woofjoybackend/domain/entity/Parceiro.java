@@ -45,6 +45,9 @@ public class Parceiro {
     private Boolean aceitaDogEspecial;
 
     @BooleanFlag
+    private Boolean temAreaExterna;
+
+    @BooleanFlag
     private Boolean aceitaDogIdoso;
 
     @BooleanFlag

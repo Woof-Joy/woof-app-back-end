@@ -7,6 +7,7 @@ import org.woof.woofjoybackend.domain.entity.Usuario;
 import org.woof.woofjoybackend.domain.entity.Parceiro;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
 import org.woof.woofjoybackend.domain.entity.exception.BadRequestException;
+import org.woof.woofjoybackend.dto.ParceiroPUTDTO;
 import org.woof.woofjoybackend.repository.ParceiroRepository;
 import org.woof.woofjoybackend.repository.UsuarioRepository;
 
@@ -95,9 +96,15 @@ public class ServiceParceiro {
         return lista;
     }
 
-    public Parceiro putParceiro(Parceiro parceiro, Integer id) {
-        parceiro.setIdParceiro(id);
-        return parceiroRepository.save(parceiro);
+    public Parceiro putParceiro(ParceiroPUTDTO parceiro, Integer id) {
+        Parceiro parceiroOriginal = parceiroRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
+        parceiroOriginal.setAceitaDogBravo(parceiro.getAceitaDogBravo());
+        parceiroOriginal.setAceitaDogCio(parceiro.getAceitaDogCio());
+        parceiroOriginal.setAceitaDogEspecial(parceiro.getAceitaDogBravo());
+        parceiroOriginal.setAceitaDogGrande(parceiro.getAceitaDogGrande());
+        parceiroOriginal.setAceitaDogIdoso(parceiro.getAceitaDogIdoso());
+        parceiroOriginal.setTemAreaExterna(parceiro.getTemAreaExterna());
+        return parceiroRepository.save(parceiroOriginal);
     }
 
     public void deleteParceiro(Integer id) {
