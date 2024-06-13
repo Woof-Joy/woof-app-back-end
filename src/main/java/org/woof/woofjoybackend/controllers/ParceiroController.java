@@ -41,7 +41,7 @@ ParceiroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ParceiroPerfilDTO> listaParceiroPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok((INSTANCE.parceiroToParceiroPerfilDTO(serviceParceiro.findById(id))));
+        return ResponseEntity.ok((INSTANCE.parceiroToParceiroPerfilDTO(serviceParceiro.findByIdUsuario(id))));
     }
 
 
