@@ -18,6 +18,7 @@ public class ParceiroPerfilDTO {
     private Boolean aceitaDogBravo;
     private Boolean aceitaDogGrande;
     private Boolean aceitaDogCio;
+    private Boolean temAreaExterna;
     private Boolean premium;
     private String imgParceiro;
     private String descricao;

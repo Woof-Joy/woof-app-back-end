@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.FichaServicoCriacaoDTO;
 import org.woof.woofjoybackend.dto.ParceiroFichaServicoDTO;
+import org.woof.woofjoybackend.dto.ParceiroFichaServicoValorDTO;
 import org.woof.woofjoybackend.dto.mapper.FichaServicoMapper;
 import org.woof.woofjoybackend.domain.entity.FichaServico;
 import org.woof.woofjoybackend.dto.mapper.ServicoFichaMapper;
@@ -37,4 +38,10 @@ public class FichaServicoController {
         }
         return ResponseEntity.ok(INSTANCE.fichaServicosToParceiroFichaServicoDTOs(lista));
     }
+
+    @PutMapping()
+    ResponseEntity<ParceiroFichaServicoDTO> putFicha(@Valid @RequestBody ParceiroFichaServicoValorDTO ficha) {
+        return ResponseEntity.created(null).body(FichaServicoMapper.toDTOServico(service.putFicha(ficha)));
+    }
+
 }

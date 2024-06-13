@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.woof.woofjoybackend.dto.ParceiroDTO;
+import org.woof.woofjoybackend.dto.ParceiroPUTDTO;
 import org.woof.woofjoybackend.dto.ParceiroPerfilDTO;
 import org.woof.woofjoybackend.dto.mapper.ParceiroMapper;
 import org.woof.woofjoybackend.domain.entity.Parceiro;
@@ -46,7 +47,7 @@ ParceiroController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<ParceiroDTO> attParceiro(@Valid @RequestBody Parceiro parceiro, @PathVariable Integer id) {
+    public ResponseEntity<ParceiroDTO> attParceiro(@Valid @RequestBody ParceiroPUTDTO parceiro, @PathVariable Integer id) {
         if (serviceParceiro.idExiste(id)) {
             return ResponseEntity.status(200).body(ParceiroMapper.toDTO(serviceParceiro.putParceiro(parceiro, id)));
         }
