@@ -11,8 +11,8 @@ cloud:
 
 application:
   bucket:
-    name: woofjoy-s3
-    url: https://woofjoy-s3.s3.amazonaws.com/
+    name: s3-woofjoy
+    url: https://s3-woofjoy.s3.amazonaws.com/
 
 paypal:
   client:
